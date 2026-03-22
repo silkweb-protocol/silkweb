@@ -48,6 +48,10 @@ function silkReq(method: string, path: string, body?: Record<string, unknown>): 
   });
 }
 
+const json = (text: string) => ({
+  content: [{ type: "text" as const, text }],
+});
+
 const plugin = {
   id: "silkweb",
   name: "SilkWeb",
@@ -71,17 +75,17 @@ const plugin = {
         },
         required: ["capability"],
       },
-      async execute(params: { capability: string }) {
+      async execute(_toolCallId: string, params: { capability: string }) {
         const r = await silkReq("POST", "/api/v1/discover", {
           capabilities: [params.capability],
           min_trust: 0.0,
           limit: 5,
         });
         const agents = (r.agents || []).map((a: any) => `- **${a.name}** (${a.silk_id}): ${a.description}`).join("\n");
-        if (!agents) return [{ type: "text", text: `No agents found with "${params.capability}" on SilkWeb.` }];
-        return [{ type: "text", text: `Found ${r.total} agent(s) on SilkWeb:\n\n${agents}\n\nUse silkweb_delegate to send work to an agent.` }];
+        if (!agents) return json(`No agents found with "${params.capability}" on SilkWeb.`);
+        return json(`Found ${r.total} agent(s) on SilkWeb:\n\n${agents}\n\nUse silkweb_delegate to send work to an agent.`);
       },
-    } as any, { optional: true });
+    } as any);
 
     // Tool 2: Delegate task
     api.registerTool({
@@ -97,16 +101,16 @@ const plugin = {
         },
         required: ["to_silk_id", "capability", "input"],
       },
-      async execute(params: { to_silk_id: string; capability: string; input: string }) {
+      async execute(_toolCallId: string, params: { to_silk_id: string; capability: string; input: string }) {
         const r = await silkReq("POST", "/api/v1/tasks", {
           to_silk_id: params.to_silk_id,
           capability: params.capability,
           input: { content: params.input },
           timeout_seconds: 300,
         });
-        return [{ type: "text", text: `Task created!\nTask ID: ${r.task_id}\nStatus: ${r.status}` }];
+        return json(`Task created!\nTask ID: ${r.task_id}\nStatus: ${r.status}`);
       },
-    } as any, { optional: true });
+    } as any);
 
     // Tool 3: Network stats
     api.registerTool({
@@ -116,9 +120,9 @@ const plugin = {
       parameters: { type: "object", properties: {} },
       async execute() {
         const r = await silkReq("GET", "/api/v1/stats");
-        return [{ type: "text", text: `SilkWeb Network:\n- Agents: ${r.agents}\n- Capabilities: ${r.capabilities}\n- Tasks: ${r.tasks_completed}\n- Protocol: ${r.protocol_version}\n\nhttps://silkweb.io` }];
+        return json(`SilkWeb Network:\n- Agents: ${r.agents}\n- Capabilities: ${r.capabilities}\n- Tasks: ${r.tasks_completed}\n- Protocol: ${r.protocol_version}\n\nhttps://silkweb.io`);
       },
-    } as any, { optional: true });
+    } as any);
   },
 };
 

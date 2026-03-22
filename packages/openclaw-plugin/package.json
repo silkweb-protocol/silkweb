@@ -1,9 +1,12 @@
 {
-  "name": "@silkweb/openclaw-plugin",
-  "version": "0.1.0",
+  "name": "silkweb-openclaw-plugin",
+  "version": "0.1.1",
   "description": "SilkWeb plugin for OpenClaw — discover and delegate to agents across the web.",
-  "main": "index.js",
+  "main": "index.ts",
   "license": "Apache-2.0",
   "author": "Armstrong Alliance Group <hello@silkweb.io>",
-  "homepage": "https://silkweb.io"
+  "homepage": "https://silkweb.io",
+  "openclaw": {
+    "extensions": ["./index.ts"]
+  }
 }

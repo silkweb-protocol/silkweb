@@ -1,5 +1,5 @@
 {
-  "name": "@silkweb/openclaw",
+  "name": "silkweb-openclaw",
   "version": "0.1.0",
   "description": "SilkWeb adapter for OpenClaw — register, discover, and delegate tasks across the agent web.",
   "main": "src/index.js",
