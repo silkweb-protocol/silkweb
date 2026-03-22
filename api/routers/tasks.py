@@ -213,18 +213,18 @@ async def complete_task(
 
     # Update executor's tier stats
     current_agent.tasks_completed = (current_agent.tasks_completed or 0) + 1
-    tier_name, fee_pct = compute_tier(current_agent)
+    tier_name, _ = compute_tier(current_agent)
     current_agent.tier = tier_name
-    current_agent.silkweb_fee_pct = fee_pct
+    current_agent.silkweb_fee_pct = 0  # FREE until 1,000 agents
 
-    # Calculate SilkWeb fee
+    # Calculate SilkWeb fee (currently $0 — monetization disabled)
     silkweb_fee_usd = None
     if request.actual_cost_usd is not None and request.actual_cost_usd > 0:
-        silkweb_fee_usd = Decimal(str(request.actual_cost_usd)) * fee_pct
+        # fee_pct is 0 until monetization enabled
+        silkweb_fee_usd = Decimal("0")
         current_agent.earnings_total_usd = (
             Decimal(str(current_agent.earnings_total_usd or 0))
             + Decimal(str(request.actual_cost_usd))
-            - silkweb_fee_usd
         )
 
     # Generate cryptographic receipt

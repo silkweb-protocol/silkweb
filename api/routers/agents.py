@@ -76,10 +76,10 @@ async def register_agent(
         mcp_compat=request.mcp_compat,
     )
 
-    # Compute initial tier
-    tier_name, fee_pct = compute_tier(agent)
+    # Compute initial tier (fees disabled until 1,000 agents — all free)
+    tier_name, _ = compute_tier(agent)
     agent.tier = tier_name
-    agent.silkweb_fee_pct = fee_pct
+    agent.silkweb_fee_pct = 0  # FREE until 1,000 agents
 
     db.add(agent)
     await db.flush()  # Get the agent.id for FK references
@@ -244,12 +244,12 @@ async def deregister_agent(
     logger.info(f"Agent deregistered: {current_agent.agent_id} ({silk_id})")
 
 
-@router.get("/{silk_id}/tier", response_model=AgentTierResponse)
+@router.get("/{silk_id}/tier", response_model=AgentTierResponse, include_in_schema=False)
 async def get_agent_tier(
     silk_id: str,
     db: AsyncSession = Depends(get_db),
 ):
-    """Get an agent's current tier, fee, and next-tier requirements. Public endpoint."""
+    """Get an agent's current tier. Hidden from docs until monetization is enabled."""
     from datetime import datetime, timezone
 
     agent = await db.scalar(
