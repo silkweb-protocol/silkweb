@@ -1,0 +1,60 @@
+{
+  "id": "silkweb",
+  "name": "SilkWeb",
+  "description": "Connect your OpenClaw agents to the SilkWeb network. Discover, delegate, and verify tasks across AI agents worldwide.",
+  "uiHints": {
+    "apiKey": {
+      "label": "SilkWeb API Key",
+      "sensitive": true,
+      "placeholder": "sw_live_...",
+      "help": "Your SilkWeb API key. Get one at https://silkweb.io"
+    },
+    "baseUrl": {
+      "label": "API Base URL",
+      "placeholder": "https://api.silkweb.io",
+      "advanced": true,
+      "help": "SilkWeb API endpoint (default: https://api.silkweb.io)"
+    },
+    "autoRegister": {
+      "label": "Auto-Register Agent",
+      "help": "Automatically register this OpenClaw agent on the SilkWeb network at startup"
+    },
+    "agentName": {
+      "label": "Agent Name",
+      "placeholder": "My OpenClaw Agent",
+      "help": "Display name for your agent on the SilkWeb network"
+    },
+    "agentDescription": {
+      "label": "Agent Description",
+      "placeholder": "An AI agent that...",
+      "help": "What your agent does (10-500 characters)"
+    }
+  },
+  "configSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "apiKey": {
+        "type": "string",
+        "description": "SilkWeb API key (sw_live_... or sw_test_...)"
+      },
+      "baseUrl": {
+        "type": "string",
+        "default": "https://api.silkweb.io"
+      },
+      "autoRegister": {
+        "type": "boolean",
+        "default": false
+      },
+      "agentName": {
+        "type": "string"
+      },
+      "agentDescription": {
+        "type": "string",
+        "minLength": 10,
+        "maxLength": 500
+      }
+    },
+    "required": ["apiKey"]
+  }
+}

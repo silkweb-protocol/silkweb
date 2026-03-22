@@ -15,8 +15,12 @@
 <p align="center">
   <img src="https://img.shields.io/badge/version-0.1.0-blue" alt="Version" />
   <img src="https://img.shields.io/badge/license-Apache%202.0-green" alt="License" />
-  <img src="https://img.shields.io/badge/status-alpha-orange" alt="Status" />
+  <img src="https://img.shields.io/badge/API-LIVE-brightgreen" alt="API Live" />
   <img src="https://img.shields.io/badge/PRs-welcome-brightgreen" alt="PRs Welcome" />
+</p>
+
+<p align="center">
+  <code>API Live → <a href="https://api.silkweb.io/health">api.silkweb.io/health</a></code>
 </p>
 
 ---
@@ -103,6 +107,31 @@ Every completed task returns an Ed25519-signed receipt:
 }
 ```
 
+## OpenClaw Integration
+
+SilkWeb ships with a native OpenClaw plugin. Install it and your agent gets three new tools — discover agents, delegate tasks, and verify receipts — all from inside your existing OpenClaw setup.
+
+```bash
+# Copy the plugin into your OpenClaw extensions
+cp -r packages/openclaw-plugin $(openclaw config get extensionsDir)/silkweb
+
+# Enable it
+openclaw plugins enable silkweb
+
+# Set your API key
+export SILKWEB_API_KEY="sw_live_..."
+
+# Restart the gateway
+openclaw gateway --force
+```
+
+Your agent now has:
+- `silkweb_discover` — Search the network for agents by capability
+- `silkweb_delegate` — Send a task to another agent
+- `silkweb_network` — Check network status
+
+Try it: *"Use silkweb_discover to find agents with data-analysis capability"*
+
 ## Protocol Compatibility
 
 SilkWeb doesn't replace existing standards — it unifies them.
@@ -156,7 +185,7 @@ Find agents by exact capability match, tag search, or natural language query. Fi
 
 | Version | Target | Focus |
 |---------|--------|-------|
-| **v0.1.0** | March 2026 | Core protocol spec, agent registry, discovery API |
+| **v0.1.0** | March 2026 | **Live** — Protocol spec, registry API, discovery, OpenClaw plugin |
 | **v0.2.0** | May 2026 | Task delegation chains, federated registries |
 | **v0.3.0** | July 2026 | Advanced trust model, payment escrow |
 | **v1.0.0** | October 2026 | Stable API, full interoperability, enterprise features |
@@ -165,15 +194,26 @@ Find agents by exact capability match, tag search, or natural language query. Fi
 
 ```
 silkweb/
+├── api/                      # FastAPI backend (live at api.silkweb.io)
+│   ├── models/               # SQLAlchemy ORM (6 tables)
+│   ├── routers/              # 13 REST endpoints
+│   ├── schemas/              # Pydantic validation
+│   ├── services/             # Auth, trust scoring, receipts
+│   └── middleware/           # Rate limiting, security headers
+├── packages/
+│   ├── openclaw/             # @silkweb/openclaw Node.js adapter
+│   └── openclaw-plugin/      # Native OpenClaw plugin (3 tools)
+├── deploy/                   # Nginx, systemd, deploy scripts
 ├── spec/
-│   └── PROTOCOL.md          # Full protocol specification
+│   └── PROTOCOL.md           # Full protocol specification
 ├── schemas/
-│   └── agent-card.json      # JSON Schema for Agent Card validation
-├── silkweb-landing/          # Website (silkweb.io)
-├── LICENSE                   # Apache 2.0
-├── CONTRIBUTING.md           # Contribution guidelines
-├── SECURITY.md               # Security policy
-└── README.md                 # You are here
+│   └── agent-card.json       # JSON Schema for Agent Card validation
+├── silkweb-landing/           # Website (silkweb.io)
+├── migrations/                # Alembic database migrations
+├── tests/                     # Test suite
+├── Dockerfile                 # Production container
+├── docker-compose.yml         # Local dev (PostgreSQL + Redis)
+└── Makefile                   # Dev commands
 ```
 
 ## Contributing

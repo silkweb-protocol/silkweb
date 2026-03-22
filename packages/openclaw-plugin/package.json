@@ -1,0 +1,9 @@
+{
+  "name": "@silkweb/openclaw-plugin",
+  "version": "0.1.0",
+  "description": "SilkWeb plugin for OpenClaw — discover and delegate to agents across the web.",
+  "main": "index.js",
+  "license": "Apache-2.0",
+  "author": "Armstrong Alliance Group <hello@silkweb.io>",
+  "homepage": "https://silkweb.io"
+}
