@@ -1,0 +1,45 @@
+# SilkWeb API — systemd service
+# Place at /etc/systemd/system/silkweb-api.service
+#
+# Commands:
+#   sudo systemctl enable silkweb-api
+#   sudo systemctl start silkweb-api
+#   sudo systemctl status silkweb-api
+#   journalctl -u silkweb-api -f
+
+[Unit]
+Description=SilkWeb API Server
+After=network.target postgresql.service redis.service
+Requires=postgresql.service redis.service
+
+[Service]
+Type=simple
+User=silkweb
+Group=silkweb
+WorkingDirectory=/opt/silkweb
+Environment="PATH=/opt/silkweb/.venv/bin:/usr/local/bin:/usr/bin"
+EnvironmentFile=/opt/silkweb/.env
+ExecStart=/opt/silkweb/.venv/bin/uvicorn api.main:app --host 127.0.0.1 --port 8000 --workers 4
+ExecReload=/bin/kill -HUP $MAINPID
+
+# Security hardening
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/opt/silkweb/logs
+PrivateTmp=true
+PrivateDevices=true
+
+# Restart policy
+Restart=always
+RestartSec=5
+StartLimitBurst=5
+StartLimitIntervalSec=60
+
+# Logging
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=silkweb-api
+
+[Install]
+WantedBy=multi-user.target

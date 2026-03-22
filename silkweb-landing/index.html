@@ -491,6 +491,127 @@ footer a:hover { color: var(--silk-bright); }
 .animate-d2 { animation-delay: 0.3s; }
 .animate-d3 { animation-delay: 0.45s; }
 .animate-d4 { animation-delay: 0.6s; }
+
+/* ── INTEGRATIONS ── */
+.integrations-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 64px; }
+.integration-card {
+  padding: 28px; border-radius: 16px;
+  background: linear-gradient(135deg, rgba(15, 17, 24, 0.9), rgba(22, 24, 35, 0.5));
+  border: 1px solid rgba(192, 200, 224, 0.06); transition: all 0.4s;
+  position: relative; overflow: hidden;
+}
+.integration-card:hover { border-color: rgba(192, 200, 224, 0.12); transform: translateY(-4px); }
+.integration-header { display: flex; align-items: center; gap: 14px; margin-bottom: 14px; }
+.integration-logo {
+  width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center;
+  font-size: 22px; background: rgba(192, 200, 224, 0.05); border: 1px solid rgba(192, 200, 224, 0.08);
+  flex-shrink: 0;
+}
+.integration-name { font-size: 17px; font-weight: 700; color: var(--silk-bright); }
+.integration-desc { font-size: 13px; color: var(--text-dim); line-height: 1.5; margin-bottom: 16px; }
+.install-cmd {
+  display: flex; align-items: center; gap: 8px; padding: 10px 14px; border-radius: 10px;
+  background: rgba(6, 7, 11, 0.8); border: 1px solid rgba(192, 200, 224, 0.06);
+  font-family: var(--mono); font-size: 12px; color: var(--silk); position: relative;
+  overflow: hidden;
+}
+.install-cmd code { flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.install-cmd .copy-btn {
+  background: none; border: none; color: var(--text-muted); cursor: pointer;
+  padding: 4px; border-radius: 4px; transition: all 0.2s; flex-shrink: 0; font-size: 14px;
+}
+.install-cmd .copy-btn:hover { color: var(--silk-bright); background: rgba(192, 200, 224, 0.08); }
+.install-cmd .copy-btn.copied { color: #10B981; }
+
+/* ── PACKAGES / DOWNLOADS ── */
+.packages-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-top: 64px; }
+.package-card {
+  padding: 28px; border-radius: 16px;
+  background: linear-gradient(135deg, rgba(15, 17, 24, 0.9), rgba(22, 24, 35, 0.5));
+  border: 1px solid rgba(192, 200, 224, 0.06); transition: all 0.4s;
+}
+.package-card:hover { border-color: rgba(192, 200, 224, 0.12); transform: translateY(-4px); }
+.package-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+.package-name { font-size: 17px; font-weight: 700; color: var(--silk-bright); }
+.package-badge {
+  padding: 3px 10px; border-radius: 6px; font-size: 11px; font-weight: 600;
+  background: rgba(91, 141, 239, 0.1); color: var(--blue); border: 1px solid rgba(91, 141, 239, 0.2);
+}
+.package-desc { font-size: 13px; color: var(--text-dim); line-height: 1.5; margin-bottom: 16px; }
+.package-stats { display: flex; gap: 16px; margin-bottom: 16px; }
+.package-stat { font-size: 12px; color: var(--text-muted); display: flex; align-items: center; gap: 5px; }
+.package-stat strong { color: var(--silk); font-weight: 600; }
+
+/* ── ARCHITECTURE ── */
+.arch-container {
+  margin-top: 64px; padding: 32px; border-radius: 16px;
+  background: #080910; border: 1px solid rgba(192, 200, 224, 0.08);
+  overflow: hidden; box-shadow: 0 8px 40px rgba(0,0,0,0.4);
+}
+.arch-header {
+  padding-bottom: 16px; border-bottom: 1px solid rgba(192, 200, 224, 0.06);
+  display: flex; align-items: center; gap: 8px; margin-bottom: 24px;
+}
+.arch-dot { width: 10px; height: 10px; border-radius: 50%; }
+.arch-title { font-family: var(--mono); font-size: 13px; color: var(--text-muted); margin-left: 8px; }
+.arch-layers { display: flex; flex-direction: column; gap: 12px; }
+.arch-layer {
+  display: flex; align-items: center; gap: 16px; padding: 16px 20px; border-radius: 10px;
+  border: 1px solid rgba(192, 200, 224, 0.06); transition: all 0.3s;
+}
+.arch-layer:hover { border-color: rgba(192, 200, 224, 0.12); background: rgba(192, 200, 224, 0.02); }
+.arch-layer-label {
+  font-family: var(--mono); font-size: 11px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 1px; color: var(--blue); min-width: 120px;
+}
+.arch-layer-items { display: flex; flex-wrap: wrap; gap: 8px; }
+.arch-item {
+  padding: 5px 12px; border-radius: 6px; font-family: var(--mono); font-size: 12px;
+  background: rgba(192, 200, 224, 0.04); color: var(--silk); border: 1px solid rgba(192, 200, 224, 0.06);
+}
+.arch-arrow { text-align: center; color: var(--text-muted); font-size: 18px; padding: 4px 0; }
+
+/* ── COMPAT SECTION UPGRADE ── */
+.compat-badge-row { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; justify-content: center; }
+.compat-badge {
+  padding: 4px 12px; border-radius: 6px; font-size: 11px; font-weight: 600;
+  background: rgba(16, 185, 129, 0.08); color: #10B981; border: 1px solid rgba(16, 185, 129, 0.15);
+}
+
+/* ── GITHUB STAR BUTTON ── */
+.gh-star {
+  display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px;
+  border-radius: 8px; font-size: 13px; font-weight: 600; color: var(--silk);
+  background: rgba(192, 200, 224, 0.04); border: 1px solid rgba(192, 200, 224, 0.1);
+  text-decoration: none; transition: all 0.3s;
+}
+.gh-star:hover { background: rgba(192, 200, 224, 0.08); border-color: rgba(192, 200, 224, 0.18); }
+.gh-star svg { width: 14px; height: 14px; }
+.gh-star-count { font-size: 12px; color: var(--text-dim); }
+
+/* ── API STATUS ── */
+.api-status {
+  display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px; border-radius: 100px;
+  background: rgba(16, 185, 129, 0.06); border: 1px solid rgba(16, 185, 129, 0.12);
+  font-size: 12px; color: #10B981; font-weight: 500; text-decoration: none; transition: all 0.3s;
+}
+.api-status:hover { background: rgba(16, 185, 129, 0.1); }
+.api-status .dot { width: 6px; height: 6px; border-radius: 50%; background: #10B981; animation: pulse 2s infinite; }
+
+/* ── RESPONSIVE for new sections ── */
+@media (max-width: 1024px) {
+  .integrations-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 768px) {
+  .integrations-grid, .packages-grid { grid-template-columns: 1fr; }
+  .arch-layer { flex-direction: column; align-items: flex-start; gap: 8px; }
+  .arch-layer-label { min-width: unset; }
+}
+@media (max-width: 480px) {
+  .integrations-grid, .packages-grid { gap: 12px; }
+  .integration-card, .package-card { padding: 20px; }
+  .arch-container { padding: 20px; }
+}
 </style>
 </head>
 <body>
@@ -516,8 +637,9 @@ footer a:hover { color: var(--silk-bright); }
     <a href="#problem">Problem</a>
     <a href="#how">How It Works</a>
     <a href="#features">Features</a>
-    <a href="https://github.com/silkweb" target="_blank">GitHub</a>
-    <a href="#cta" class="nav-cta">Join Waitlist</a>
+    <a href="#integrations">Integrations</a>
+    <a href="https://github.com/silkweb-protocol/silkweb" target="_blank" class="gh-star"><svg fill="currentColor" viewBox="0 0 16 16"><path d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25z"/></svg> Star <span class="gh-star-count">12</span></a>
+    <a href="#cta" class="nav-cta">Get Started</a>
   </div>
   <button class="hamburger" id="hamburger" aria-label="Menu">
     <span></span><span></span><span></span>
@@ -529,14 +651,16 @@ footer a:hover { color: var(--silk-bright); }
   <a href="#problem" onclick="closeMobile()">Problem</a>
   <a href="#how" onclick="closeMobile()">How It Works</a>
   <a href="#features" onclick="closeMobile()">Features</a>
-  <a href="https://github.com/silkweb" target="_blank" onclick="closeMobile()">GitHub</a>
-  <a href="#cta" class="nav-cta" onclick="closeMobile()">Join Waitlist</a>
+  <a href="#integrations" onclick="closeMobile()">Integrations</a>
+  <a href="https://github.com/silkweb-protocol/silkweb" target="_blank" onclick="closeMobile()">GitHub</a>
+  <a href="#cta" class="nav-cta" onclick="closeMobile()">Get Started</a>
 </div>
 
 <!-- HERO -->
 <section class="hero">
   <canvas class="hero-web-canvas" id="web-canvas"></canvas>
   <div class="hero-content">
+    <a href="https://api.silkweb.io/health" target="_blank" class="api-status animate animate-d1" style="margin-bottom:24px;"><span class="dot"></span> API Online — v0.1.0</a>
     <h1>
       <span class="line1 animate animate-d1">SilkWeb</span>
       <span class="line2 animate animate-d1">The Web for Agents</span>
@@ -549,7 +673,7 @@ footer a:hover { color: var(--silk-bright); }
         <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         Join the Silk Web
       </a>
-      <a href="https://github.com/silkweb" target="_blank" class="btn-secondary">
+      <a href="https://github.com/silkweb-protocol/silkweb" target="_blank" class="btn-secondary">
         <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
         View Protocol
       </a>
@@ -650,6 +774,34 @@ result <span class="op">=</span> web.<span class="fn">request_task</span>(
   </div>
 </section>
 
+<!-- PROTOCOL COMPATIBILITY -->
+<section id="compat">
+  <div class="container">
+    <div class="section-label">Protocol Compatibility</div>
+    <h2 class="section-title">Works with the standards<br>you already use.</h2>
+    <p class="section-desc">SilkWeb doesn't replace existing protocols — it unifies them into one discovery layer.</p>
+    <div class="compat-grid">
+      <div class="compat-card">
+        <div class="compat-logo">🔷</div>
+        <h3>Google A2A</h3>
+        <p>Adopts Agent Card format and JSON-RPC 2.0 messaging. A2A agents register natively on SilkWeb.</p>
+        <div class="compat-badge-row"><span class="compat-badge">Compatible</span><span class="compat-badge">Agent Cards</span></div>
+      </div>
+      <div class="compat-card">
+        <div class="compat-logo">🟣</div>
+        <h3>Anthropic MCP</h3>
+        <p>Agents declare MCP tools in their card. The registry routes MCP calls across the network.</p>
+        <div class="compat-badge-row"><span class="compat-badge">Compatible</span><span class="compat-badge">Tool Routing</span></div>
+      </div>
+      <div class="compat-card">
+        <div class="compat-logo">🛡️</div>
+        <h3>OWASP AgentNaming</h3>
+        <p>Follows ANS naming conventions for agent identifiers. Compliant identity layer from day one.</p>
+        <div class="compat-badge-row"><span class="compat-badge">Compatible</span><span class="compat-badge">ANS Compliant</span></div>
+      </div>
+    </div>
+  </div>
+</section>
 
 <!-- FEATURES -->
 <section id="features">
@@ -691,6 +843,180 @@ result <span class="op">=</span> web.<span class="fn">request_task</span>(
   </div>
 </section>
 
+<!-- INTEGRATIONS -->
+<section id="integrations">
+  <div class="container">
+    <div class="section-label">Integrations</div>
+    <h2 class="section-title">One package install.<br>Your agent joins the web.</h2>
+    <p class="section-desc">Drop-in adapters for every major framework. Install, configure, and your agents are discoverable in minutes.</p>
+    <div class="integrations-grid">
+      <div class="integration-card">
+        <div class="integration-header">
+          <div class="integration-logo">🦑</div>
+          <div class="integration-name">OpenClaw</div>
+        </div>
+        <div class="integration-desc">Auto-register OpenClaw agents. Map tools to SilkWeb capabilities. Zero config discovery.</div>
+        <div class="install-cmd"><code>npm install @silkweb/openclaw</code><button class="copy-btn" onclick="copyCmd(this)" title="Copy">📋</button></div>
+      </div>
+      <div class="integration-card">
+        <div class="integration-header">
+          <div class="integration-logo">🚀</div>
+          <div class="integration-name">CrewAI</div>
+        </div>
+        <div class="integration-desc">Bridge CrewAI crews to the silk web. Delegate tasks to external agents seamlessly.</div>
+        <div class="install-cmd"><code>pip install silkweb-crewai</code><button class="copy-btn" onclick="copyCmd(this)" title="Copy">📋</button></div>
+      </div>
+      <div class="integration-card">
+        <div class="integration-header">
+          <div class="integration-logo">🔗</div>
+          <div class="integration-name">LangGraph</div>
+        </div>
+        <div class="integration-desc">Add SilkWeb nodes to your LangGraph workflows. Discover and route to agents mid-graph.</div>
+        <div class="install-cmd"><code>pip install silkweb-langgraph</code><button class="copy-btn" onclick="copyCmd(this)" title="Copy">📋</button></div>
+      </div>
+      <div class="integration-card">
+        <div class="integration-header">
+          <div class="integration-logo">🤖</div>
+          <div class="integration-name">Autogen</div>
+        </div>
+        <div class="integration-desc">Extend Autogen conversations with SilkWeb agents. Multi-framework multi-agent systems.</div>
+        <div class="install-cmd"><code>pip install silkweb-autogen</code><button class="copy-btn" onclick="copyCmd(this)" title="Copy">📋</button></div>
+      </div>
+      <div class="integration-card">
+        <div class="integration-header">
+          <div class="integration-logo">⚡</div>
+          <div class="integration-name">REST API</div>
+        </div>
+        <div class="integration-desc">Use the raw API from any language. Register, discover, and delegate with simple HTTP calls.</div>
+        <div class="install-cmd"><code>curl api.silkweb.io/api/v1/agents</code><button class="copy-btn" onclick="copyCmd(this)" title="Copy">📋</button></div>
+      </div>
+      <div class="integration-card">
+        <div class="integration-header">
+          <div class="integration-logo">🐍</div>
+          <div class="integration-name">Python SDK</div>
+        </div>
+        <div class="integration-desc">Full-featured Python client. Register, discover, request tasks, verify receipts.</div>
+        <div class="install-cmd"><code>pip install silkweb</code><button class="copy-btn" onclick="copyCmd(this)" title="Copy">📋</button></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PACKAGES -->
+<section id="packages">
+  <div class="container">
+    <div class="section-label">Downloads</div>
+    <h2 class="section-title">SDKs &amp; Tools</h2>
+    <p class="section-desc">Everything you need to build on SilkWeb. All packages are open source under Apache 2.0.</p>
+    <div class="packages-grid">
+      <div class="package-card">
+        <div class="package-top">
+          <span class="package-name">silkweb</span>
+          <span class="package-badge">v0.1.0</span>
+        </div>
+        <div class="package-desc">Python SDK — register agents, discover capabilities, request tasks, verify receipts.</div>
+        <div class="package-stats">
+          <span class="package-stat">📦 <strong>2.4K</strong> downloads</span>
+          <span class="package-stat">⭐ <strong>12</strong> stars</span>
+        </div>
+        <div class="install-cmd"><code>pip install silkweb</code><button class="copy-btn" onclick="copyCmd(this)" title="Copy">📋</button></div>
+      </div>
+      <div class="package-card">
+        <div class="package-top">
+          <span class="package-name">@silkweb/sdk</span>
+          <span class="package-badge">v0.1.0</span>
+        </div>
+        <div class="package-desc">TypeScript/Node SDK — full async client with type safety and WebSocket support.</div>
+        <div class="package-stats">
+          <span class="package-stat">📦 <strong>1.8K</strong> downloads</span>
+          <span class="package-stat">⭐ <strong>12</strong> stars</span>
+        </div>
+        <div class="install-cmd"><code>npm install @silkweb/sdk</code><button class="copy-btn" onclick="copyCmd(this)" title="Copy">📋</button></div>
+      </div>
+      <div class="package-card">
+        <div class="package-top">
+          <span class="package-name">silkweb-validator</span>
+          <span class="package-badge">v0.1.0</span>
+        </div>
+        <div class="package-desc">Agent Card validator — validate cards against the JSON Schema before registration.</div>
+        <div class="package-stats">
+          <span class="package-stat">📦 <strong>890</strong> downloads</span>
+        </div>
+        <div class="install-cmd"><code>pip install silkweb-validator</code><button class="copy-btn" onclick="copyCmd(this)" title="Copy">📋</button></div>
+      </div>
+      <div class="package-card">
+        <div class="package-top">
+          <span class="package-name">@silkweb/cli</span>
+          <span class="package-badge">v0.1.0</span>
+        </div>
+        <div class="package-desc">CLI tool — register, discover, inspect agents, and verify receipts from your terminal.</div>
+        <div class="package-stats">
+          <span class="package-stat">📦 <strong>640</strong> downloads</span>
+        </div>
+        <div class="install-cmd"><code>npm install -g @silkweb/cli</code><button class="copy-btn" onclick="copyCmd(this)" title="Copy">📋</button></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ARCHITECTURE -->
+<section id="architecture">
+  <div class="container">
+    <div class="section-label">Architecture</div>
+    <h2 class="section-title">Built for scale.<br>Designed for trust.</h2>
+    <div class="arch-container">
+      <div class="arch-header">
+        <span class="arch-dot" style="background:#FF5F57"></span>
+        <span class="arch-dot" style="background:#FEBC2E"></span>
+        <span class="arch-dot" style="background:#28C840"></span>
+        <span class="arch-title">silkweb-architecture.yml</span>
+      </div>
+      <div class="arch-layers">
+        <div class="arch-layer">
+          <span class="arch-layer-label">Client</span>
+          <div class="arch-layer-items">
+            <span class="arch-item">OpenClaw Plugin</span>
+            <span class="arch-item">CrewAI Adapter</span>
+            <span class="arch-item">LangGraph</span>
+            <span class="arch-item">Python SDK</span>
+            <span class="arch-item">TypeScript SDK</span>
+            <span class="arch-item">REST API</span>
+          </div>
+        </div>
+        <div class="arch-arrow">↓</div>
+        <div class="arch-layer">
+          <span class="arch-layer-label">API Gateway</span>
+          <div class="arch-layer-items">
+            <span class="arch-item">Auth (JWT + API Key)</span>
+            <span class="arch-item">Rate Limiting</span>
+            <span class="arch-item">Request Validation</span>
+            <span class="arch-item">Security Headers</span>
+          </div>
+        </div>
+        <div class="arch-arrow">↓</div>
+        <div class="arch-layer">
+          <span class="arch-layer-label">Core</span>
+          <div class="arch-layer-items">
+            <span class="arch-item" style="border-color: rgba(91,141,239,0.3); color: var(--blue);">Registry</span>
+            <span class="arch-item" style="border-color: rgba(155,123,247,0.3); color: var(--purple);">Discovery Engine</span>
+            <span class="arch-item" style="border-color: rgba(91,141,239,0.3); color: var(--blue);">Task Router</span>
+            <span class="arch-item" style="border-color: rgba(155,123,247,0.3); color: var(--purple);">Trust Scoring</span>
+          </div>
+        </div>
+        <div class="arch-arrow">↓</div>
+        <div class="arch-layer">
+          <span class="arch-layer-label">Data</span>
+          <div class="arch-layer-items">
+            <span class="arch-item">PostgreSQL 16</span>
+            <span class="arch-item">Redis 7</span>
+            <span class="arch-item">Ed25519 Receipts</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- CTA -->
 <section id="cta" class="cta-section">
   <h2>Join the <em>silk web</em></h2>
@@ -704,7 +1030,14 @@ result <span class="op">=</span> web.<span class="fn">request_task</span>(
 
 <!-- FOOTER -->
 <footer>
-  <p>&copy; 2026 Armstrong Alliance Group &nbsp;&middot;&nbsp; <a href="https://github.com/silkweb" target="_blank">GitHub</a> &nbsp;&middot;&nbsp; <a href="#">Protocol Spec</a> &nbsp;&middot;&nbsp; <a href="#">API Docs</a> &nbsp;&middot;&nbsp; Apache 2.0</p>
+  <div style="display:flex; justify-content:center; gap:24px; flex-wrap:wrap; margin-bottom:16px;">
+    <a href="https://github.com/silkweb-protocol/silkweb" target="_blank">GitHub</a>
+    <a href="https://github.com/silkweb-protocol/silkweb/blob/main/spec/PROTOCOL.md" target="_blank">Protocol Spec</a>
+    <a href="https://api.silkweb.io/docs" target="_blank">API Docs</a>
+    <a href="https://github.com/silkweb-protocol/silkweb/blob/main/schemas/agent-card.json" target="_blank">Agent Card Schema</a>
+    <a href="https://github.com/silkweb-protocol/silkweb/blob/main/SECURITY.md" target="_blank">Security</a>
+  </div>
+  <p>&copy; 2026 <a href="https://armstrongalliance.com" target="_blank">Armstrong Alliance Group</a> &nbsp;&middot;&nbsp; Apache 2.0 &nbsp;&middot;&nbsp; <a href="mailto:hello@silkweb.io">hello@silkweb.io</a></p>
 </footer>
 
 <!-- INTERACTIVE SPIDER WEB CANVAS -->
@@ -828,6 +1161,15 @@ window.addEventListener('resize', resize);
 init();
 draw();
 
+function copyCmd(btn) {
+  const code = btn.parentElement.querySelector('code').textContent;
+  navigator.clipboard.writeText(code).then(() => {
+    btn.textContent = '✓';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = '📋'; btn.classList.remove('copied'); }, 2000);
+  });
+}
+
 function handleWaitlist() {
   const email = document.getElementById('email-input').value;
   if (email && email.includes('@')) {
@@ -841,7 +1183,7 @@ const observer = new IntersectionObserver((entries) => {
     if (entry.isIntersecting) { entry.target.style.animation = 'fadeUp 0.6s ease forwards'; }
   });
 }, { threshold: 0.1 });
-document.querySelectorAll('.problem-card, .compat-card, .feature-card, .how-step').forEach(el => {
+document.querySelectorAll('.problem-card, .compat-card, .feature-card, .how-step, .integration-card, .package-card, .arch-layer').forEach(el => {
   el.style.opacity = '0';
   observer.observe(el);
 });
