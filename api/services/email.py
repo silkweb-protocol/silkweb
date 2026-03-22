@@ -92,7 +92,7 @@ def _build_receipt_html(
 
 <!-- Verify Button -->
 <tr><td align="center" style="padding:0 40px 32px;">
-  <a href="https://silkweb.io/verify?task={task_id}" style="display:inline-block;padding:12px 32px;background:linear-gradient(135deg,#6366f1,#818cf8);color:#fff;text-decoration:none;border-radius:8px;font-size:14px;font-weight:600;">Verify Receipt</a>
+  <a href="https://silkweb.io/verify?task={task_id}" style="display:inline-block;padding:12px 32px;background-color:#6366f1;background:linear-gradient(135deg,#6366f1,#818cf8);color:#fff;text-decoration:none;border-radius:8px;font-size:14px;font-weight:600;">Verify Receipt</a>
 </td></tr>
 
 <!-- Footer -->
