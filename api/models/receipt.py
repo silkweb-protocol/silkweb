@@ -24,6 +24,7 @@ class Receipt(Base):
     requester_signature = Column(Text, nullable=True)
 
     cost_usd = Column(Numeric(10, 4), nullable=True)
+    silkweb_fee_usd = Column(Numeric(10, 4), nullable=True)
 
     # Immutable — no updated_at, receipts are never modified
     created_at = Column(

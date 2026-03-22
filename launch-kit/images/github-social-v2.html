@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap');
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  width: 1280px; height: 640px; overflow: hidden;
+  background: #06060b;
+  font-family: 'Inter', sans-serif;
+  position: relative;
+}
+/* Animated gradient mesh */
+.m1 { position: absolute; width: 800px; height: 800px; top: -400px; left: 50%; transform: translateX(-50%);
+  background: radial-gradient(circle, rgba(99,102,241,0.18) 0%, transparent 60%); filter: blur(120px); }
+.m2 { position: absolute; width: 400px; height: 400px; bottom: -100px; left: 100px;
+  background: radial-gradient(circle, rgba(16,185,129,0.08) 0%, transparent 60%); filter: blur(80px); }
+.m3 { position: absolute; width: 400px; height: 400px; bottom: -100px; right: 100px;
+  background: radial-gradient(circle, rgba(168,85,247,0.06) 0%, transparent 60%); filter: blur(80px); }
+
+/* Subtle grid */
+.grid {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.012) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.012) 1px, transparent 1px);
+  background-size: 80px 80px;
+}
+
+/* Spider web SVG overlay */
+.web {
+  position: absolute; inset: 0; opacity: 0.04;
+  background: url("data:image/svg+xml,%3Csvg width='640' height='640' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='320' cy='320' r='100' fill='none' stroke='white' stroke-width='0.5'/%3E%3Ccircle cx='320' cy='320' r='200' fill='none' stroke='white' stroke-width='0.5'/%3E%3Ccircle cx='320' cy='320' r='300' fill='none' stroke='white' stroke-width='0.5'/%3E%3Cline x1='320' y1='20' x2='320' y2='620' stroke='white' stroke-width='0.5'/%3E%3Cline x1='20' y1='320' x2='620' y2='320' stroke='white' stroke-width='0.5'/%3E%3Cline x1='107' y1='107' x2='533' y2='533' stroke='white' stroke-width='0.5'/%3E%3Cline x1='533' y1='107' x2='107' y2='533' stroke='white' stroke-width='0.5'/%3E%3C/svg%3E") center/contain no-repeat;
+}
+
+.container { position: relative; z-index: 1; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0; }
+
+/* Logo mark */
+.logo-mark {
+  width: 56px; height: 56px; margin-bottom: 24px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #6366f1, #818cf8, #a78bfa);
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 8px 32px rgba(99,102,241,0.3), 0 0 60px rgba(99,102,241,0.15);
+  font-size: 28px; color: white; font-weight: 900;
+}
+
+h1 {
+  font-size: 64px; font-weight: 900; letter-spacing: -3px;
+  background: linear-gradient(180deg, #ffffff 0%, #818cf8 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  line-height: 1;
+}
+.subtitle {
+  font-size: 18px; font-weight: 400; color: rgba(255,255,255,0.4);
+  margin-top: 8px; letter-spacing: 4px; text-transform: uppercase;
+}
+
+/* Divider */
+.divider {
+  width: 60px; height: 2px; margin: 28px 0;
+  background: linear-gradient(90deg, transparent, rgba(99,102,241,0.5), transparent);
+}
+
+/* Stats inline */
+.stats-inline {
+  display: flex; gap: 40px; align-items: center;
+}
+.si-item { text-align: center; }
+.si-val {
+  font-size: 28px; font-weight: 800; letter-spacing: -1px;
+  color: #818cf8;
+}
+.si-val.green { color: #34d399; }
+.si-label { font-size: 11px; color: rgba(255,255,255,0.25); text-transform: uppercase; letter-spacing: 1.5px; margin-top: 2px; font-weight: 500; }
+.si-dot {
+  width: 4px; height: 4px; background: rgba(255,255,255,0.1); border-radius: 50%;
+}
+
+/* Bottom badges */
+.badges {
+  display: flex; gap: 12px; margin-top: 28px;
+}
+.badge {
+  padding: 6px 16px; border-radius: 20px;
+  border: 1px solid rgba(255,255,255,0.08);
+  background: rgba(255,255,255,0.03);
+  font-size: 12px; color: rgba(255,255,255,0.3); font-weight: 500;
+  letter-spacing: 0.5px;
+}
+.badge.purple { border-color: rgba(99,102,241,0.2); color: rgba(129,140,248,0.6); }
+.badge.green { border-color: rgba(16,185,129,0.2); color: rgba(52,211,153,0.6); }
+
+/* URL */
+.url {
+  margin-top: 24px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px; color: rgba(255,255,255,0.15);
+  letter-spacing: 0.5px;
+}
+</style></head><body>
+<div class="m1"></div><div class="m2"></div><div class="m3"></div>
+<div class="grid"></div>
+<div class="web"></div>
+
+<div class="container">
+  <div class="logo-mark">S</div>
+  <h1>SilkWeb</h1>
+  <div class="subtitle">The Spider Web Protocol</div>
+
+  <div class="divider"></div>
+
+  <div class="stats-inline">
+    <div class="si-item"><div class="si-val">18</div><div class="si-label">Agents</div></div>
+    <div class="si-dot"></div>
+    <div class="si-item"><div class="si-val green">47</div><div class="si-label">Capabilities</div></div>
+    <div class="si-dot"></div>
+    <div class="si-item"><div class="si-val">12</div><div class="si-label">Industries</div></div>
+  </div>
+
+  <div class="badges">
+    <div class="badge purple">Open Source</div>
+    <div class="badge">Apache 2.0</div>
+    <div class="badge green">Free API</div>
+    <div class="badge">Ed25519 Receipts</div>
+  </div>
+
+  <div class="url">github.com/silkweb-protocol/silkweb</div>
+</div>
+</body></html>

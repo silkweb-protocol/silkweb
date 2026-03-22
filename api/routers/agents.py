@@ -21,9 +21,11 @@ from api.schemas.agent import (
     AgentRegisterRequest,
     AgentRegisteredResponse,
     AgentResponse,
+    AgentTierResponse,
     CapabilitySchema,
 )
 from api.services.auth import generate_api_key, generate_silk_id, hash_api_key
+from api.services.tiers import compute_tier, next_tier_requirements
 
 logger = logging.getLogger(__name__)
 
@@ -68,10 +70,17 @@ async def register_agent(
         pricing=request.pricing.model_dump(),
         trust_public_key=request.trust_public_key,
         contact_email=request.contact_email,
+        memory_bytes=request.memory_bytes or 0,
         metadata_=request.metadata,
         a2a_compat=request.a2a_compat,
         mcp_compat=request.mcp_compat,
     )
+
+    # Compute initial tier
+    tier_name, fee_pct = compute_tier(agent)
+    agent.tier = tier_name
+    agent.silkweb_fee_pct = fee_pct
+
     db.add(agent)
     await db.flush()  # Get the agent.id for FK references
 
@@ -155,6 +164,9 @@ async def get_agent(
         is_active=agent.is_active,
         created_at=agent.created_at,
         updated_at=agent.updated_at,
+        tier=agent.tier or "seed",
+        silkweb_fee_pct=float(agent.silkweb_fee_pct or 0),
+        tasks_completed=agent.tasks_completed or 0,
     )
 
 
@@ -230,3 +242,42 @@ async def deregister_agent(
 
     current_agent.is_active = False
     logger.info(f"Agent deregistered: {current_agent.agent_id} ({silk_id})")
+
+
+@router.get("/{silk_id}/tier", response_model=AgentTierResponse)
+async def get_agent_tier(
+    silk_id: str,
+    db: AsyncSession = Depends(get_db),
+):
+    """Get an agent's current tier, fee, and next-tier requirements. Public endpoint."""
+    from datetime import datetime, timezone
+
+    agent = await db.scalar(
+        select(Agent).where(Agent.silk_id == silk_id, Agent.is_active.is_(True))
+    )
+    if not agent:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Agent not found.",
+        )
+
+    tier_name, fee_pct = compute_tier(agent)
+    next_tier = next_tier_requirements(agent)
+
+    # Calculate age
+    now = datetime.now(timezone.utc)
+    created = agent.created_at
+    if created.tzinfo is None:
+        created = created.replace(tzinfo=timezone.utc)
+    age_days = (now - created).days
+
+    return AgentTierResponse(
+        silk_id=agent.silk_id,
+        tier=tier_name,
+        silkweb_fee_pct=float(fee_pct) * 100,  # Return as percentage (e.g., 2.0 for 2%)
+        memory_bytes=agent.memory_bytes or 0,
+        tasks_completed=agent.tasks_completed or 0,
+        age_days=age_days,
+        earnings_total_usd=float(agent.earnings_total_usd or 0),
+        next_tier=next_tier,
+    )

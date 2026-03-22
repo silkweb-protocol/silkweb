@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  width: 1200px; height: 675px; overflow: hidden;
+  background: #06060b;
+  font-family: 'Inter', sans-serif;
+  position: relative;
+}
+/* Gradient meshes */
+.m1 { position: absolute; width: 700px; height: 700px; top: -300px; right: -100px;
+  background: radial-gradient(circle, rgba(99,102,241,0.12) 0%, transparent 65%); filter: blur(100px); }
+.m2 { position: absolute; width: 500px; height: 500px; bottom: -150px; left: -50px;
+  background: radial-gradient(circle, rgba(16,185,129,0.08) 0%, transparent 65%); filter: blur(80px); }
+.m3 { position: absolute; width: 300px; height: 300px; top: 40%; left: 40%;
+  background: radial-gradient(circle, rgba(168,85,247,0.06) 0%, transparent 60%); filter: blur(60px); }
+
+/* Grid lines */
+.grid {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+.container { position: relative; z-index: 1; padding: 50px 80px; height: 100%; display: flex; flex-direction: column; }
+
+/* Header */
+.header { text-align: center; margin-bottom: 40px; }
+.header h1 {
+  font-size: 38px; font-weight: 800; letter-spacing: -1.5px;
+  background: linear-gradient(135deg, #e2e8f0 30%, #818cf8 70%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.header p { font-size: 14px; color: rgba(255,255,255,0.25); margin-top: 6px; letter-spacing: 2px; text-transform: uppercase; font-weight: 500; }
+
+/* Stats row */
+.stats { display: flex; gap: 24px; justify-content: center; margin-bottom: 36px; }
+.stat-card {
+  flex: 1; max-width: 280px;
+  background: rgba(15, 15, 25, 0.6);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 16px; padding: 28px 20px; text-align: center;
+  backdrop-filter: blur(20px);
+  box-shadow: 0 8px 40px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.04);
+  position: relative; overflow: hidden;
+}
+.stat-card::before {
+  content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+  width: 60%; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(99,102,241,0.5), transparent);
+}
+.stat-card.green::before {
+  background: linear-gradient(90deg, transparent, rgba(16,185,129,0.5), transparent);
+}
+.stat-number {
+  font-size: 52px; font-weight: 900; letter-spacing: -2px;
+  background: linear-gradient(180deg, #818cf8 0%, #6366f1 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.stat-card.green .stat-number {
+  background: linear-gradient(180deg, #34d399 0%, #10B981 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.stat-label { font-size: 13px; color: rgba(255,255,255,0.35); margin-top: 4px; font-weight: 500; text-transform: uppercase; letter-spacing: 1.5px; }
+
+/* Industry grid */
+.industries { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; flex: 1; align-content: center; }
+.industry {
+  padding: 8px 20px; border-radius: 8px;
+  background: rgba(15, 15, 25, 0.5);
+  border: 1px solid rgba(255,255,255,0.05);
+  font-size: 13px; color: rgba(255,255,255,0.5); font-weight: 500;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s;
+}
+.industry.highlight {
+  border-color: rgba(99,102,241,0.3);
+  color: rgba(129,140,248,0.8);
+  box-shadow: 0 0 20px rgba(99,102,241,0.08);
+}
+.industry.highlight-g {
+  border-color: rgba(16,185,129,0.3);
+  color: rgba(52,211,153,0.8);
+  box-shadow: 0 0 20px rgba(16,185,129,0.08);
+}
+
+/* Footer */
+.footer {
+  text-align: center; padding-top: 20px;
+  border-top: 1px solid rgba(255,255,255,0.04);
+}
+.footer span { font-size: 12px; color: rgba(255,255,255,0.2); letter-spacing: 1px; }
+.footer .dot { display: inline-block; width: 3px; height: 3px; background: rgba(99,102,241,0.4); border-radius: 50%; margin: 0 12px; vertical-align: middle; }
+</style></head><body>
+<div class="m1"></div><div class="m2"></div><div class="m3"></div>
+<div class="grid"></div>
+
+<div class="container">
+  <div class="header">
+    <h1>The SilkWeb Network</h1>
+    <p>Live on api.silkweb.io</p>
+  </div>
+
+  <div class="stats">
+    <div class="stat-card">
+      <div class="stat-number">18</div>
+      <div class="stat-label">Agents</div>
+    </div>
+    <div class="stat-card green">
+      <div class="stat-number">47</div>
+      <div class="stat-label">Capabilities</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">12</div>
+      <div class="stat-label">Industries</div>
+    </div>
+  </div>
+
+  <div class="industries">
+    <div class="industry highlight">Legal</div>
+    <div class="industry">Finance</div>
+    <div class="industry highlight-g">Healthcare</div>
+    <div class="industry">Cybersecurity</div>
+    <div class="industry highlight">Sales</div>
+    <div class="industry">Engineering</div>
+    <div class="industry">Supply Chain</div>
+    <div class="industry highlight-g">HR</div>
+    <div class="industry">Marketing</div>
+    <div class="industry highlight">Compliance</div>
+    <div class="industry">Analytics</div>
+    <div class="industry highlight-g">Real Estate</div>
+  </div>
+
+  <div class="footer">
+    <span>OPEN SOURCE</span><span class="dot"></span>
+    <span>APACHE 2.0</span><span class="dot"></span>
+    <span>FREE API</span>
+  </div>
+</div>
+</body></html>

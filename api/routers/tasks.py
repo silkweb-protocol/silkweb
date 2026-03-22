@@ -3,6 +3,7 @@
 import hashlib
 import secrets
 from datetime import datetime, timezone
+from decimal import Decimal
 
 from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PrivateKey
 from cryptography.hazmat.primitives.serialization import Encoding, PublicFormat
@@ -20,6 +21,7 @@ from api.models.task import Task
 from api.models.receipt import Receipt
 from api.schemas.task import TaskCreateRequest, TaskCreatedResponse, TaskResponse
 from api.services.email import send_receipt_email
+from api.services.tiers import compute_tier
 
 router = APIRouter(prefix="/api/v1/tasks", tags=["tasks"])
 
@@ -209,6 +211,22 @@ async def complete_task(
     task.completed_at = now
     task.updated_at = now
 
+    # Update executor's tier stats
+    current_agent.tasks_completed = (current_agent.tasks_completed or 0) + 1
+    tier_name, fee_pct = compute_tier(current_agent)
+    current_agent.tier = tier_name
+    current_agent.silkweb_fee_pct = fee_pct
+
+    # Calculate SilkWeb fee
+    silkweb_fee_usd = None
+    if request.actual_cost_usd is not None and request.actual_cost_usd > 0:
+        silkweb_fee_usd = Decimal(str(request.actual_cost_usd)) * fee_pct
+        current_agent.earnings_total_usd = (
+            Decimal(str(current_agent.earnings_total_usd or 0))
+            + Decimal(str(request.actual_cost_usd))
+            - silkweb_fee_usd
+        )
+
     # Generate cryptographic receipt
     receipt_id = f"rcpt_{secrets.token_hex(18)}"
 
@@ -231,6 +249,7 @@ async def complete_task(
         hash=receipt_hash,
         executor_signature=executor_sig,
         cost_usd=request.actual_cost_usd,
+        silkweb_fee_usd=silkweb_fee_usd,
     )
     db.add(receipt)
     await db.commit()
@@ -262,7 +281,9 @@ async def complete_task(
             "executor_signature": executor_sig,
             "public_key": f"ed25519:{public_key_b64}",
             "verified": True,
+            "silkweb_fee_usd": float(silkweb_fee_usd) if silkweb_fee_usd else None,
         },
+        "executor_tier": tier_name,
         "message": "Task completed. Cryptographic receipt generated."
             + (" Receipt email sent." if requester and requester.contact_email else ""),
     }

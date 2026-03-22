@@ -59,6 +59,13 @@ async def discover_agents(
         for protocol in request.protocols:
             query = query.where(Agent.protocols.contains([protocol]))
 
+    # Filter by minimum tier
+    if request.min_tier:
+        tier_order = ["seed", "proven", "expert", "authority"]
+        min_idx = tier_order.index(request.min_tier) if request.min_tier in tier_order else 0
+        allowed_tiers = tier_order[min_idx:]
+        query = query.where(Agent.tier.in_(allowed_tiers))
+
     # Filter by framework (in metadata)
     if request.framework:
         query = query.where(
@@ -111,6 +118,9 @@ async def discover_agents(
             is_active=agent.is_active,
             created_at=agent.created_at,
             updated_at=agent.updated_at,
+            tier=agent.tier or "seed",
+            silkweb_fee_pct=float(agent.silkweb_fee_pct or 0),
+            tasks_completed=agent.tasks_completed or 0,
         ))
 
     return DiscoverResponse(

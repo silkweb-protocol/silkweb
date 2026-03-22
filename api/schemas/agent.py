@@ -81,6 +81,7 @@ class AgentRegisterRequest(BaseModel):
     pricing: PricingSchema = Field(default_factory=PricingSchema)
     trust_public_key: str | None = Field(None, max_length=256)
     contact_email: str | None = Field(None, max_length=320, description="Email for receipt notifications")
+    memory_bytes: int | None = Field(None, ge=0, description="Agent's memory depth in bytes")
     metadata: dict = Field(default_factory=dict)
     a2a_compat: dict = Field(default_factory=dict)
     mcp_compat: dict = Field(default_factory=dict)
@@ -148,7 +149,25 @@ class AgentResponse(BaseModel):
     created_at: datetime
     updated_at: datetime
 
+    # Tier info
+    tier: str = "seed"
+    silkweb_fee_pct: float = 0.0
+    tasks_completed: int = 0
+
     model_config = {"from_attributes": True}
+
+
+class AgentTierResponse(BaseModel):
+    """Response for GET /api/v1/agents/{silk_id}/tier."""
+
+    silk_id: str
+    tier: str
+    silkweb_fee_pct: float
+    memory_bytes: int
+    tasks_completed: int
+    age_days: int
+    earnings_total_usd: float
+    next_tier: dict | None = None
 
 
 class AgentRegisteredResponse(BaseModel):

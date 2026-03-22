@@ -5,6 +5,9 @@ from pydantic import BaseModel, Field, field_validator
 from api.schemas.agent import AgentResponse
 
 
+VALID_TIERS = {"seed", "proven", "expert", "authority"}
+
+
 class DiscoverRequest(BaseModel):
     """Request body for POST /api/v1/discover."""
 
@@ -14,6 +17,7 @@ class DiscoverRequest(BaseModel):
     max_price: float | None = Field(None, ge=0.0)
     protocols: list[str] | None = None
     framework: str | None = Field(None, max_length=64)
+    min_tier: str | None = Field(None, description="Minimum tier: seed, proven, expert, authority")
     limit: int = Field(default=20, ge=1, le=100)
     offset: int = Field(default=0, ge=0)
 

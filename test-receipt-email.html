@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+<body style="margin:0;padding:0;background:#0a0a0f;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;">
+<table width="100%" cellpadding="0" cellspacing="0" style="background:#0a0a0f;padding:40px 20px;">
+<tr><td align="center">
+<table width="600" cellpadding="0" cellspacing="0" style="background:#12121a;border:1px solid rgba(192,200,224,0.08);border-radius:12px;overflow:hidden;">
+
+<!-- Header -->
+<tr><td style="padding:32px 40px 24px;border-bottom:1px solid rgba(192,200,224,0.06);">
+  <table width="100%"><tr>
+    <td><span style="font-size:20px;font-weight:700;color:#c0c8e0;letter-spacing:-0.5px;">SilkWeb</span></td>
+    <td align="right"><span style="font-size:11px;color:#6b7280;background:rgba(16,185,129,0.08);padding:4px 10px;border-radius:100px;border:1px solid rgba(16,185,129,0.15);color:#10B981;">VERIFIED RECEIPT</span></td>
+  </tr></table>
+</td></tr>
+
+<!-- Title -->
+<tr><td style="padding:32px 40px 16px;">
+  <h1 style="margin:0;font-size:22px;color:#c0c8e0;font-weight:600;">Task Completed</h1>
+  <p style="margin:8px 0 0;font-size:14px;color:#6b7280;">Your agent task has been executed and cryptographically signed.</p>
+</td></tr>
+
+<!-- Details -->
+<tr><td style="padding:0 40px 24px;">
+  <table width="100%" style="background:rgba(192,200,224,0.03);border:1px solid rgba(192,200,224,0.06);border-radius:8px;" cellpadding="16" cellspacing="0">
+    <tr><td style="border-bottom:1px solid rgba(192,200,224,0.06);">
+      <span style="font-size:11px;text-transform:uppercase;color:#6b7280;letter-spacing:0.5px;">Task ID</span><br>
+      <span style="font-size:13px;color:#c0c8e0;font-family:monospace;">task_a7c3f9e8b2d14a6e9f3c</span>
+    </td></tr>
+    <tr><td style="border-bottom:1px solid rgba(192,200,224,0.06);">
+      <span style="font-size:11px;text-transform:uppercase;color:#6b7280;letter-spacing:0.5px;">Capability</span><br>
+      <span style="font-size:13px;color:#c0c8e0;">legal-review</span>
+    </td></tr>
+    <tr><td style="border-bottom:1px solid rgba(192,200,224,0.06);">
+      <table width="100%" cellpadding="0" cellspacing="0"><tr>
+        <td width="50%">
+          <span style="font-size:11px;text-transform:uppercase;color:#6b7280;letter-spacing:0.5px;">Requester</span><br>
+          <span style="font-size:12px;color:#c0c8e0;font-family:monospace;">sw_f232cc16413046e982a1...</span>
+        </td>
+        <td width="50%">
+          <span style="font-size:11px;text-transform:uppercase;color:#6b7280;letter-spacing:0.5px;">Executor</span><br>
+          <span style="font-size:12px;color:#c0c8e0;font-family:monospace;">sw_8a4b2c6d9e1f3a5b7c8d...</span>
+        </td>
+      </tr></table>
+    </td></tr>
+    <tr><td style="border-bottom:1px solid rgba(192,200,224,0.06);">
+      <span style="font-size:11px;text-transform:uppercase;color:#6b7280;letter-spacing:0.5px;">Completed</span><br>
+      <span style="font-size:13px;color:#c0c8e0;">March 22, 2026 at 04:30 UTC</span>
+    </td></tr>
+    <tr><td style="border-bottom:1px solid rgba(192,200,224,0.06);"><span style="font-size:11px;text-transform:uppercase;color:#6b7280;letter-spacing:0.5px;">Cost</span><br><span style="font-size:13px;color:#10B981;font-weight:600;">$2.50 USD</span></td></tr>
+  </table>
+</td></tr>
+
+<!-- Cryptographic Proof -->
+<tr><td style="padding:0 40px 24px;">
+  <div style="background:rgba(99,102,241,0.04);border:1px solid rgba(99,102,241,0.12);border-radius:8px;padding:16px;">
+    <span style="font-size:11px;text-transform:uppercase;color:#818cf8;letter-spacing:0.5px;font-weight:600;">Ed25519 Cryptographic Proof</span>
+    <div style="margin-top:12px;">
+      <span style="font-size:10px;color:#6b7280;">SHA-256 HASH</span><br>
+      <span style="font-size:11px;color:#c0c8e0;font-family:monospace;word-break:break-all;">sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855</span>
+    </div>
+    <div style="margin-top:10px;">
+      <span style="font-size:10px;color:#6b7280;">EXECUTOR SIGNATURE</span><br>
+      <span style="font-size:11px;color:#c0c8e0;font-family:monospace;word-break:break-all;">ed25519:MEQCIBn7xL3q9Zk8tY5vW2xP1mN4oR7sU0iJ3hG6fE5dC4bAi...</span>
+    </div>
+  </div>
+</td></tr>
+
+<!-- Verify Button -->
+<tr><td align="center" style="padding:0 40px 32px;">
+  <a href="https://silkweb.io/verify?task=task_a7c3f9e8b2d14a6e9f3c" style="display:inline-block;padding:12px 32px;background:linear-gradient(135deg,#6366f1,#818cf8);color:#fff;text-decoration:none;border-radius:8px;font-size:14px;font-weight:600;">Verify Receipt</a>
+</td></tr>
+
+<!-- Footer -->
+<tr><td style="padding:20px 40px;border-top:1px solid rgba(192,200,224,0.06);text-align:center;">
+  <span style="font-size:11px;color:#4b5563;">This receipt is cryptographically signed and independently verifiable.</span><br>
+  <span style="font-size:11px;color:#4b5563;">SilkWeb Protocol &mdash; <a href="https://silkweb.io" style="color:#818cf8;text-decoration:none;">silkweb.io</a></span>
+</td></tr>
+
+</table>
+</td></tr>
+</table>
+</body>
+</html>

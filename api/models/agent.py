@@ -4,7 +4,8 @@ import uuid
 from datetime import datetime, timezone
 
 from sqlalchemy import (
-    Boolean, Column, DateTime, ForeignKey, Index, String, Text,
+    BigInteger, Boolean, Column, DateTime, ForeignKey, Index, Integer,
+    Numeric, String, Text,
 )
 from sqlalchemy.dialects.postgresql import ARRAY, JSONB, UUID
 from sqlalchemy.orm import relationship
@@ -34,6 +35,13 @@ class Agent(Base):
 
     # Contact (optional — for receipt emails)
     contact_email = Column(String(320), nullable=True)
+
+    # Tier system
+    memory_bytes = Column(BigInteger, default=0, nullable=False, server_default="0")
+    tasks_completed = Column(Integer, default=0, nullable=False, server_default="0")
+    tier = Column(String(20), default="seed", nullable=False, server_default="seed")
+    silkweb_fee_pct = Column(Numeric(5, 4), default=0, nullable=False, server_default="0")
+    earnings_total_usd = Column(Numeric(12, 2), default=0, nullable=False, server_default="0")
 
     # Metadata
     metadata_ = Column("metadata", JSONB, default=dict)
