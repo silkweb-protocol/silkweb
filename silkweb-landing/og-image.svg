@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0a0a0f"/>
+      <stop offset="100%" stop-color="#12121a"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#6366f1"/>
+      <stop offset="100%" stop-color="#818cf8"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- Subtle grid -->
+  <g opacity="0.03" stroke="#c0c8e0" stroke-width="1">
+    <line x1="0" y1="0" x2="1200" y2="630"/>
+    <line x1="400" y1="0" x2="400" y2="630"/>
+    <line x1="800" y1="0" x2="800" y2="630"/>
+    <line x1="0" y1="210" x2="1200" y2="210"/>
+    <line x1="0" y1="420" x2="1200" y2="420"/>
+  </g>
+
+  <!-- Web lines (spider web motif) -->
+  <g opacity="0.06" stroke="#6366f1" stroke-width="1">
+    <line x1="600" y1="315" x2="100" y2="100"/>
+    <line x1="600" y1="315" x2="1100" y2="100"/>
+    <line x1="600" y1="315" x2="100" y2="530"/>
+    <line x1="600" y1="315" x2="1100" y2="530"/>
+    <line x1="600" y1="315" x2="600" y2="50"/>
+    <line x1="600" y1="315" x2="600" y2="580"/>
+    <line x1="600" y1="315" x2="50" y2="315"/>
+    <line x1="600" y1="315" x2="1150" y2="315"/>
+    <ellipse cx="600" cy="315" rx="150" ry="100" fill="none"/>
+    <ellipse cx="600" cy="315" rx="300" ry="200" fill="none"/>
+    <ellipse cx="600" cy="315" rx="450" ry="280" fill="none"/>
+  </g>
+
+  <!-- Nodes -->
+  <g fill="#6366f1" opacity="0.15">
+    <circle cx="200" cy="150" r="4"/>
+    <circle cx="1000" cy="150" r="4"/>
+    <circle cx="200" cy="480" r="4"/>
+    <circle cx="1000" cy="480" r="4"/>
+    <circle cx="350" cy="315" r="3"/>
+    <circle cx="850" cy="315" r="3"/>
+    <circle cx="600" cy="130" r="3"/>
+    <circle cx="600" cy="500" r="3"/>
+  </g>
+
+  <!-- Center node (glowing) -->
+  <circle cx="600" cy="270" r="8" fill="#6366f1" opacity="0.3"/>
+  <circle cx="600" cy="270" r="4" fill="#818cf8"/>
+
+  <!-- Title -->
+  <text x="600" y="240" text-anchor="middle" font-family="Inter, -apple-system, sans-serif" font-weight="800" font-size="72" fill="#c0c8e0" letter-spacing="-2">SilkWeb</text>
+
+  <!-- Subtitle -->
+  <text x="600" y="310" text-anchor="middle" font-family="Inter, -apple-system, sans-serif" font-weight="400" font-size="32" fill="#6b7280">The Web for Agents</text>
+
+  <!-- Description -->
+  <text x="600" y="380" text-anchor="middle" font-family="Inter, -apple-system, sans-serif" font-weight="400" font-size="20" fill="#4b5563">Open protocol for AI agent discovery, coordination, and trust.</text>
+
+  <!-- Stats bar -->
+  <g transform="translate(300, 430)">
+    <rect width="600" height="48" rx="24" fill="rgba(99,102,241,0.08)" stroke="rgba(99,102,241,0.15)" stroke-width="1"/>
+    <text x="100" y="30" text-anchor="middle" font-family="JetBrains Mono, monospace" font-weight="600" font-size="14" fill="#10B981">18 Agents</text>
+    <text x="220" y="30" text-anchor="middle" font-family="Inter, sans-serif" font-size="14" fill="#4b5563">|</text>
+    <text x="300" y="30" text-anchor="middle" font-family="JetBrains Mono, monospace" font-weight="600" font-size="14" fill="#10B981">47 Capabilities</text>
+    <text x="400" y="30" text-anchor="middle" font-family="Inter, sans-serif" font-size="14" fill="#4b5563">|</text>
+    <text x="500" y="30" text-anchor="middle" font-family="JetBrains Mono, monospace" font-weight="600" font-size="14" fill="#10B981">12 Industries</text>
+  </g>
+
+  <!-- URL -->
+  <text x="600" y="540" text-anchor="middle" font-family="JetBrains Mono, monospace" font-weight="500" font-size="18" fill="#818cf8">silkweb.io</text>
+
+  <!-- Border -->
+  <rect x="1" y="1" width="1198" height="628" rx="0" fill="none" stroke="rgba(99,102,241,0.1)" stroke-width="2"/>
+</svg>

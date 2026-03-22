@@ -1,0 +1,59 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  python:
+    name: Python API
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: |
+            requirements.txt
+            requirements-dev.txt
+
+      - name: Install dependencies
+        run: pip install -r requirements-dev.txt aiosqlite
+
+      - name: Lint with ruff
+        run: |
+          ruff check api/
+          ruff format --check api/
+
+      - name: Import check
+        run: python -c "from api.main import app; print('Import OK')"
+
+      - name: Run tests
+        run: pytest tests/ -v --tb=short
+
+  node:
+    name: OpenClaw Package
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: packages/openclaw
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install dependencies
+        run: npm install --ignore-scripts
+
+      - name: Run tests
+        run: npm test

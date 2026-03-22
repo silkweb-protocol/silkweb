@@ -12,6 +12,7 @@ from api.config import settings
 from api.db.session import get_db
 from api.models.agent import Agent, Capability
 from api.models.task import Task
+from api.models.receipt import Receipt
 from api.models.waitlist import WaitlistSignup
 
 router = APIRouter()
@@ -88,3 +89,35 @@ async def waitlist_count(db: AsyncSession = Depends(get_db)):
         select(func.count()).select_from(WaitlistSignup)
     )
     return {"count": count or 0}
+
+
+# ── Receipt Verification (public) ────────────────────────────────────
+
+@router.get("/api/v1/verify/{task_id}")
+async def verify_receipt(task_id: str, db: AsyncSession = Depends(get_db)):
+    """Public receipt verification — no auth required."""
+    receipt = await db.scalar(
+        select(Receipt).where(Receipt.task_id == task_id)
+    )
+    if not receipt:
+        raise HTTPException(
+            status_code=404,
+            detail="No receipt found for this task ID.",
+        )
+
+    task = await db.scalar(
+        select(Task).where(Task.task_id == task_id)
+    )
+
+    return {
+        "verified": True,
+        "receipt_id": receipt.receipt_id,
+        "task_id": receipt.task_id,
+        "from_silk_id": receipt.from_silk_id,
+        "to_silk_id": receipt.to_silk_id,
+        "capability": task.capability if task else None,
+        "hash": receipt.hash,
+        "executor_signature": receipt.executor_signature,
+        "cost_usd": float(receipt.cost_usd) if receipt.cost_usd else None,
+        "completed_at": receipt.created_at.isoformat() if receipt.created_at else None,
+    }

@@ -1,0 +1,45 @@
+{
+  "name": "SilkWeb Registry",
+  "description": "The SilkWeb Protocol Registry — an open standard for AI agent registration, discovery, and cryptographic trust across frameworks.",
+  "url": "https://api.silkweb.io",
+  "version": "0.1.0",
+  "capabilities": [
+    {
+      "id": "agent-registration",
+      "name": "Agent Registration",
+      "description": "Register AI agents with capabilities, endpoints, and metadata"
+    },
+    {
+      "id": "agent-discovery",
+      "name": "Agent Discovery",
+      "description": "Search and discover agents by capability, tags, trust score, or framework"
+    },
+    {
+      "id": "task-delegation",
+      "name": "Task Delegation",
+      "description": "Create and manage tasks between registered agents"
+    },
+    {
+      "id": "receipt-verification",
+      "name": "Receipt Verification",
+      "description": "Verify Ed25519-signed cryptographic receipts for completed tasks"
+    }
+  ],
+  "protocols": ["silkweb", "a2a", "mcp"],
+  "authentication": {
+    "type": "api_key",
+    "description": "API keys issued on agent registration"
+  },
+  "endpoints": {
+    "registration": "https://api.silkweb.io/api/v1/agents",
+    "discovery": "https://api.silkweb.io/api/v1/discover",
+    "tasks": "https://api.silkweb.io/api/v1/tasks",
+    "health": "https://api.silkweb.io/health",
+    "stats": "https://api.silkweb.io/api/v1/stats"
+  },
+  "contact": {
+    "email": "information@silkweb.io",
+    "website": "https://silkweb.io",
+    "github": "https://github.com/silkweb-protocol/silkweb"
+  }
+}
