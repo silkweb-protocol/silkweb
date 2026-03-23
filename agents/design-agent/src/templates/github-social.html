@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8">
+<style>
+@import url('{{fontImport}}');
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  width: {{width}}px; height: {{height}}px; overflow: hidden;
+  background: {{bg}};
+  font-family: {{fontHeading}};
+  position: relative;
+}
+/* Gradient mesh */
+.mesh-1 {
+  position: absolute; width: 800px; height: 800px; top: -400px; left: 50%;
+  transform: translateX(-50%);
+  background: radial-gradient(circle, {{primaryAlpha18}} 0%, transparent 60%);
+  filter: blur(120px);
+}
+.mesh-2 {
+  position: absolute; width: 400px; height: 400px; bottom: -100px; left: 100px;
+  background: radial-gradient(circle, {{secondaryAlpha08}} 0%, transparent 60%);
+  filter: blur(80px);
+}
+.mesh-3 {
+  position: absolute; width: 400px; height: 400px; bottom: -100px; right: 100px;
+  background: radial-gradient(circle, {{accentAlpha06}} 0%, transparent 60%);
+  filter: blur(80px);
+}
+/* Grid + web overlay */
+.grid {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.012) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.012) 1px, transparent 1px);
+  background-size: 80px 80px;
+}
+.web {
+  position: absolute; inset: 0; opacity: 0.04;
+  background: url("data:image/svg+xml,%3Csvg width='640' height='640' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='320' cy='320' r='100' fill='none' stroke='white' stroke-width='0.5'/%3E%3Ccircle cx='320' cy='320' r='200' fill='none' stroke='white' stroke-width='0.5'/%3E%3Ccircle cx='320' cy='320' r='300' fill='none' stroke='white' stroke-width='0.5'/%3E%3Cline x1='320' y1='20' x2='320' y2='620' stroke='white' stroke-width='0.5'/%3E%3Cline x1='20' y1='320' x2='620' y2='320' stroke='white' stroke-width='0.5'/%3E%3Cline x1='107' y1='107' x2='533' y2='533' stroke='white' stroke-width='0.5'/%3E%3Cline x1='533' y1='107' x2='107' y2='533' stroke='white' stroke-width='0.5'/%3E%3C/svg%3E") center/contain no-repeat;
+}
+.container {
+  position: relative; z-index: 1; height: 100%;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+}
+/* Logo */
+.logo-mark {
+  width: 56px; height: 56px; margin-bottom: 24px; border-radius: 14px;
+  background: linear-gradient(135deg, {{primary}}, {{primaryLight}}, {{accent}});
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 8px 32px {{primaryAlpha30}}, 0 0 60px {{primaryAlpha15}};
+  font-size: 28px; color: white; font-weight: 900;
+}
+h1 {
+  font-size: 64px; font-weight: 900; letter-spacing: -3px;
+  background: linear-gradient(180deg, #ffffff 0%, {{primaryLight}} 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  line-height: 1;
+}
+.subtitle {
+  font-size: 18px; font-weight: 400; color: rgba(255,255,255,0.4);
+  margin-top: 8px; letter-spacing: 4px; text-transform: uppercase;
+}
+.divider {
+  width: 60px; height: 2px; margin: 28px 0;
+  background: linear-gradient(90deg, transparent, {{primaryAlpha50}}, transparent);
+}
+/* Stats */
+.stats-inline { display: flex; gap: 40px; align-items: center; }
+.si-item { text-align: center; }
+.si-val {
+  font-size: 28px; font-weight: 800; letter-spacing: -1px;
+  color: {{primaryLight}};
+}
+.si-val.green { color: {{secondaryLight}}; }
+.si-label {
+  font-size: 11px; color: rgba(255,255,255,0.25);
+  text-transform: uppercase; letter-spacing: 1.5px; margin-top: 2px; font-weight: 500;
+}
+.si-dot {
+  width: 4px; height: 4px; background: rgba(255,255,255,0.1); border-radius: 50%;
+}
+/* Badges */
+.badges { display: flex; gap: 12px; margin-top: 28px; }
+.badge {
+  padding: 6px 16px; border-radius: 20px;
+  border: 1px solid rgba(255,255,255,0.08);
+  background: rgba(255,255,255,0.03);
+  font-size: 12px; color: rgba(255,255,255,0.3); font-weight: 500; letter-spacing: 0.5px;
+}
+.badge.primary { border-color: {{primaryAlpha20}}; color: {{primaryAlpha60}}; }
+.badge.secondary { border-color: {{secondaryAlpha20}}; color: {{secondaryAlpha60}}; }
+.url {
+  margin-top: 24px;
+  font-family: {{fontMono}};
+  font-size: 13px; color: rgba(255,255,255,0.15); letter-spacing: 0.5px;
+}
+</style></head><body>
+<div class="mesh-1"></div><div class="mesh-2"></div><div class="mesh-3"></div>
+<div class="grid"></div>
+<div class="web"></div>
+
+<div class="container">
+  <div class="logo-mark">{{logoLetter}}</div>
+  <h1>{{brandName}}</h1>
+  <div class="subtitle">{{tagline}}</div>
+
+  <div class="divider"></div>
+
+  <div class="stats-inline">
+    {{#each stats}}
+    {{#unless @first}}<div class="si-dot"></div>{{/unless}}
+    <div class="si-item">
+      <div class="si-val {{this.color}}">{{this.value}}</div>
+      <div class="si-label">{{this.label}}</div>
+    </div>
+    {{/each}}
+  </div>
+
+  <div class="badges">
+    {{#each badges}}
+    <div class="badge {{this.class}}">{{this.text}}</div>
+    {{/each}}
+  </div>
+
+  <div class="url">{{url}}</div>
+</div>
+</body></html>

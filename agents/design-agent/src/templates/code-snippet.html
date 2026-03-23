@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8">
+<style>
+@import url('{{fontImport}}');
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  width: {{width}}px; height: {{height}}px; overflow: hidden;
+  background: {{bg}};
+  font-family: {{fontHeading}};
+  position: relative;
+}
+/* Gradient mesh */
+.mesh-1 {
+  position: absolute; width: 600px; height: 600px; top: -200px; left: -100px;
+  background: radial-gradient(circle, {{primaryAlpha15}} 0%, transparent 70%);
+  filter: blur(80px);
+}
+.mesh-2 {
+  position: absolute; width: 500px; height: 500px; bottom: -200px; right: -100px;
+  background: radial-gradient(circle, {{secondaryAlpha10}} 0%, transparent 70%);
+  filter: blur(80px);
+}
+.mesh-3 {
+  position: absolute; width: 400px; height: 400px; top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, {{accentAlpha08}} 0%, transparent 70%);
+  filter: blur(60px);
+}
+/* Editor */
+.editor {
+  position: absolute; top: 50px; left: 80px; right: 80px; bottom: 100px;
+  background: rgba(15, 15, 25, 0.85);
+  border: 1px solid {{primaryAlpha20}};
+  border-radius: 16px;
+  backdrop-filter: blur(20px);
+  box-shadow: 0 25px 80px rgba(0,0,0,0.6), 0 0 120px {{primaryAlpha08}}, inset 0 1px 0 rgba(255,255,255,0.05);
+  overflow: hidden;
+}
+.titlebar {
+  height: 48px; display: flex; align-items: center; padding: 0 20px;
+  background: rgba(20, 20, 35, 0.9);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.dots { display: flex; gap: 8px; }
+.dot { width: 12px; height: 12px; border-radius: 50%; }
+.dot.r { background: #ff5f57; box-shadow: 0 0 8px rgba(255,95,87,0.4); }
+.dot.y { background: #ffbd2e; box-shadow: 0 0 8px rgba(255,189,46,0.4); }
+.dot.g { background: #28c840; box-shadow: 0 0 8px rgba(40,200,64,0.4); }
+.filename {
+  flex: 1; text-align: center;
+  font-family: {{fontMono}}; font-size: 12px; color: rgba(255,255,255,0.3);
+  letter-spacing: 0.5px;
+}
+.tab-icons { display: flex; gap: 12px; }
+.tab-icon { width: 14px; height: 14px; border-radius: 3px; background: rgba(255,255,255,0.08); }
+/* Code */
+.code-area { padding: 28px 0; overflow: hidden; }
+.line {
+  display: flex; align-items: baseline; padding: 0 28px; height: 32px;
+  font-family: {{fontMono}}; font-size: 14.5px; line-height: 32px;
+}
+.ln {
+  width: 35px; text-align: right; margin-right: 24px;
+  color: rgba(255,255,255,0.12); font-size: 13px; user-select: none;
+}
+.kw { color: #c678dd; }
+.fn { color: #61afef; }
+.str { color: #98c379; }
+.var { color: #e5c07b; }
+.txt { color: #abb2bf; }
+.num { color: #d19a66; }
+.cm { color: rgba(255,255,255,0.2); font-style: italic; }
+.op { color: #56b6c2; }
+.tp { color: #e06c75; }
+.line.hl {
+  background: {{primaryAlpha08}};
+  border-left: 2px solid {{primaryAlpha50}};
+  padding-left: 26px;
+}
+/* CTA */
+.cta {
+  position: absolute; bottom: 0; left: 0; right: 0; height: 100px;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 8px;
+}
+.cta-main {
+  font-size: 22px; font-weight: 700;
+  background: linear-gradient(135deg, {{primaryLight}}, {{primary}}, {{secondary}});
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  letter-spacing: -0.3px;
+}
+.cta-sub {
+  font-family: {{fontMono}}; font-size: 13px;
+  color: rgba(255,255,255,0.25); letter-spacing: 0.5px;
+}
+.cta-sub span { color: {{primaryAlpha60}}; }
+/* Badge */
+.float-badge {
+  position: absolute; top: 18px; right: 18px;
+  background: {{secondaryAlpha10}};
+  border: 1px solid {{secondaryAlpha30}};
+  border-radius: 20px; padding: 6px 14px;
+  font-size: 11px; color: {{secondary}}; font-weight: 600; letter-spacing: 0.5px;
+  z-index: 2;
+}
+.float-badge::before {
+  content: ''; display: inline-block; width: 6px; height: 6px;
+  background: {{secondary}}; border-radius: 50%; margin-right: 6px;
+  box-shadow: 0 0 8px {{secondaryAlpha60}};
+}
+</style></head><body>
+<div class="mesh-1"></div>
+<div class="mesh-2"></div>
+<div class="mesh-3"></div>
+{{#if floatBadge}}<div class="float-badge">{{floatBadge}}</div>{{/if}}
+
+<div class="editor">
+  <div class="titlebar">
+    <div class="dots"><div class="dot r"></div><div class="dot y"></div><div class="dot g"></div></div>
+    <div class="filename">{{filename}}</div>
+    <div class="tab-icons"><div class="tab-icon"></div><div class="tab-icon"></div></div>
+  </div>
+  <div class="code-area">
+    {{codeLines}}
+  </div>
+</div>
+
+<div class="cta">
+  {{#if ctaMain}}<div class="cta-main">{{ctaMain}}</div>{{/if}}
+  {{#if ctaSub}}<div class="cta-sub">{{ctaSub}}</div>{{/if}}
+</div>
+</body></html>

@@ -1,0 +1,16 @@
+{
+  "name": "silkweb-sentinel-ops",
+  "version": "1.0.0",
+  "description": "SENTINEL \u2014 IT Infrastructure Monitoring Agent for the SilkWeb network",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "node --watch src/index.js",
+    "register": "node scripts/register.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "keywords": ["devops", "sre", "infrastructure", "monitoring", "kubernetes", "incident-response", "silkweb", "agent"],
+  "license": "Apache-2.0"
+}

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8">
+<style>
+@import url('{{fontImport}}');
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  width: {{width}}px; height: {{height}}px; overflow: hidden;
+  background: {{bg}};
+  font-family: {{fontHeading}};
+  position: relative;
+}
+/* Large gradient mesh for hero */
+.mesh-1 {
+  position: absolute; width: 900px; height: 900px; top: -400px; left: 50%;
+  transform: translateX(-50%);
+  background: radial-gradient(circle, {{primaryAlpha18}} 0%, transparent 55%);
+  filter: blur(120px);
+}
+.mesh-2 {
+  position: absolute; width: 600px; height: 600px; bottom: -250px; left: -100px;
+  background: radial-gradient(circle, {{secondaryAlpha12}} 0%, transparent 60%);
+  filter: blur(100px);
+}
+.mesh-3 {
+  position: absolute; width: 600px; height: 600px; bottom: -250px; right: -100px;
+  background: radial-gradient(circle, {{accentAlpha10}} 0%, transparent 60%);
+  filter: blur(100px);
+}
+/* Generative art canvas overlay */
+.gen-canvas {
+  position: absolute; inset: 0; opacity: 0.06;
+}
+/* Noise texture */
+.noise {
+  position: absolute; inset: 0; opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 256px 256px;
+}
+/* Grid */
+.grid {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.01) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.01) 1px, transparent 1px);
+  background-size: 80px 80px;
+}
+/* Web pattern */
+.web {
+  position: absolute; inset: 0; opacity: 0.03;
+  background: url("data:image/svg+xml,%3Csvg width='640' height='640' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='320' cy='320' r='80' fill='none' stroke='white' stroke-width='0.3'/%3E%3Ccircle cx='320' cy='320' r='160' fill='none' stroke='white' stroke-width='0.3'/%3E%3Ccircle cx='320' cy='320' r='240' fill='none' stroke='white' stroke-width='0.3'/%3E%3Ccircle cx='320' cy='320' r='320' fill='none' stroke='white' stroke-width='0.3'/%3E%3Cline x1='320' y1='0' x2='320' y2='640' stroke='white' stroke-width='0.3'/%3E%3Cline x1='0' y1='320' x2='640' y2='320' stroke='white' stroke-width='0.3'/%3E%3Cline x1='93' y1='93' x2='547' y2='547' stroke='white' stroke-width='0.3'/%3E%3Cline x1='547' y1='93' x2='93' y2='547' stroke='white' stroke-width='0.3'/%3E%3C/svg%3E") center/cover no-repeat;
+}
+/* Floating orbs */
+.orb {
+  position: absolute; border-radius: 50%;
+}
+.orb-1 {
+  width: 6px; height: 6px; top: 20%; left: 15%;
+  background: {{primaryLight}}; opacity: 0.4;
+  box-shadow: 0 0 20px {{primaryAlpha30}};
+}
+.orb-2 {
+  width: 4px; height: 4px; top: 35%; right: 20%;
+  background: {{secondary}}; opacity: 0.3;
+  box-shadow: 0 0 15px {{secondaryAlpha30}};
+}
+.orb-3 {
+  width: 8px; height: 8px; bottom: 30%; left: 25%;
+  background: {{accent}}; opacity: 0.2;
+  box-shadow: 0 0 25px {{accentAlpha20}};
+}
+.orb-4 {
+  width: 3px; height: 3px; top: 60%; right: 30%;
+  background: {{primaryLight}}; opacity: 0.5;
+  box-shadow: 0 0 12px {{primaryAlpha40}};
+}
+/* Content */
+.container {
+  position: relative; z-index: 1; height: 100%;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  text-align: center; padding: 0 120px;
+}
+.logo-mark {
+  width: 72px; height: 72px; margin-bottom: 32px; border-radius: 18px;
+  background: linear-gradient(135deg, {{primary}}, {{primaryLight}}, {{accent}});
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 12px 48px {{primaryAlpha30}}, 0 0 80px {{primaryAlpha15}};
+  font-size: 36px; color: white; font-weight: 900;
+}
+h1 {
+  font-size: 72px; font-weight: 900; letter-spacing: -3.5px; line-height: 1;
+  background: linear-gradient(180deg, #ffffff 20%, {{primaryLight}} 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.subtitle {
+  font-size: 22px; font-weight: 400; color: rgba(255,255,255,0.35);
+  margin-top: 16px; letter-spacing: 6px; text-transform: uppercase;
+}
+.divider {
+  width: 80px; height: 2px; margin: 36px 0;
+  background: linear-gradient(90deg, transparent, {{primaryAlpha50}}, transparent);
+}
+.tagline {
+  font-size: 18px; color: rgba(255,255,255,0.4); font-weight: 400;
+  max-width: 500px; line-height: 1.6;
+}
+/* CTA button */
+.cta-btn {
+  margin-top: 32px; padding: 14px 36px; border-radius: 12px;
+  background: linear-gradient(135deg, {{primary}}, {{primaryLight}});
+  color: white; font-size: 16px; font-weight: 600; letter-spacing: -0.3px;
+  box-shadow: 0 8px 32px {{primaryAlpha30}}, 0 0 0 1px {{primaryAlpha20}};
+  border: none; cursor: pointer;
+}
+</style></head><body>
+<div class="mesh-1"></div><div class="mesh-2"></div><div class="mesh-3"></div>
+<div class="grid"></div>
+<div class="web"></div>
+<div class="noise"></div>
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+<div class="orb orb-3"></div>
+<div class="orb orb-4"></div>
+
+<div class="container">
+  {{#if logoLetter}}<div class="logo-mark">{{logoLetter}}</div>{{/if}}
+  <h1>{{headline}}</h1>
+  {{#if subtitle}}<div class="subtitle">{{subtitle}}</div>{{/if}}
+  <div class="divider"></div>
+  {{#if tagline}}<div class="tagline">{{tagline}}</div>{{/if}}
+  {{#if ctaText}}<div class="cta-btn">{{ctaText}}</div>{{/if}}
+</div>
+</body></html>

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8">
+<style>
+@import url('{{fontImport}}');
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  width: {{width}}px; height: {{height}}px; overflow: hidden;
+  background: {{bg}};
+  font-family: {{fontHeading}};
+  position: relative;
+}
+/* Gradient mesh */
+.mesh-1 {
+  position: absolute; width: 500px; height: 500px; top: -200px; left: -100px;
+  background: radial-gradient(circle, {{primaryAlpha12}} 0%, transparent 65%);
+  filter: blur(80px);
+}
+.mesh-2 {
+  position: absolute; width: 400px; height: 400px; bottom: -150px; right: -50px;
+  background: radial-gradient(circle, {{secondaryAlpha08}} 0%, transparent 65%);
+  filter: blur(60px);
+}
+/* Grid */
+.grid {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.01) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.01) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+.container {
+  position: relative; z-index: 1; height: 100%;
+  display: flex; align-items: center; justify-content: center;
+  padding: 40px;
+}
+/* Receipt card */
+.receipt {
+  width: 480px; max-height: calc(100% - 40px);
+  background: rgba(15, 15, 25, 0.75);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 20px;
+  backdrop-filter: blur(24px);
+  box-shadow: 0 25px 80px rgba(0,0,0,0.5), 0 0 100px {{primaryAlpha06}},
+    inset 0 1px 0 rgba(255,255,255,0.06);
+  overflow: hidden;
+}
+/* Top accent line */
+.receipt::before {
+  content: ''; display: block; height: 3px;
+  background: linear-gradient(90deg, {{primary}}, {{primaryLight}}, {{secondary}});
+}
+.receipt-inner { padding: 36px 32px; }
+/* Header */
+.receipt-header {
+  display: flex; align-items: center; gap: 14px;
+  margin-bottom: 28px; padding-bottom: 20px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.receipt-logo {
+  width: 40px; height: 40px; border-radius: 10px;
+  background: linear-gradient(135deg, {{primary}}, {{primaryLight}});
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px; color: white; font-weight: 900;
+  box-shadow: 0 4px 16px {{primaryAlpha30}};
+}
+.receipt-brand {
+  flex: 1;
+}
+.receipt-brand-name { font-size: 18px; font-weight: 700; color: #e2e8f0; }
+.receipt-brand-sub {
+  font-size: 12px; color: rgba(255,255,255,0.3);
+  font-family: {{fontMono}}; letter-spacing: 0.5px; margin-top: 2px;
+}
+.receipt-status {
+  padding: 4px 12px; border-radius: 12px;
+  background: {{secondaryAlpha10}};
+  border: 1px solid {{secondaryAlpha30}};
+  font-size: 11px; color: {{secondary}}; font-weight: 600;
+  letter-spacing: 0.5px;
+}
+/* Line items */
+.receipt-items { margin-bottom: 24px; }
+.receipt-item {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+.receipt-item:last-child { border-bottom: none; }
+.item-name { font-size: 14px; color: rgba(255,255,255,0.7); font-weight: 500; }
+.item-detail {
+  font-size: 12px; color: rgba(255,255,255,0.25); margin-top: 2px;
+  font-family: {{fontMono}};
+}
+.item-value {
+  font-size: 14px; font-weight: 600; color: {{primaryLight}};
+  font-family: {{fontMono}};
+}
+.item-value.green { color: {{secondaryLight}}; }
+/* Totals */
+.receipt-total {
+  padding-top: 20px; margin-top: 4px;
+  border-top: 1px dashed rgba(255,255,255,0.1);
+}
+.total-row {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 8px;
+}
+.total-label { font-size: 13px; color: rgba(255,255,255,0.35); font-weight: 500; }
+.total-value { font-size: 13px; color: rgba(255,255,255,0.6); font-family: {{fontMono}}; }
+.total-row.main { margin-top: 12px; }
+.total-row.main .total-label {
+  font-size: 16px; font-weight: 700; color: #e2e8f0;
+}
+.total-row.main .total-value {
+  font-size: 20px; font-weight: 800; letter-spacing: -0.5px;
+  background: linear-gradient(135deg, {{primaryLight}}, {{secondary}});
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+/* Footer */
+.receipt-footer {
+  margin-top: 24px; padding-top: 16px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  text-align: center;
+}
+.receipt-footer p {
+  font-size: 11px; color: rgba(255,255,255,0.2); line-height: 1.6;
+  font-family: {{fontMono}}; letter-spacing: 0.3px;
+}
+.receipt-id {
+  font-family: {{fontMono}}; font-size: 11px;
+  color: rgba(255,255,255,0.15); margin-top: 8px; letter-spacing: 0.5px;
+}
+</style></head><body>
+<div class="mesh-1"></div><div class="mesh-2"></div>
+<div class="grid"></div>
+
+<div class="container">
+  <div class="receipt">
+    <div class="receipt-inner">
+      <div class="receipt-header">
+        <div class="receipt-logo">{{logoLetter}}</div>
+        <div class="receipt-brand">
+          <div class="receipt-brand-name">{{brandName}}</div>
+          <div class="receipt-brand-sub">{{receiptSubtitle}}</div>
+        </div>
+        <div class="receipt-status">{{status}}</div>
+      </div>
+
+      <div class="receipt-items">
+        {{#each items}}
+        <div class="receipt-item">
+          <div>
+            <div class="item-name">{{this.name}}</div>
+            {{#if this.detail}}<div class="item-detail">{{this.detail}}</div>{{/if}}
+          </div>
+          <div class="item-value {{this.color}}">{{this.value}}</div>
+        </div>
+        {{/each}}
+      </div>
+
+      {{#if totals}}
+      <div class="receipt-total">
+        {{#each totals}}
+        <div class="total-row {{this.class}}">
+          <div class="total-label">{{this.label}}</div>
+          <div class="total-value">{{this.value}}</div>
+        </div>
+        {{/each}}
+      </div>
+      {{/if}}
+
+      <div class="receipt-footer">
+        {{#if footerText}}<p>{{footerText}}</p>{{/if}}
+        {{#if receiptId}}<div class="receipt-id">{{receiptId}}</div>{{/if}}
+      </div>
+    </div>
+  </div>
+</div>
+</body></html>

@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8">
+<style>
+@import url('{{fontImport}}');
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  width: {{width}}px; height: {{height}}px; overflow: hidden;
+  background: {{bg}};
+  font-family: {{fontHeading}};
+  position: relative;
+}
+/* Gradient mesh */
+.mesh-1 {
+  position: absolute; width: 700px; height: 700px; top: -300px; right: -100px;
+  background: radial-gradient(circle, {{primaryAlpha12}} 0%, transparent 65%);
+  filter: blur(100px);
+}
+.mesh-2 {
+  position: absolute; width: 500px; height: 500px; bottom: -150px; left: -50px;
+  background: radial-gradient(circle, {{secondaryAlpha08}} 0%, transparent 65%);
+  filter: blur(80px);
+}
+.mesh-3 {
+  position: absolute; width: 300px; height: 300px; top: 40%; left: 40%;
+  background: radial-gradient(circle, {{accentAlpha06}} 0%, transparent 60%);
+  filter: blur(60px);
+}
+/* Grid */
+.grid {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+.container {
+  position: relative; z-index: 1; padding: 50px 80px; height: 100%;
+  display: flex; flex-direction: column;
+}
+/* Header */
+.header { text-align: center; margin-bottom: 40px; }
+.header h1 {
+  font-size: 38px; font-weight: 800; letter-spacing: -1.5px;
+  background: linear-gradient(135deg, #e2e8f0 30%, {{primaryLight}} 70%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.header p {
+  font-size: 14px; color: rgba(255,255,255,0.25); margin-top: 6px;
+  letter-spacing: 2px; text-transform: uppercase; font-weight: 500;
+}
+/* Stats */
+.stats { display: flex; gap: 24px; justify-content: center; margin-bottom: 36px; }
+.stat-card {
+  flex: 1; max-width: 280px;
+  background: rgba(15, 15, 25, 0.6);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 16px; padding: 28px 20px; text-align: center;
+  backdrop-filter: blur(20px);
+  box-shadow: 0 8px 40px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.04);
+  position: relative; overflow: hidden;
+}
+.stat-card::before {
+  content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+  width: 60%; height: 1px;
+  background: linear-gradient(90deg, transparent, {{primaryAlpha50}}, transparent);
+}
+.stat-card.green::before {
+  background: linear-gradient(90deg, transparent, {{secondaryAlpha50}}, transparent);
+}
+.stat-card.accent::before {
+  background: linear-gradient(90deg, transparent, {{accentAlpha50}}, transparent);
+}
+.stat-number {
+  font-size: 52px; font-weight: 900; letter-spacing: -2px;
+  background: linear-gradient(180deg, {{primaryLight}} 0%, {{primary}} 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.stat-card.green .stat-number {
+  background: linear-gradient(180deg, {{secondaryLight}} 0%, {{secondary}} 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.stat-card.accent .stat-number {
+  background: linear-gradient(180deg, {{accent}} 0%, {{primary}} 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.stat-label {
+  font-size: 13px; color: rgba(255,255,255,0.35); margin-top: 4px;
+  font-weight: 500; text-transform: uppercase; letter-spacing: 1.5px;
+}
+/* Tags */
+.tags {
+  display: flex; flex-wrap: wrap; gap: 10px;
+  justify-content: center; flex: 1; align-content: center;
+}
+.tag {
+  padding: 8px 20px; border-radius: 8px;
+  background: rgba(15, 15, 25, 0.5);
+  border: 1px solid rgba(255,255,255,0.05);
+  font-size: 13px; color: rgba(255,255,255,0.5); font-weight: 500;
+  backdrop-filter: blur(10px);
+}
+.tag.highlight {
+  border-color: {{primaryAlpha30}};
+  color: {{primaryAlpha80}};
+  box-shadow: 0 0 20px {{primaryAlpha08}};
+}
+.tag.highlight-s {
+  border-color: {{secondaryAlpha30}};
+  color: {{secondaryAlpha80}};
+  box-shadow: 0 0 20px {{secondaryAlpha08}};
+}
+/* Footer */
+.footer {
+  text-align: center; padding-top: 20px;
+  border-top: 1px solid rgba(255,255,255,0.04);
+}
+.footer span {
+  font-size: 12px; color: rgba(255,255,255,0.2); letter-spacing: 1px;
+}
+.footer .dot {
+  display: inline-block; width: 3px; height: 3px;
+  background: {{primaryAlpha40}}; border-radius: 50%;
+  margin: 0 12px; vertical-align: middle;
+}
+</style></head><body>
+<div class="mesh-1"></div><div class="mesh-2"></div><div class="mesh-3"></div>
+<div class="grid"></div>
+
+<div class="container">
+  <div class="header">
+    <h1>{{headline}}</h1>
+    <p>{{subheadline}}</p>
+  </div>
+
+  <div class="stats">
+    {{#each stats}}
+    <div class="stat-card {{this.color}}">
+      <div class="stat-number">{{this.value}}</div>
+      <div class="stat-label">{{this.label}}</div>
+    </div>
+    {{/each}}
+  </div>
+
+  {{#if tags}}
+  <div class="tags">
+    {{#each tags}}
+    <div class="tag {{this.class}}">{{this.text}}</div>
+    {{/each}}
+  </div>
+  {{/if}}
+
+  {{#if footerItems}}
+  <div class="footer">
+    {{#each footerItems}}
+    {{#unless @first}}<span class="dot"></span>{{/unless}}
+    <span>{{this}}</span>
+    {{/each}}
+  </div>
+  {{/if}}
+</div>
+</body></html>

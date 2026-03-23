@@ -1,0 +1,16 @@
+{
+  "name": "silkweb-aegis-security",
+  "version": "1.0.0",
+  "description": "AEGIS \u2014 Cybersecurity Threat Intelligence Agent for the SilkWeb network",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "node --watch src/index.js",
+    "register": "node scripts/register.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "keywords": ["cybersecurity", "security", "threat-intelligence", "vulnerability", "compliance", "silkweb", "agent"],
+  "license": "Apache-2.0"
+}

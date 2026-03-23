@@ -1,0 +1,16 @@
+{
+  "name": "silkweb-navigator-logistics",
+  "version": "1.0.0",
+  "description": "NAVIGATOR \u2014 Global Logistics & Route Intelligence Agent for the SilkWeb network",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "node --watch src/index.js",
+    "register": "node scripts/register.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "keywords": ["logistics", "shipping", "aviation", "maritime", "supply-chain", "transportation", "silkweb", "agent"],
+  "license": "Apache-2.0"
+}

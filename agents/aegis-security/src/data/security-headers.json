@@ -1,0 +1,93 @@
+{
+  "required_headers": {
+    "strict-transport-security": {
+      "name": "Strict-Transport-Security (HSTS)",
+      "severity": "high",
+      "description": "Enforces HTTPS connections, prevents downgrade attacks",
+      "recommendation": "Set 'Strict-Transport-Security: max-age=31536000; includeSubDomains; preload'",
+      "reference": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Strict-Transport-Security",
+      "validate": {
+        "must_contain": "max-age=",
+        "min_max_age": 15552000
+      }
+    },
+    "content-security-policy": {
+      "name": "Content-Security-Policy (CSP)",
+      "severity": "high",
+      "description": "Prevents XSS, clickjacking, and other code injection attacks",
+      "recommendation": "Define a strict CSP that limits script sources. At minimum: default-src 'self'",
+      "reference": "https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP",
+      "dangerous_values": ["unsafe-inline", "unsafe-eval", "*"]
+    },
+    "x-frame-options": {
+      "name": "X-Frame-Options",
+      "severity": "medium",
+      "description": "Prevents clickjacking by controlling iframe embedding",
+      "recommendation": "Set 'X-Frame-Options: DENY' or 'SAMEORIGIN'",
+      "reference": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options",
+      "valid_values": ["DENY", "SAMEORIGIN"]
+    },
+    "x-content-type-options": {
+      "name": "X-Content-Type-Options",
+      "severity": "medium",
+      "description": "Prevents MIME-type sniffing attacks",
+      "recommendation": "Set 'X-Content-Type-Options: nosniff'",
+      "reference": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Content-Type-Options",
+      "valid_values": ["nosniff"]
+    },
+    "referrer-policy": {
+      "name": "Referrer-Policy",
+      "severity": "low",
+      "description": "Controls how much referrer information is shared with other sites",
+      "recommendation": "Set 'Referrer-Policy: strict-origin-when-cross-origin' or 'no-referrer'",
+      "reference": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Referrer-Policy",
+      "valid_values": ["no-referrer", "strict-origin", "strict-origin-when-cross-origin", "same-origin"]
+    },
+    "permissions-policy": {
+      "name": "Permissions-Policy",
+      "severity": "low",
+      "description": "Controls which browser features and APIs can be used",
+      "recommendation": "Restrict unused features: Permissions-Policy: camera=(), microphone=(), geolocation=()",
+      "reference": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Permissions-Policy"
+    },
+    "x-xss-protection": {
+      "name": "X-XSS-Protection",
+      "severity": "low",
+      "description": "Legacy XSS filter (modern browsers use CSP instead)",
+      "recommendation": "Set 'X-XSS-Protection: 0' (rely on CSP) or '1; mode=block'",
+      "reference": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-XSS-Protection"
+    }
+  },
+  "dangerous_headers": {
+    "server": {
+      "name": "Server",
+      "severity": "low",
+      "description": "Reveals server software and version, aiding targeted attacks",
+      "recommendation": "Remove or obscure the Server header"
+    },
+    "x-powered-by": {
+      "name": "X-Powered-By",
+      "severity": "low",
+      "description": "Reveals backend framework/language, aiding targeted attacks",
+      "recommendation": "Remove the X-Powered-By header"
+    },
+    "x-aspnet-version": {
+      "name": "X-AspNet-Version",
+      "severity": "medium",
+      "description": "Reveals ASP.NET version",
+      "recommendation": "Remove this header in web.config"
+    }
+  },
+  "scoring": {
+    "weights": {
+      "strict-transport-security": 20,
+      "content-security-policy": 25,
+      "x-frame-options": 15,
+      "x-content-type-options": 10,
+      "referrer-policy": 10,
+      "permissions-policy": 10,
+      "x-xss-protection": 5,
+      "information-disclosure": 5
+    }
+  }
+}

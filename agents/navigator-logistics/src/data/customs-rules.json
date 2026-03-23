@@ -1,0 +1,156 @@
+{
+  "corridors": {
+    "CN-US": {
+      "origin": "China", "destination": "United States",
+      "documents": ["Commercial Invoice", "Packing List", "Bill of Lading/Airway Bill", "Certificate of Origin", "ISF (Importer Security Filing) 10+2", "FDA Prior Notice (food items)", "FCC Declaration (electronics)"],
+      "tariffNotes": "Section 301 tariffs may apply (25% on List 1-3, 7.5% on List 4A). Check HTS code classification.",
+      "restrictions": ["Huawei/ZTE telecom equipment", "Certain surveillance technology", "Forced labor goods (UFLPA)", "Fentanyl precursors"],
+      "avgClearanceDays": 3
+    },
+    "CN-EU": {
+      "origin": "China", "destination": "European Union",
+      "documents": ["Commercial Invoice", "Packing List", "Bill of Lading", "Certificate of Origin", "EUR.1 Movement Certificate", "CE Marking Declaration (applicable goods)", "REACH Compliance Statement (chemicals)"],
+      "tariffNotes": "EU Common External Tariff applies. Anti-dumping duties on steel, solar panels, e-bikes.",
+      "restrictions": ["Dual-use technology", "Certain textiles (quota monitoring)", "Products not meeting CE standards"],
+      "avgClearanceDays": 2
+    },
+    "US-EU": {
+      "origin": "United States", "destination": "European Union",
+      "documents": ["Commercial Invoice", "Packing List", "Bill of Lading/Airway Bill", "EEI (Electronic Export Information)", "EUR.1 or origin declaration", "CE/UKCA marking where applicable"],
+      "tariffNotes": "No comprehensive FTA. MFN tariffs apply. Some retaliatory tariffs on steel/aluminum.",
+      "restrictions": ["Chlorinated chicken", "Hormone-treated beef", "GMO labeling requirements"],
+      "avgClearanceDays": 1
+    },
+    "EU-US": {
+      "origin": "European Union", "destination": "United States",
+      "documents": ["Commercial Invoice", "Packing List", "Bill of Lading/Airway Bill", "ISF 10+2", "FDA registration (food/drugs)", "EPA compliance (vehicles/engines)"],
+      "tariffNotes": "MFN tariffs. Wine and spirits subject to periodic retaliatory tariffs.",
+      "restrictions": ["Raw milk cheese under 60 days", "Kinder Surprise eggs", "Absinthe (thujone limits)"],
+      "avgClearanceDays": 2
+    },
+    "JP-US": {
+      "origin": "Japan", "destination": "United States",
+      "documents": ["Commercial Invoice", "Packing List", "Bill of Lading", "Certificate of Origin", "ISF 10+2", "EPA/DOT compliance (vehicles)"],
+      "tariffNotes": "US-Japan Trade Agreement provides some tariff reductions on agriculture and industrial goods.",
+      "restrictions": ["Vehicles must meet FMVSS", "Electronics must meet FCC Part 15"],
+      "avgClearanceDays": 2
+    },
+    "US-CN": {
+      "origin": "United States", "destination": "China",
+      "documents": ["Commercial Invoice", "Packing List", "Bill of Lading/Airway Bill", "CIQ Inspection Certificate", "CCC Mark (applicable goods)", "AQSIQ registration (food)"],
+      "tariffNotes": "Retaliatory tariffs on US goods (25% on $110B of goods). Agricultural products subject to quota.",
+      "restrictions": ["Waste/scrap materials", "Used electronics", "Certain agricultural products"],
+      "avgClearanceDays": 4
+    },
+    "DE-US": {
+      "origin": "Germany", "destination": "United States",
+      "documents": ["Commercial Invoice", "Packing List", "Bill of Lading", "EUR.1 Certificate of Origin", "ISF 10+2", "FDA prior notice (food)", "DOT compliance (auto parts)"],
+      "tariffNotes": "2.5% tariff on passenger vehicles, 25% on light trucks (Chicken Tax). Machinery generally 0-5%.",
+      "restrictions": ["Vehicles must meet FMVSS and EPA standards"],
+      "avgClearanceDays": 2
+    },
+    "IN-US": {
+      "origin": "India", "destination": "United States",
+      "documents": ["Commercial Invoice", "Packing List", "Bill of Lading", "Certificate of Origin", "ISF 10+2", "Phytosanitary Certificate (agricultural)", "Fumigation Certificate"],
+      "tariffNotes": "India removed from GSP in 2019. MFN tariffs apply. Textiles subject to specific duty rates.",
+      "restrictions": ["Certain spices require FDA testing", "Textiles quota monitoring", "Leather goods origin verification"],
+      "avgClearanceDays": 3
+    },
+    "US-JP": {
+      "origin": "United States", "destination": "Japan",
+      "documents": ["Commercial Invoice", "Packing List", "Bill of Lading", "Certificate of Origin", "Food Sanitation Certificate (food)", "Plant Quarantine Certificate (agricultural)"],
+      "tariffNotes": "US-Japan Trade Agreement reduces tariffs on beef, pork, some agricultural products. Industrial goods vary.",
+      "restrictions": ["Rice imports heavily regulated", "Beef must be under 30 months", "Strict food additive regulations"],
+      "avgClearanceDays": 2
+    },
+    "AU-US": {
+      "origin": "Australia", "destination": "United States",
+      "documents": ["Commercial Invoice", "Packing List", "Bill of Lading", "Certificate of Origin (AUSFTA)", "ISF 10+2"],
+      "tariffNotes": "Australia-US FTA (AUSFTA) eliminates most tariffs. Some agricultural products have TRQs.",
+      "restrictions": ["Beef subject to TRQ", "Sugar quota limits"],
+      "avgClearanceDays": 2
+    },
+    "CN-JP": {
+      "origin": "China", "destination": "Japan",
+      "documents": ["Commercial Invoice", "Packing List", "Bill of Lading", "RCEP Certificate of Origin", "JAS compliance (food)", "PSE mark (electronics)"],
+      "tariffNotes": "RCEP provides preferential tariffs. Tariff elimination phased over 20 years for sensitive items.",
+      "restrictions": ["Strict pesticide residue limits on food", "Electronics must meet PSE standards"],
+      "avgClearanceDays": 2
+    },
+    "KR-US": {
+      "origin": "South Korea", "destination": "United States",
+      "documents": ["Commercial Invoice", "Packing List", "Bill of Lading", "KORUS FTA Certificate of Origin", "ISF 10+2"],
+      "tariffNotes": "KORUS FTA eliminates most tariffs. Auto tariff phase-out completed. Textiles rules of origin apply.",
+      "restrictions": ["Vehicles must meet FMVSS", "Textile yarn-forward rule"],
+      "avgClearanceDays": 2
+    },
+    "US-MX": {
+      "origin": "United States", "destination": "Mexico",
+      "documents": ["Commercial Invoice", "Packing List", "Bill of Lading", "USMCA Certificate of Origin", "Pedimento (Mexican customs declaration)"],
+      "tariffNotes": "USMCA duty-free for qualifying goods. Rules of origin stricter than NAFTA for autos (75% regional content).",
+      "restrictions": ["Firearms require SEDENA permit", "Used vehicles age restrictions", "GM corn restrictions"],
+      "avgClearanceDays": 1
+    },
+    "MX-US": {
+      "origin": "Mexico", "destination": "United States",
+      "documents": ["Commercial Invoice", "Packing List", "Bill of Lading", "USMCA Certificate of Origin", "ISF 10+2", "FDA prior notice (food)", "USDA permit (agricultural)"],
+      "tariffNotes": "USMCA duty-free for qualifying goods. Avocados/tomatoes subject to seasonal monitoring.",
+      "restrictions": ["Avocados only from approved orchards", "Certain produce requires phytosanitary cert"],
+      "avgClearanceDays": 1
+    },
+    "GB-US": {
+      "origin": "United Kingdom", "destination": "United States",
+      "documents": ["Commercial Invoice", "Packing List", "Bill of Lading", "Certificate of Origin", "ISF 10+2", "UKCA marking (applicable goods)"],
+      "tariffNotes": "No FTA post-Brexit. MFN tariffs apply. Scotch whisky subject to periodic tariff disputes.",
+      "restrictions": ["Vehicles must meet FMVSS", "Haggis (lung content banned)"],
+      "avgClearanceDays": 2
+    },
+    "VN-US": {
+      "origin": "Vietnam", "destination": "United States",
+      "documents": ["Commercial Invoice", "Packing List", "Bill of Lading", "Certificate of Origin (Form A for GSP if reinstated)", "ISF 10+2", "Fumigation Certificate (wood products)"],
+      "tariffNotes": "MFN tariffs apply. Anti-dumping duties on shrimp, catfish, and steel. Textile-specific duties.",
+      "restrictions": ["Catfish subject to USDA inspection", "Wood products require Lacey Act compliance"],
+      "avgClearanceDays": 3
+    },
+    "SG-US": {
+      "origin": "Singapore", "destination": "United States",
+      "documents": ["Commercial Invoice", "Packing List", "Bill of Lading", "USSFTA Certificate of Origin", "ISF 10+2"],
+      "tariffNotes": "US-Singapore FTA eliminates virtually all tariffs. Very liberal rules of origin.",
+      "restrictions": ["Chewing gum (Singapore export restrictions)", "Electronics re-export controls"],
+      "avgClearanceDays": 1
+    },
+    "BR-EU": {
+      "origin": "Brazil", "destination": "European Union",
+      "documents": ["Commercial Invoice", "Packing List", "Bill of Lading", "Certificate of Origin", "EUR.1 (if Mercosur-EU ratified)", "Phytosanitary Certificate", "FLEGT license (timber)"],
+      "tariffNotes": "Mercosur-EU agreement pending ratification. Currently MFN tariffs. High tariffs on ethanol, sugar, beef.",
+      "restrictions": ["Deforestation-linked products restricted (EUDR)", "SPS measures on meat"],
+      "avgClearanceDays": 3
+    },
+    "AE-IN": {
+      "origin": "UAE", "destination": "India",
+      "documents": ["Commercial Invoice", "Packing List", "Bill of Lading", "CEPA Certificate of Origin", "BIS certification (applicable goods)", "FSSAI license (food)"],
+      "tariffNotes": "India-UAE CEPA reduces tariffs on 80% of tariff lines. Gold and jewelry preferential rates.",
+      "restrictions": ["Gold import subject to RBI regulations", "Electronics require BIS certification"],
+      "avgClearanceDays": 3
+    },
+    "US-CA": {
+      "origin": "United States", "destination": "Canada",
+      "documents": ["Commercial Invoice", "Packing List", "Bill of Lading", "USMCA Certificate of Origin", "Canada Customs Invoice (CCI)"],
+      "tariffNotes": "USMCA duty-free for qualifying goods. Dairy, poultry, eggs under supply management (high over-quota tariffs).",
+      "restrictions": ["Dairy TRQ limits", "Cultural goods (books) may have content rules", "Cannabis cannot cross border"],
+      "avgClearanceDays": 1
+    }
+  },
+  "documentDescriptions": {
+    "Commercial Invoice": "Seller's invoice showing goods, quantities, prices, terms of sale (Incoterms).",
+    "Packing List": "Detailed breakdown of package contents, weights, and dimensions.",
+    "Bill of Lading": "Contract of carriage between shipper and carrier for sea freight.",
+    "Airway Bill": "Contract of carriage for air freight (non-negotiable).",
+    "Certificate of Origin": "Document certifying the country where goods were manufactured.",
+    "ISF 10+2": "Importer Security Filing required 24 hours before US-bound vessel loading.",
+    "EEI": "Electronic Export Information filed via AES for US exports over $2,500.",
+    "EUR.1": "Movement certificate proving EU/partner country origin for preferential tariffs.",
+    "Phytosanitary Certificate": "Government certificate that plants/plant products are pest-free.",
+    "Fumigation Certificate": "Proof that wood packaging has been heat-treated or fumigated (ISPM-15)."
+  }
+}

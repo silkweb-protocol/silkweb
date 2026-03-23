@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8">
+<style>
+@import url('{{fontImport}}');
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  width: {{width}}px; height: {{height}}px; overflow: hidden;
+  background: {{bg}};
+  font-family: {{fontHeading}};
+  position: relative;
+}
+/* Gradient mesh */
+.mesh-1 {
+  position: absolute; width: 700px; height: 700px; top: -300px; right: -100px;
+  background: radial-gradient(circle, {{primaryAlpha15}} 0%, transparent 65%);
+  filter: blur(100px);
+}
+.mesh-2 {
+  position: absolute; width: 500px; height: 500px; bottom: -200px; left: -50px;
+  background: radial-gradient(circle, {{secondaryAlpha10}} 0%, transparent 65%);
+  filter: blur(80px);
+}
+.mesh-3 {
+  position: absolute; width: 400px; height: 400px; top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, {{accentAlpha08}} 0%, transparent 60%);
+  filter: blur(60px);
+}
+/* Grid */
+.grid {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+.container {
+  position: relative; z-index: 1;
+  height: 100%; display: flex; flex-direction: column;
+  padding: 56px 80px 48px;
+}
+/* Logo area */
+.top-bar {
+  display: flex; align-items: center; gap: 14px;
+  margin-bottom: 40px;
+}
+.logo-mark {
+  width: 44px; height: 44px; border-radius: 12px;
+  background: linear-gradient(135deg, {{primary}}, {{primaryLight}}, {{accent}});
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 4px 20px {{primaryAlpha30}};
+  font-size: 22px; color: white; font-weight: 900;
+}
+.brand-name {
+  font-size: 20px; font-weight: 700; color: rgba(255,255,255,0.7);
+  letter-spacing: -0.5px;
+}
+/* Main content */
+.headline {
+  font-size: 52px; font-weight: 900; letter-spacing: -2.5px; line-height: 1.05;
+  background: linear-gradient(135deg, #e2e8f0 30%, {{primaryLight}} 70%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  max-width: 800px;
+  margin-bottom: 16px;
+}
+.subheadline {
+  font-size: 20px; font-weight: 400; color: rgba(255,255,255,0.35);
+  letter-spacing: 0.5px; max-width: 600px;
+  line-height: 1.5;
+}
+/* Bottom */
+.bottom {
+  margin-top: auto; display: flex; align-items: center; justify-content: space-between;
+}
+.badges { display: flex; gap: 10px; }
+.badge {
+  padding: 6px 16px; border-radius: 20px;
+  border: 1px solid rgba(255,255,255,0.08);
+  background: rgba(255,255,255,0.03);
+  font-size: 12px; color: rgba(255,255,255,0.3); font-weight: 500;
+  letter-spacing: 0.5px;
+}
+.badge.primary { border-color: {{primaryAlpha20}}; color: {{primaryAlpha60}}; }
+.badge.secondary { border-color: {{secondaryAlpha20}}; color: {{secondaryAlpha60}}; }
+.url {
+  font-family: {{fontMono}};
+  font-size: 14px; color: rgba(255,255,255,0.2); letter-spacing: 0.5px;
+}
+/* Floating badge */
+.float-badge {
+  position: absolute; top: 20px; right: 20px;
+  background: {{secondaryAlpha10}};
+  border: 1px solid {{secondaryAlpha30}};
+  border-radius: 20px; padding: 6px 14px;
+  font-size: 11px; color: {{secondary}}; font-weight: 600; letter-spacing: 0.5px;
+}
+.float-badge::before {
+  content: ''; display: inline-block; width: 6px; height: 6px;
+  background: {{secondary}}; border-radius: 50%; margin-right: 6px;
+  box-shadow: 0 0 8px {{secondaryAlpha60}};
+}
+</style></head><body>
+<div class="mesh-1"></div>
+<div class="mesh-2"></div>
+<div class="mesh-3"></div>
+<div class="grid"></div>
+{{#if floatBadge}}<div class="float-badge">{{floatBadge}}</div>{{/if}}
+
+<div class="container">
+  <div class="top-bar">
+    <div class="logo-mark">{{logoLetter}}</div>
+    <div class="brand-name">{{brandName}}</div>
+  </div>
+
+  <div class="headline">{{headline}}</div>
+  <div class="subheadline">{{subheadline}}</div>
+
+  <div class="bottom">
+    <div class="badges">
+      {{#each badges}}
+      <div class="badge {{this.class}}">{{this.text}}</div>
+      {{/each}}
+    </div>
+    <div class="url">{{url}}</div>
+  </div>
+</div>
+</body></html>

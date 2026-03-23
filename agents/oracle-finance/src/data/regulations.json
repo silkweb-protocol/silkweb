@@ -1,0 +1,133 @@
+{
+  "frameworks": {
+    "SOX": {
+      "name": "Sarbanes-Oxley Act",
+      "jurisdiction": "US",
+      "applies_to": ["publicly traded companies", "US-listed companies", "auditors of public companies"],
+      "keywords": ["public company", "SEC", "IPO", "stock exchange", "publicly traded", "financial reporting"],
+      "requirements": [
+        "Section 302: CEO/CFO certification of financial statements",
+        "Section 404: Internal controls over financial reporting",
+        "Section 906: Criminal penalties for false certifications",
+        "Annual audit by independent registered public accounting firm",
+        "Whistleblower protections for employees"
+      ],
+      "penalties": "Up to $5M in fines and 20 years imprisonment for willful violations"
+    },
+    "GDPR": {
+      "name": "General Data Protection Regulation",
+      "jurisdiction": "EU/EEA",
+      "applies_to": ["companies processing EU resident data", "any business offering goods/services to EU", "companies monitoring EU resident behavior"],
+      "keywords": ["personal data", "EU", "Europe", "data processing", "privacy", "user data", "customer data", "GDPR"],
+      "requirements": [
+        "Lawful basis for data processing",
+        "Data Protection Impact Assessment (DPIA)",
+        "Data Protection Officer (DPO) appointment",
+        "72-hour breach notification to supervisory authority",
+        "Right to erasure (right to be forgotten)",
+        "Data portability rights",
+        "Privacy by design and by default"
+      ],
+      "penalties": "Up to 4% of annual global turnover or 20M EUR, whichever is higher"
+    },
+    "PCI-DSS": {
+      "name": "Payment Card Industry Data Security Standard",
+      "jurisdiction": "Global",
+      "applies_to": ["any entity storing/processing/transmitting cardholder data", "payment processors", "e-commerce", "retail"],
+      "keywords": ["credit card", "payment", "cardholder", "PCI", "merchant", "payment processing", "e-commerce", "checkout"],
+      "requirements": [
+        "Install and maintain a firewall configuration",
+        "Do not use vendor-supplied defaults for passwords",
+        "Protect stored cardholder data (encryption)",
+        "Encrypt transmission of cardholder data across open networks",
+        "Use and regularly update anti-virus software",
+        "Develop and maintain secure systems and applications",
+        "Restrict access to cardholder data by business need-to-know",
+        "Assign a unique ID to each person with computer access",
+        "Restrict physical access to cardholder data",
+        "Track and monitor all access to network resources",
+        "Regularly test security systems and processes",
+        "Maintain an information security policy"
+      ],
+      "penalties": "Fines of $5,000-$100,000/month by card brands, potential loss of card processing privileges"
+    },
+    "HIPAA": {
+      "name": "Health Insurance Portability and Accountability Act",
+      "jurisdiction": "US",
+      "applies_to": ["healthcare providers", "health plans", "healthcare clearinghouses", "business associates handling PHI"],
+      "keywords": ["health", "medical", "patient", "PHI", "healthcare", "hospital", "clinical", "HIPAA", "protected health"],
+      "requirements": [
+        "Privacy Rule: Protect individually identifiable health information",
+        "Security Rule: Safeguards for electronic PHI (ePHI)",
+        "Breach Notification Rule: Notify individuals within 60 days",
+        "Minimum necessary standard for PHI disclosure",
+        "Business Associate Agreements (BAAs)",
+        "Risk analysis and risk management",
+        "Workforce training on PHI handling"
+      ],
+      "penalties": "Tier 1: $100-$50,000 per violation; Tier 4: $50,000+ per violation, up to $1.5M/year"
+    },
+    "AML": {
+      "name": "Anti-Money Laundering Regulations",
+      "jurisdiction": "Global (varies by country)",
+      "applies_to": ["banks", "financial institutions", "money service businesses", "crypto exchanges", "real estate", "casinos"],
+      "keywords": ["money laundering", "KYC", "know your customer", "financial", "banking", "transactions", "wire transfer", "crypto", "AML"],
+      "requirements": [
+        "Customer Due Diligence (CDD) and Enhanced Due Diligence (EDD)",
+        "Know Your Customer (KYC) procedures",
+        "Suspicious Activity Reports (SARs) filing",
+        "Currency Transaction Reports (CTRs) for transactions over $10,000",
+        "Transaction monitoring systems",
+        "AML compliance officer designation",
+        "Regular AML training for employees",
+        "Record keeping for 5+ years"
+      ],
+      "penalties": "Varies: US BSA violations up to $1M/day; EU 5AMLD up to 5M EUR or 10% of turnover"
+    },
+    "SOC2": {
+      "name": "SOC 2 Type II",
+      "jurisdiction": "Global",
+      "applies_to": ["SaaS companies", "cloud service providers", "data centers", "managed service providers"],
+      "keywords": ["SaaS", "cloud", "service provider", "data center", "software", "platform", "SOC", "trust services"],
+      "requirements": [
+        "Security: Protection against unauthorized access",
+        "Availability: System operational and usable as committed",
+        "Processing Integrity: System processing is complete and accurate",
+        "Confidentiality: Confidential information is protected",
+        "Privacy: Personal information handled per privacy notice",
+        "Continuous monitoring over 6-12 month audit period",
+        "Independent auditor examination"
+      ],
+      "penalties": "No direct penalties, but loss of enterprise customers and trust"
+    },
+    "DORA": {
+      "name": "Digital Operational Resilience Act",
+      "jurisdiction": "EU",
+      "applies_to": ["banks", "insurance companies", "investment firms", "crypto-asset service providers", "ICT third-party providers"],
+      "keywords": ["financial", "EU", "digital resilience", "ICT risk", "fintech", "bank", "insurance", "investment"],
+      "requirements": [
+        "ICT risk management framework",
+        "ICT-related incident reporting",
+        "Digital operational resilience testing",
+        "Third-party ICT risk management",
+        "Information sharing on cyber threats"
+      ],
+      "penalties": "Up to 1% of average daily worldwide turnover; periodic penalty payments up to 0.5% of daily turnover"
+    },
+    "CCPA": {
+      "name": "California Consumer Privacy Act",
+      "jurisdiction": "US (California)",
+      "applies_to": ["businesses with $25M+ revenue", "businesses handling 100K+ consumer records", "businesses earning 50%+ revenue from selling personal info"],
+      "keywords": ["California", "consumer privacy", "personal information", "data sale", "opt-out", "CCPA", "CPRA"],
+      "requirements": [
+        "Right to know what personal information is collected",
+        "Right to delete personal information",
+        "Right to opt-out of sale of personal information",
+        "Right to non-discrimination for exercising rights",
+        "Privacy notice at or before collection",
+        "Service provider contractual requirements"
+      ],
+      "penalties": "$2,500 per unintentional violation, $7,500 per intentional violation"
+    }
+  }
+}

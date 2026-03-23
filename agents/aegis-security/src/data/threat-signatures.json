@@ -1,0 +1,40 @@
+{
+  "malicious_patterns": [
+    { "pattern": "eval\\(", "severity": "high", "category": "code-injection", "description": "Potential code injection via eval()" },
+    { "pattern": "document\\.write", "severity": "medium", "category": "xss", "description": "DOM-based XSS via document.write" },
+    { "pattern": "innerHTML\\s*=", "severity": "medium", "category": "xss", "description": "Potential XSS via innerHTML assignment" },
+    { "pattern": "<script[^>]*>", "severity": "high", "category": "xss", "description": "Inline script tag detected" },
+    { "pattern": "onclick\\s*=", "severity": "low", "category": "xss", "description": "Inline event handler" },
+    { "pattern": "javascript:", "severity": "high", "category": "xss", "description": "JavaScript URI scheme" },
+    { "pattern": "data:text/html", "severity": "high", "category": "xss", "description": "Data URI with HTML content" },
+    { "pattern": "\\.exec\\(", "severity": "medium", "category": "code-injection", "description": "Dynamic execution pattern" },
+    { "pattern": "fromCharCode", "severity": "medium", "category": "obfuscation", "description": "Character code obfuscation" },
+    { "pattern": "atob\\(", "severity": "low", "category": "obfuscation", "description": "Base64 decode (potential obfuscation)" }
+  ],
+  "suspicious_tlds": [
+    ".tk", ".ml", ".ga", ".cf", ".gq", ".xyz", ".top", ".club", ".work", ".buzz",
+    ".monster", ".icu", ".cam", ".rest", ".fit", ".loan", ".click", ".link"
+  ],
+  "known_malware_hashes": {
+    "e99a18c428cb38d5f260853678922e03": { "name": "EICAR-Test", "family": "test", "severity": "info" },
+    "44d88612fea8a8f36de82e1278abb02f": { "name": "EICAR-Standard", "family": "test", "severity": "info" },
+    "d41d8cd98f00b204e9800998ecf8427e": { "name": "Empty-File", "family": "benign", "severity": "info" }
+  },
+  "cve_patterns": [
+    { "id": "CVE-2024-3094", "product": "xz-utils", "severity": "critical", "cvss": 10.0, "description": "XZ Utils backdoor in liblzma" },
+    { "id": "CVE-2024-21762", "product": "FortiOS", "severity": "critical", "cvss": 9.8, "description": "Fortinet FortiOS out-of-bound write" },
+    { "id": "CVE-2023-44487", "product": "HTTP/2", "severity": "high", "cvss": 7.5, "description": "HTTP/2 Rapid Reset DDoS attack" },
+    { "id": "CVE-2023-4966", "product": "Citrix NetScaler", "severity": "critical", "cvss": 9.4, "description": "Citrix Bleed information disclosure" },
+    { "id": "CVE-2023-34362", "product": "MOVEit Transfer", "severity": "critical", "cvss": 9.8, "description": "SQL injection in MOVEit Transfer" },
+    { "id": "CVE-2023-23397", "product": "Microsoft Outlook", "severity": "critical", "cvss": 9.8, "description": "NTLM relay via Outlook calendar invite" },
+    { "id": "CVE-2023-20198", "product": "Cisco IOS XE", "severity": "critical", "cvss": 10.0, "description": "Privilege escalation in IOS XE Web UI" },
+    { "id": "CVE-2022-44877", "product": "CentOS Web Panel", "severity": "critical", "cvss": 9.8, "description": "RCE in CWP login page" },
+    { "id": "CVE-2021-44228", "product": "Apache Log4j", "severity": "critical", "cvss": 10.0, "description": "Log4Shell remote code execution" },
+    { "id": "CVE-2021-34527", "product": "Windows Print Spooler", "severity": "critical", "cvss": 8.8, "description": "PrintNightmare RCE" }
+  ],
+  "breach_database": {
+    "example.com": { "date": "2024-01-15", "records": 2300000, "data_types": ["email", "password_hash", "username"] },
+    "testbreach.org": { "date": "2023-08-22", "records": 540000, "data_types": ["email", "plaintext_password", "ip_address"] },
+    "oldshop.net": { "date": "2023-03-01", "records": 12800000, "data_types": ["email", "name", "address", "credit_card_partial"] }
+  }
+}
