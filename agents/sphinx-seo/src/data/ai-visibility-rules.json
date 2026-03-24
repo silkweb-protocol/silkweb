@@ -1,0 +1,78 @@
+{
+  "definition_density": {
+    "rules": [
+      { "id": "def-first-sentence", "description": "First 1-2 sentences clearly define what the page is about", "weight": 9, "category": "critical", "fix": "Rewrite your opening to clearly define your topic in the first 1-2 sentences. AI models extract definitions from page intros. Start with: '[Topic] is a [category] that [does what]'" },
+      { "id": "def-concise", "description": "Definition is concise and extractable (under 40 words)", "weight": 6, "category": "important", "maxWords": 40, "fix": "Make your opening definition concise and self-contained — AI models need to extract it as a standalone answer" },
+      { "id": "def-entity-named", "description": "Primary entity/product is named explicitly in the first paragraph", "weight": 7, "category": "important", "fix": "Name your product/service/topic explicitly in the first paragraph — don't use pronouns or vague references" }
+    ]
+  },
+  "faq_presence": {
+    "rules": [
+      { "id": "faq-section-exists", "description": "Page has an FAQ section or Q&A format content", "weight": 8, "category": "critical", "patterns": ["frequently asked", "faq", "common questions", "q&a", "questions and answers"], "fix": "Add an FAQ section — AI models heavily pull from Q&A formatted content for direct answers" },
+      { "id": "faq-schema-exists", "description": "FAQ section has FAQPage schema markup", "weight": 7, "category": "important", "fix": "Add FAQPage JSON-LD schema to your FAQ section — this is the #1 way to get into AI-generated answers" },
+      { "id": "faq-question-format", "description": "Questions are in proper question format (start with who/what/when/where/why/how)", "weight": 5, "category": "moderate", "fix": "Format FAQ questions as natural questions starting with Who/What/When/Where/Why/How — matches how users ask AI" },
+      { "id": "faq-answer-length", "description": "FAQ answers are concise (40-200 words each)", "weight": 4, "category": "moderate", "fix": "Keep FAQ answers between 40-200 words — concise enough for AI to extract, detailed enough to be useful" }
+    ]
+  },
+  "structured_data_richness": {
+    "rules": [
+      { "id": "jsonld-exists", "description": "Page has JSON-LD structured data", "weight": 8, "category": "critical", "fix": "Add JSON-LD structured data — this is the primary way AI systems understand page content type and structure" },
+      { "id": "jsonld-type-specific", "description": "JSON-LD uses specific type (not just WebPage)", "weight": 5, "category": "important", "preferredTypes": ["Article", "TechArticle", "HowTo", "FAQPage", "Product", "SoftwareApplication", "Organization", "Service", "Review"], "fix": "Use a specific schema type (Article, Product, FAQ, HowTo) instead of generic WebPage — gives AI better context" },
+      { "id": "jsonld-properties-complete", "description": "JSON-LD includes all recommended properties for its type", "weight": 4, "category": "moderate", "fix": "Fill in all recommended schema properties — more structured data = more ways for AI to reference your page" },
+      { "id": "multiple-schemas", "description": "Page has multiple complementary schema types", "weight": 3, "category": "moderate", "fix": "Add multiple schema types (e.g., Organization + FAQPage + BreadcrumbList) for comprehensive AI coverage" }
+    ]
+  },
+  "citation_worthiness": {
+    "rules": [
+      { "id": "contains-statistics", "description": "Content includes specific numbers, statistics, or data points", "weight": 8, "category": "critical", "patterns": ["\\d+%", "\\$[\\d,]+", "\\d+ million", "\\d+ billion", "\\d+x", "increased by", "decreased by", "grew by", "study found", "research shows", "data shows", "according to", "survey of"], "fix": "Add specific statistics, data points, and numbers — AI models preferentially cite content with concrete data" },
+      { "id": "contains-original-research", "description": "Content signals original research or unique data", "weight": 7, "category": "important", "patterns": ["our research", "we found", "our study", "our data shows", "we analyzed", "we surveyed", "our findings", "proprietary data", "exclusive data"], "fix": "Include original research, proprietary data, or unique findings — AI strongly prefers citing primary sources" },
+      { "id": "contains-expert-quotes", "description": "Content includes expert quotes or attributions", "weight": 5, "category": "moderate", "patterns": ["according to", "said", "explains", "notes", "CEO", "founder", "expert", "analyst", "professor", "researcher"], "fix": "Add expert quotes with proper attribution — AI models cite content with authoritative sources" },
+      { "id": "contains-definitions", "description": "Content provides clear definitions of key terms", "weight": 6, "category": "important", "patterns": ["is defined as", "refers to", "is a type of", "also known as", "meaning", "is the process of"], "fix": "Include clear definitions of key terms — AI models extract and cite definitional content" },
+      { "id": "contains-comparisons", "description": "Content includes comparison tables or vs analysis", "weight": 6, "category": "important", "patterns": ["vs", "versus", "compared to", "comparison", "difference between", "better than", "alternative to"], "fix": "Add comparison content ('X vs Y', comparison tables) — these are among the most-cited content types in AI answers" }
+    ]
+  },
+  "entity_clarity": {
+    "rules": [
+      { "id": "consistent-naming", "description": "Primary entity uses consistent naming throughout the page", "weight": 7, "category": "important", "fix": "Use consistent naming for your product/brand throughout the page — don't alternate between variations" },
+      { "id": "entity-first-mention", "description": "Primary entity is introduced by full name on first mention", "weight": 5, "category": "moderate", "fix": "Introduce your entity by its full, official name on first mention before using abbreviations" },
+      { "id": "entity-context", "description": "Entity is placed in clear context (category, industry, function)", "weight": 5, "category": "moderate", "fix": "Provide category context for your entity (e.g., 'Sphinx, an SEO analysis tool' not just 'Sphinx')" }
+    ]
+  },
+  "content_format": {
+    "rules": [
+      { "id": "howto-content", "description": "Page includes how-to or step-by-step content", "weight": 6, "category": "important", "patterns": ["step 1", "step 2", "how to", "guide", "tutorial", "instructions", "first,", "second,", "next,", "finally,"], "fix": "Add step-by-step instructions or how-to content — AI models frequently pull procedural content for answers" },
+      { "id": "howto-schema", "description": "How-to content has HowTo schema markup", "weight": 5, "category": "moderate", "fix": "Add HowTo JSON-LD schema to your instructional content for direct AI extraction" },
+      { "id": "list-format", "description": "Content uses lists (ordered/unordered) for key points", "weight": 4, "category": "moderate", "fix": "Use bullet points and numbered lists for key information — AI models prefer structured, scannable content" },
+      { "id": "table-format", "description": "Content uses tables for comparative or structured data", "weight": 4, "category": "moderate", "fix": "Add tables for comparative data, pricing, features — AI models extract tabular information effectively" },
+      { "id": "direct-answer-format", "description": "Content directly answers questions in concise paragraphs", "weight": 7, "category": "important", "fix": "Write concise, direct answers to likely questions — start paragraphs with the answer, then elaborate" }
+    ]
+  },
+  "freshness_signals": {
+    "rules": [
+      { "id": "date-published", "description": "Page has datePublished metadata", "weight": 5, "category": "important", "fix": "Add datePublished to your schema markup and visible on page — AI models prefer content with publication dates" },
+      { "id": "date-modified", "description": "Page has dateModified metadata", "weight": 6, "category": "important", "fix": "Add dateModified to your schema markup — AI models strongly prefer recently updated content" },
+      { "id": "visible-date", "description": "Publication or update date is visible on the page", "weight": 4, "category": "moderate", "fix": "Display the publication/update date visibly on your page — this is a trust signal for both users and AI" },
+      { "id": "recent-date", "description": "Content was published or updated within the last 12 months", "weight": 5, "category": "important", "fix": "Update your content regularly and reflect the updated date — stale content loses AI visibility over time" }
+    ]
+  },
+  "authority_signals": {
+    "rules": [
+      { "id": "author-info", "description": "Page has author information", "weight": 5, "category": "important", "fix": "Add author name and credentials — AI models prioritize content from identified, credible authors" },
+      { "id": "author-schema", "description": "Author has Person schema markup", "weight": 4, "category": "moderate", "fix": "Add Person schema for your author with name, jobTitle, and sameAs links to authoritative profiles" },
+      { "id": "about-page-linked", "description": "Page links to an about/team page", "weight": 3, "category": "moderate", "patterns": ["/about", "/team", "/author", "/who-we-are"], "fix": "Link to your about/team page — establishes organizational authority for AI citation" },
+      { "id": "organization-schema", "description": "Site has Organization schema", "weight": 5, "category": "important", "fix": "Add Organization JSON-LD schema with name, url, logo, description, and sameAs social links" }
+    ]
+  },
+  "ai_crawlability": {
+    "rules": [
+      { "id": "gptbot-allowed", "description": "GPTBot (OpenAI) is not blocked in robots.txt", "weight": 8, "category": "critical", "crawler": "GPTBot", "fix": "Allow GPTBot in robots.txt to appear in ChatGPT answers. Add: User-agent: GPTBot\\nAllow: /" },
+      { "id": "claudebot-allowed", "description": "ClaudeBot (Anthropic) is not blocked in robots.txt", "weight": 8, "category": "critical", "crawler": "ClaudeBot", "altCrawler": "anthropic-ai", "fix": "Allow ClaudeBot in robots.txt to appear in Claude answers. Add: User-agent: ClaudeBot\\nAllow: /" },
+      { "id": "perplexitybot-allowed", "description": "PerplexityBot is not blocked in robots.txt", "weight": 7, "category": "important", "crawler": "PerplexityBot", "fix": "Allow PerplexityBot in robots.txt to appear in Perplexity search results" },
+      { "id": "ccbot-allowed", "description": "CCBot (Common Crawl) is not blocked in robots.txt", "weight": 6, "category": "important", "crawler": "CCBot", "fix": "Allow CCBot in robots.txt — Common Crawl data feeds many AI training datasets" },
+      { "id": "google-extended-allowed", "description": "Google-Extended is not blocked in robots.txt", "weight": 6, "category": "important", "crawler": "Google-Extended", "fix": "Allow Google-Extended in robots.txt to be included in Google's AI features (Gemini, AI Overviews)" },
+      { "id": "bytespider-status", "description": "Bytespider (ByteDance/TikTok) status is intentional", "weight": 3, "category": "minor", "crawler": "Bytespider", "fix": "Consider your Bytespider policy — blocking it prevents TikTok AI features but some sites prefer to block it" },
+      { "id": "amazonbot-status", "description": "Amazonbot status is intentional", "weight": 3, "category": "minor", "crawler": "Amazonbot", "fix": "Consider allowing Amazonbot for visibility in Alexa answers and Amazon search" },
+      { "id": "facebookbot-status", "description": "FacebookExternalHit status is intentional", "weight": 3, "category": "minor", "crawler": "facebookexternalhit", "fix": "Allow facebookexternalhit for proper link previews on Facebook and Meta platforms" }
+    ]
+  }
+}

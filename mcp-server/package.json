@@ -1,0 +1,23 @@
+{
+  "name": "silkweb-mcp-server",
+  "version": "0.1.0",
+  "description": "MCP server exposing all 9 SilkWeb agents as tools for Claude Desktop, OpenClaw, and MCP-compatible clients",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "node src/index.js",
+    "test": "node test.js"
+  },
+  "keywords": [
+    "mcp",
+    "silkweb",
+    "ai-agents",
+    "model-context-protocol",
+    "claude-desktop"
+  ],
+  "author": "SilkWeb / Armstrong Alliance Group",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0"
+  }
+}

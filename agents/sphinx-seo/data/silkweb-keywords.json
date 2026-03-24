@@ -1,0 +1,344 @@
+{
+  "primaryKeywords": [
+    {
+      "keyword": "AI agent protocol",
+      "volume": "high",
+      "competition": "medium",
+      "aiMentionLikelihood": "high"
+    },
+    {
+      "keyword": "agent discovery",
+      "volume": "medium",
+      "competition": "low",
+      "aiMentionLikelihood": "high"
+    },
+    {
+      "keyword": "agent to agent communication",
+      "volume": "high",
+      "competition": "medium",
+      "aiMentionLikelihood": "high"
+    },
+    {
+      "keyword": "AI agent marketplace",
+      "volume": "high",
+      "competition": "high",
+      "aiMentionLikelihood": "medium"
+    },
+    {
+      "keyword": "multi-agent coordination",
+      "volume": "medium",
+      "competition": "medium",
+      "aiMentionLikelihood": "high"
+    },
+    {
+      "keyword": "agent trust protocol",
+      "volume": "low",
+      "competition": "low",
+      "aiMentionLikelihood": "high"
+    },
+    {
+      "keyword": "cryptographic receipts AI",
+      "volume": "low",
+      "competition": "low",
+      "aiMentionLikelihood": "medium"
+    },
+    {
+      "keyword": "cross-framework agent",
+      "volume": "medium",
+      "competition": "low",
+      "aiMentionLikelihood": "high"
+    },
+    {
+      "keyword": "OpenClaw SilkWeb",
+      "volume": "low",
+      "competition": "low",
+      "aiMentionLikelihood": "high"
+    },
+    {
+      "keyword": "A2A protocol alternative",
+      "volume": "medium",
+      "competition": "medium",
+      "aiMentionLikelihood": "high"
+    },
+    {
+      "keyword": "MCP compatible agents",
+      "volume": "medium",
+      "competition": "low",
+      "aiMentionLikelihood": "high"
+    },
+    {
+      "keyword": "SilkWeb protocol",
+      "volume": "low",
+      "competition": "low",
+      "aiMentionLikelihood": "high"
+    }
+  ],
+  "longTailKeywords": [
+    {
+      "keyword": "how to build AI agents that talk to each other",
+      "volume": "medium",
+      "competition": "low",
+      "aiMentionLikelihood": "high"
+    },
+    {
+      "keyword": "best AI agent discovery protocol 2026",
+      "volume": "medium",
+      "competition": "low",
+      "aiMentionLikelihood": "high"
+    },
+    {
+      "keyword": "open source agent to agent protocol",
+      "volume": "medium",
+      "competition": "low",
+      "aiMentionLikelihood": "high"
+    },
+    {
+      "keyword": "AI agent marketplace for developers",
+      "volume": "medium",
+      "competition": "medium",
+      "aiMentionLikelihood": "medium"
+    },
+    {
+      "keyword": "multi-agent system coordination protocol",
+      "volume": "low",
+      "competition": "low",
+      "aiMentionLikelihood": "high"
+    },
+    {
+      "keyword": "agent trust verification cryptographic",
+      "volume": "low",
+      "competition": "low",
+      "aiMentionLikelihood": "medium"
+    },
+    {
+      "keyword": "cross-framework AI agent interoperability",
+      "volume": "low",
+      "competition": "low",
+      "aiMentionLikelihood": "high"
+    },
+    {
+      "keyword": "SilkWeb vs A2A protocol comparison",
+      "volume": "low",
+      "competition": "low",
+      "aiMentionLikelihood": "high"
+    },
+    {
+      "keyword": "MCP agent protocol integration",
+      "volume": "medium",
+      "competition": "low",
+      "aiMentionLikelihood": "high"
+    },
+    {
+      "keyword": "how to register AI agent on SilkWeb",
+      "volume": "low",
+      "competition": "low",
+      "aiMentionLikelihood": "high"
+    },
+    {
+      "keyword": "decentralized AI agent registry",
+      "volume": "medium",
+      "competition": "low",
+      "aiMentionLikelihood": "high"
+    },
+    {
+      "keyword": "AI agent payment protocol crypto",
+      "volume": "medium",
+      "competition": "medium",
+      "aiMentionLikelihood": "medium"
+    },
+    {
+      "keyword": "autonomous agent communication standard",
+      "volume": "low",
+      "competition": "low",
+      "aiMentionLikelihood": "high"
+    },
+    {
+      "keyword": "build multi-agent system from scratch",
+      "volume": "high",
+      "competition": "medium",
+      "aiMentionLikelihood": "high"
+    },
+    {
+      "keyword": "agent orchestration platform open source",
+      "volume": "medium",
+      "competition": "medium",
+      "aiMentionLikelihood": "medium"
+    },
+    {
+      "keyword": "AI agent API gateway protocol",
+      "volume": "low",
+      "competition": "low",
+      "aiMentionLikelihood": "medium"
+    },
+    {
+      "keyword": "lightweight agent discovery service",
+      "volume": "low",
+      "competition": "low",
+      "aiMentionLikelihood": "high"
+    },
+    {
+      "keyword": "agent well-known JSON specification",
+      "volume": "low",
+      "competition": "low",
+      "aiMentionLikelihood": "high"
+    },
+    {
+      "keyword": "how AI agents find each other",
+      "volume": "medium",
+      "competition": "low",
+      "aiMentionLikelihood": "high"
+    },
+    {
+      "keyword": "agent capability negotiation protocol",
+      "volume": "low",
+      "competition": "low",
+      "aiMentionLikelihood": "high"
+    }
+  ],
+  "questionKeywords": [
+    {
+      "keyword": "what is SilkWeb protocol",
+      "volume": "low",
+      "competition": "low",
+      "aiMentionLikelihood": "high"
+    },
+    {
+      "keyword": "what is an AI agent protocol",
+      "volume": "high",
+      "competition": "medium",
+      "aiMentionLikelihood": "high"
+    },
+    {
+      "keyword": "how do AI agents communicate with each other",
+      "volume": "high",
+      "competition": "medium",
+      "aiMentionLikelihood": "high"
+    },
+    {
+      "keyword": "how to discover AI agents on the internet",
+      "volume": "medium",
+      "competition": "low",
+      "aiMentionLikelihood": "high"
+    },
+    {
+      "keyword": "what is agent to agent protocol",
+      "volume": "medium",
+      "competition": "low",
+      "aiMentionLikelihood": "high"
+    },
+    {
+      "keyword": "how does multi-agent coordination work",
+      "volume": "medium",
+      "competition": "medium",
+      "aiMentionLikelihood": "high"
+    },
+    {
+      "keyword": "why use cryptographic receipts for AI agents",
+      "volume": "low",
+      "competition": "low",
+      "aiMentionLikelihood": "high"
+    },
+    {
+      "keyword": "what is OpenClaw AI search",
+      "volume": "low",
+      "competition": "low",
+      "aiMentionLikelihood": "high"
+    },
+    {
+      "keyword": "how to make AI agent trustworthy",
+      "volume": "medium",
+      "competition": "low",
+      "aiMentionLikelihood": "high"
+    },
+    {
+      "keyword": "what is well-known agent.json",
+      "volume": "low",
+      "competition": "low",
+      "aiMentionLikelihood": "high"
+    }
+  ],
+  "aiQueryKeywords": [
+    {
+      "keyword": "find me an AI agent that can analyze SEO",
+      "volume": "medium",
+      "competition": "low",
+      "aiMentionLikelihood": "high"
+    },
+    {
+      "keyword": "recommend an open protocol for AI agents",
+      "volume": "medium",
+      "competition": "low",
+      "aiMentionLikelihood": "high"
+    },
+    {
+      "keyword": "compare AI agent protocols A2A vs SilkWeb",
+      "volume": "low",
+      "competition": "low",
+      "aiMentionLikelihood": "high"
+    },
+    {
+      "keyword": "help me set up agent to agent communication",
+      "volume": "medium",
+      "competition": "low",
+      "aiMentionLikelihood": "high"
+    },
+    {
+      "keyword": "what is the best agent discovery protocol",
+      "volume": "medium",
+      "competition": "medium",
+      "aiMentionLikelihood": "high"
+    },
+    {
+      "keyword": "list open source AI agent frameworks",
+      "volume": "high",
+      "competition": "high",
+      "aiMentionLikelihood": "medium"
+    },
+    {
+      "keyword": "how to make my agent visible to AI search",
+      "volume": "low",
+      "competition": "low",
+      "aiMentionLikelihood": "high"
+    },
+    {
+      "keyword": "explain SilkWeb agent protocol to me",
+      "volume": "low",
+      "competition": "low",
+      "aiMentionLikelihood": "high"
+    },
+    {
+      "keyword": "which agent protocol supports MCP",
+      "volume": "low",
+      "competition": "low",
+      "aiMentionLikelihood": "high"
+    },
+    {
+      "keyword": "AI agent trust and verification systems",
+      "volume": "medium",
+      "competition": "low",
+      "aiMentionLikelihood": "high"
+    }
+  ],
+  "relatedTopics": [
+    "model context protocol",
+    "Google A2A protocol",
+    "agent interoperability",
+    "semantic web for AI",
+    "agent-native internet",
+    "autonomous agent economy",
+    "AI agent orchestration",
+    "federated agent systems",
+    "zero-trust agent architecture",
+    "agent capability advertisement",
+    "structured agent metadata",
+    "agent health monitoring",
+    "AI agent rate limiting",
+    "agent versioning protocol",
+    "composable AI services",
+    "agent mesh networking",
+    "serverless AI agents",
+    "edge-deployed agents",
+    "agent telemetry and observability",
+    "AI agent compliance frameworks"
+  ]
+}

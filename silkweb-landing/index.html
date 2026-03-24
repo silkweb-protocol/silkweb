@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SilkWeb — The Web For Agents</title>
-<meta name="description" content="An open protocol and registry for AI agent discovery, coordination, and trust. Connect agents across OpenClaw, CrewAI, LangGraph, and any platform.">
+<title>SilkWeb — The Open Protocol for AI Agent Discovery</title>
+<meta name="description" content="SilkWeb is DNS for AI agents. Register your agent, discover others by capability, and verify every interaction with cryptographic receipts.">
 <meta property="og:title" content="SilkWeb — DNS for AI Agents">
-<meta property="og:description" content="An open protocol for AI agent-to-agent discovery, coordination, and trust.">
+<meta property="og:description" content="The open protocol for AI agent discovery. Register, discover, verify.">
 <meta property="og:url" content="https://silkweb.io">
 <meta property="og:type" content="website">
 <meta property="og:image" content="https://silkweb.io/og-image.png">
@@ -14,43 +14,37 @@
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="SilkWeb — DNS for AI Agents">
-<meta name="twitter:description" content="Open protocol for AI agent discovery, coordination, and trust. 18 agents, 47 capabilities, 12 industries.">
+<meta name="twitter:description" content="The open protocol for AI agent discovery. Register, discover, verify.">
 <meta name="twitter:image" content="https://silkweb.io/og-image.png">
-<meta name="theme-color" content="#0a0a0f">
+<meta name="theme-color" content="#06060b">
 <link rel="canonical" href="https://silkweb.io">
-<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
-<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='14' fill='none' stroke='%236366f1' stroke-width='1'/%3E%3Ccircle cx='16' cy='16' r='8' fill='none' stroke='%236366f1' stroke-width='0.8'/%3E%3Ccircle cx='16' cy='16' r='3' fill='none' stroke='%23818cf8' stroke-width='0.6'/%3E%3Cline x1='16' y1='2' x2='16' y2='30' stroke='%236366f1' stroke-width='0.5'/%3E%3Cline x1='2' y1='16' x2='30' y2='16' stroke='%236366f1' stroke-width='0.5'/%3E%3Cline x1='5' y1='5' x2='27' y2='27' stroke='%236366f1' stroke-width='0.5'/%3E%3Cline x1='27' y1='5' x2='5' y2='27' stroke='%236366f1' stroke-width='0.5'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
 :root {
-  --bg: #06070B;
-  --bg2: #0A0C12;
-  --bg-card: #0F1118;
-  --bg-card-hover: #161823;
-  --border: #1A1D2E;
-  --border-bright: #252940;
-  --text: #E8EAF0;
-  --text-dim: #8B90A8;
-  --text-muted: #555872;
-  --silk: #C0C8E0;
-  --silk-bright: #E8ECFA;
-  --silk-glow: rgba(192, 200, 224, 0.08);
-  --blue: #5B8DEF;
-  --blue-glow: rgba(91, 141, 239, 0.12);
-  --purple: #9B7BF7;
-  --purple-glow: rgba(155, 123, 247, 0.1);
-  --silver: #A8B4D0;
-  --chrome: linear-gradient(135deg, #6B7AA8, #A8B4D0, #E8ECFA, #A8B4D0, #6B7AA8);
-  --gradient-silk: linear-gradient(135deg, #5B8DEF, #9B7BF7, #C0C8E0);
-  --gradient-btn: linear-gradient(135deg, #5B8DEF 0%, #7B6BEF 50%, #9B7BF7 100%);
+  --bg: #06060b;
+  --bg-card: rgba(15, 15, 25, 0.6);
+  --border: rgba(99, 102, 241, 0.15);
+  --border-hover: rgba(99, 102, 241, 0.4);
+  --text: #e2e8f0;
+  --text-dim: #94a3b8;
+  --text-muted: #64748b;
+  --purple: #6366f1;
+  --purple-light: #818cf8;
+  --purple-glow: rgba(99, 102, 241, 0.15);
+  --green: #10B981;
+  --green-glow: rgba(16, 185, 129, 0.15);
   --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   --mono: 'JetBrains Mono', monospace;
+  --max-w: 1200px;
 }
 
 html { scroll-behavior: smooth; }
+
 body {
   font-family: var(--font);
   background: var(--bg);
@@ -58,1554 +52,927 @@ body {
   line-height: 1.6;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* ── SILK THREADS (background threads running through entire page) ── */
-.silk-threads {
-  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-  z-index: 0; pointer-events: none; overflow: hidden;
-}
-.silk-thread {
-  position: absolute;
-  width: 1px;
-  height: 200vh;
-  background: linear-gradient(180deg, transparent 0%, rgba(192, 200, 224, 0.06) 20%, rgba(192, 200, 224, 0.12) 50%, rgba(192, 200, 224, 0.06) 80%, transparent 100%);
-  animation: threadShimmer 8s ease-in-out infinite;
-}
-.silk-thread:nth-child(1) { left: 8%; animation-delay: 0s; opacity: 0.5; }
-.silk-thread:nth-child(2) { left: 22%; animation-delay: 1.5s; opacity: 0.3; width: 2px; }
-.silk-thread:nth-child(3) { left: 38%; animation-delay: 3s; opacity: 0.6; }
-.silk-thread:nth-child(4) { left: 52%; animation-delay: 0.8s; opacity: 0.4; width: 2px; }
-.silk-thread:nth-child(5) { left: 67%; animation-delay: 2.2s; opacity: 0.5; }
-.silk-thread:nth-child(6) { left: 78%; animation-delay: 4s; opacity: 0.3; }
-.silk-thread:nth-child(7) { left: 91%; animation-delay: 1s; opacity: 0.5; width: 2px; }
-
-/* Diagonal threads */
-.silk-thread-diag {
-  position: absolute; width: 1px; height: 300vh;
-  background: linear-gradient(180deg, transparent 0%, rgba(155, 123, 247, 0.05) 30%, rgba(91, 141, 239, 0.08) 50%, rgba(155, 123, 247, 0.05) 70%, transparent 100%);
-  animation: threadShimmer 12s ease-in-out infinite;
-}
-.silk-thread-diag:nth-child(8) { left: 15%; transform: rotate(25deg); transform-origin: top left; animation-delay: 2s; opacity: 0.4; }
-.silk-thread-diag:nth-child(9) { left: 45%; transform: rotate(-20deg); transform-origin: top right; animation-delay: 4s; opacity: 0.3; }
-.silk-thread-diag:nth-child(10) { left: 75%; transform: rotate(15deg); transform-origin: top left; animation-delay: 1s; opacity: 0.35; }
-
-@keyframes threadShimmer {
-  0%, 100% { opacity: 0.3; filter: brightness(1); }
-  50% { opacity: 0.8; filter: brightness(1.5); }
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(99, 102, 241, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(99, 102, 241, 0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none;
+  z-index: 0;
 }
 
 /* ── NAV ── */
 nav {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-  padding: 16px 32px;
-  display: flex; align-items: center; justify-content: space-between;
-  background: rgba(6, 7, 11, 0.88);
-  backdrop-filter: blur(24px) saturate(1.2);
-  border-bottom: 1px solid rgba(192, 200, 224, 0.06);
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  padding: 0 2rem;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: background 0.3s, backdrop-filter 0.3s, border-color 0.3s;
+  border-bottom: 1px solid transparent;
 }
+
+nav.scrolled {
+  background: rgba(6, 6, 11, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom-color: var(--border);
+}
+
 .nav-logo {
-  display: flex; align-items: center; gap: 10px;
-  font-weight: 800; font-size: 18px; letter-spacing: -0.5px;
-  text-decoration: none; color: var(--text);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text);
+  text-decoration: none;
+  letter-spacing: -0.02em;
 }
-.nav-logo-img {
-  width: 28px; height: 28px; border-radius: 6px;
-  filter: drop-shadow(0 0 6px rgba(192, 200, 224, 0.4));
-  flex-shrink: 0;
+
+.nav-logo span { color: var(--purple-light); }
+
+.nav-links { display: flex; gap: 1.5rem; align-items: center; list-style: none; }
+
+.nav-links a {
+  color: var(--text-dim);
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 500;
+  transition: color 0.2s;
 }
-.nav-links { display: flex; gap: 32px; align-items: center; }
-.nav-links a { color: var(--text-dim); text-decoration: none; font-size: 14px; font-weight: 500; transition: color 0.3s; }
-.nav-links a:hover { color: var(--silk-bright); }
-.nav-cta {
-  background: var(--gradient-btn); color: white; border: none; padding: 8px 20px;
-  border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer;
-  transition: all 0.3s; text-decoration: none;
-  box-shadow: 0 2px 12px rgba(91, 141, 239, 0.2);
+
+.nav-links a:hover { color: var(--text); }
+
+.nav-links .gh-link svg { width: 20px; height: 20px; fill: var(--text-dim); transition: fill 0.2s; vertical-align: middle; }
+.nav-links .gh-link:hover svg { fill: var(--text); }
+
+#hamburger {
+  display: none;
+  background: none; border: none; cursor: pointer; padding: 4px;
 }
-.nav-cta:hover { transform: translateY(-1px); box-shadow: 0 4px 20px rgba(91, 141, 239, 0.3); }
+#hamburger span {
+  display: block; width: 22px; height: 2px; background: var(--text-dim);
+  margin: 5px 0; transition: 0.3s;
+}
+
+#mobile-menu {
+  display: none;
+  position: fixed; top: 60px; left: 0; right: 0;
+  background: rgba(6, 6, 11, 0.95);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  padding: 1rem 2rem;
+  z-index: 999;
+}
+#mobile-menu.open { display: block; }
+#mobile-menu a {
+  display: block; padding: 0.6rem 0;
+  color: var(--text-dim); text-decoration: none; font-size: 0.95rem;
+}
+
+@media (max-width: 640px) {
+  .nav-links { display: none; }
+  #hamburger { display: block; }
+}
 
 /* ── HERO ── */
 .hero {
   position: relative;
   min-height: 100vh;
-  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   text-align: center;
-  padding: 120px 24px 80px;
+  padding: 6rem 2rem 4rem;
   overflow: hidden;
 }
-.hero-web-canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; }
-.hero-content { position: relative; z-index: 2; max-width: 820px; }
-.hero-badge {
-  display: inline-flex; align-items: center; gap: 8px;
-  padding: 6px 16px; border-radius: 100px;
-  background: rgba(192, 200, 224, 0.06); border: 1px solid rgba(192, 200, 224, 0.12);
-  font-size: 13px; font-weight: 500; color: var(--silk);
-  margin-bottom: 32px;
+
+#hero-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
 }
-.hero-badge .pulse { width: 6px; height: 6px; border-radius: 50%; background: #10B981; animation: pulse 2s infinite; }
-@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  max-width: 700px;
+}
 
 .hero h1 {
-  font-size: clamp(52px, 7.5vw, 88px); font-weight: 900; letter-spacing: -3px;
-  line-height: 1.02; margin-bottom: 28px;
-}
-.hero h1 .line1 {
-  display: block;
-  background: linear-gradient(180deg, #FFFFFF 0%, var(--silver) 100%);
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-}
-.hero h1 .line2 {
-  display: block;
-  background: var(--chrome);
-  background-size: 200% 100%;
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-  animation: chromeShift 6s ease infinite;
-}
-@keyframes chromeShift {
-  0%, 100% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
+  font-size: clamp(3rem, 8vw, 5.5rem);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  background: linear-gradient(135deg, var(--purple-light), var(--purple), var(--green));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 1rem;
 }
 
-.hero-sub {
-  font-size: 20px; color: var(--text-dim); max-width: 560px; margin: 0 auto 44px;
-  line-height: 1.7; font-weight: 400;
+.hero p {
+  font-size: clamp(1rem, 2.5vw, 1.2rem);
+  color: var(--text-dim);
+  max-width: 520px;
+  margin: 0 auto 2rem;
+  line-height: 1.6;
 }
-.hero-actions { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+
+.hero-btns {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+}
+
 .btn-primary {
-  background: var(--gradient-btn); color: white; border: none; padding: 15px 34px;
-  border-radius: 12px; font-size: 16px; font-weight: 600; cursor: pointer;
-  transition: all 0.3s; text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
-  box-shadow: 0 4px 24px rgba(91, 141, 239, 0.25), inset 0 1px 0 rgba(255,255,255,0.1);
+  background: var(--purple);
+  color: #fff;
+  padding: 0.7rem 2rem;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: background 0.2s, transform 0.2s;
+  border: none; cursor: pointer;
 }
-.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 40px rgba(91, 141, 239, 0.35); }
-.btn-secondary {
-  background: rgba(192, 200, 224, 0.04); color: var(--silk); border: 1px solid rgba(192, 200, 224, 0.12);
-  padding: 15px 34px; border-radius: 12px; font-size: 16px; font-weight: 600;
-  cursor: pointer; transition: all 0.3s; text-decoration: none;
-  display: inline-flex; align-items: center; gap: 8px;
-}
-.btn-secondary:hover { background: rgba(192, 200, 224, 0.08); border-color: rgba(192, 200, 224, 0.2); transform: translateY(-2px); }
+.btn-primary:hover { background: #5558e6; transform: translateY(-1px); }
 
-.hero-stats {
-  display: flex; gap: 48px; justify-content: center; margin-top: 72px;
-  padding-top: 36px; border-top: 1px solid rgba(192, 200, 224, 0.08);
+.btn-outline {
+  border: 1px solid var(--border-hover);
+  color: var(--text);
+  padding: 0.7rem 2rem;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+  background: transparent;
+  transition: border-color 0.2s, background 0.2s;
 }
-.hero-stat .num {
-  font-size: 32px; font-weight: 800; letter-spacing: -1px;
-  background: var(--chrome); background-size: 200% 100%;
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-  animation: chromeShift 6s ease infinite;
-}
-.hero-stat .label { font-size: 13px; color: var(--text-muted); margin-top: 4px; font-weight: 500; }
+.btn-outline:hover { border-color: var(--purple-light); background: var(--purple-glow); }
 
-/* ── SECTIONS ── */
-section { padding: 120px 24px; position: relative; z-index: 1; }
-.container { max-width: 1100px; margin: 0 auto; }
-.section-label {
-  font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px;
-  background: var(--gradient-silk); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-  margin-bottom: 16px;
+.stats-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 0.4rem 1.2rem;
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  backdrop-filter: blur(10px);
 }
+
+.stats-badge .dot {
+  width: 6px; height: 6px;
+  background: var(--green);
+  border-radius: 50%;
+  animation: pulse-dot 2s infinite;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+/* ── SECTIONS SHARED ── */
+section {
+  position: relative;
+  z-index: 1;
+  padding: 5rem 2rem;
+}
+
+.container {
+  max-width: var(--max-w);
+  margin: 0 auto;
+}
+
 .section-title {
-  font-size: clamp(32px, 4vw, 50px); font-weight: 800; letter-spacing: -1.5px;
-  line-height: 1.12; margin-bottom: 20px;
-  background: linear-gradient(180deg, #FFFFFF 20%, var(--silver) 100%);
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-}
-.section-desc { font-size: 18px; color: var(--text-dim); max-width: 600px; line-height: 1.7; }
-
-/* ── PROBLEM CARDS ── */
-.problem-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 64px; }
-.problem-card {
-  padding: 32px; border-radius: 16px;
-  background: linear-gradient(135deg, rgba(15, 17, 24, 0.9), rgba(22, 24, 35, 0.6));
-  border: 1px solid rgba(192, 200, 224, 0.06);
-  transition: all 0.4s; position: relative; overflow: hidden;
-}
-.problem-card::before {
-  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(192, 200, 224, 0.15), transparent);
-  opacity: 0; transition: opacity 0.4s;
-}
-.problem-card:hover { border-color: rgba(192, 200, 224, 0.12); transform: translateY(-6px); }
-.problem-card:hover::before { opacity: 1; }
-.problem-icon {
-  width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center;
-  font-size: 24px; margin-bottom: 20px; background: rgba(192, 200, 224, 0.05); border: 1px solid rgba(192, 200, 224, 0.08);
-}
-.problem-card h3 { font-size: 18px; font-weight: 700; margin-bottom: 12px; color: var(--silk-bright); }
-.problem-card p { font-size: 15px; color: var(--text-dim); line-height: 1.65; }
-
-/* ── HOW IT WORKS ── */
-.how-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; margin-top: 64px; align-items: center; }
-.how-steps { display: flex; flex-direction: column; gap: 28px; }
-.how-step { display: flex; gap: 20px; padding: 20px; border-radius: 12px; border: 1px solid transparent; transition: all 0.3s; }
-.how-step:hover { background: rgba(192, 200, 224, 0.03); border-color: rgba(192, 200, 224, 0.06); }
-.step-num {
-  width: 36px; height: 36px; border-radius: 10px;
-  background: rgba(91, 141, 239, 0.08); border: 1px solid rgba(91, 141, 239, 0.2);
-  color: var(--blue); display: flex; align-items: center; justify-content: center;
-  font-weight: 800; font-size: 14px; flex-shrink: 0;
-}
-.how-step h3 { font-size: 16px; font-weight: 700; margin-bottom: 6px; color: var(--silk-bright); }
-.how-step p { font-size: 14px; color: var(--text-dim); line-height: 1.6; }
-
-/* ── CODE BLOCK ── */
-.code-block {
-  background: #080910; border: 1px solid rgba(192, 200, 224, 0.08); border-radius: 16px;
-  overflow: hidden; box-shadow: 0 8px 40px rgba(0,0,0,0.4);
-}
-.code-header {
-  padding: 14px 20px; border-bottom: 1px solid rgba(192, 200, 224, 0.06);
-  display: flex; align-items: center; justify-content: space-between;
-  background: rgba(192, 200, 224, 0.02);
-}
-.code-dots { display: flex; gap: 6px; }
-.code-dots span { width: 10px; height: 10px; border-radius: 50%; }
-.code-dots span:nth-child(1) { background: #FF5F57; }
-.code-dots span:nth-child(2) { background: #FEBC2E; }
-.code-dots span:nth-child(3) { background: #28C840; }
-.code-lang { font-size: 12px; color: var(--text-muted); font-family: var(--mono); }
-.code-body {
-  padding: 24px; font-family: var(--mono); font-size: 13px;
-  line-height: 1.8; overflow-x: auto; color: var(--text-dim);
-}
-.code-body .kw { color: #C792EA; }
-.code-body .fn { color: #82AAFF; }
-.code-body .str { color: #C3E88D; }
-.code-body .cm { color: #546E7A; }
-.code-body .var { color: #FFCB6B; }
-.code-body .op { color: #89DDFF; }
-
-/* ── COMPAT CARDS ── */
-.compat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 64px; }
-.compat-card {
-  padding: 32px; border-radius: 16px; text-align: center;
-  background: linear-gradient(135deg, rgba(15, 17, 24, 0.9), rgba(22, 24, 35, 0.5));
-  border: 1px solid rgba(192, 200, 224, 0.06); transition: all 0.4s;
-}
-.compat-card:hover { border-color: rgba(192, 200, 224, 0.12); transform: translateY(-6px); }
-.compat-logo { font-size: 40px; margin-bottom: 16px; }
-.compat-card h3 { font-size: 18px; font-weight: 700; margin-bottom: 8px; color: var(--silk-bright); }
-.compat-card p { font-size: 14px; color: var(--text-dim); line-height: 1.6; }
-.compat-tag {
-  display: inline-block; margin-top: 14px; padding: 4px 14px; border-radius: 6px;
-  font-size: 12px; font-weight: 600;
-  background: rgba(16, 185, 129, 0.08); color: #10B981; border: 1px solid rgba(16, 185, 129, 0.15);
+  font-size: clamp(1.6rem, 4vw, 2.2rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  margin-bottom: 0.6rem;
 }
 
-/* ── FEATURES ── */
-.features-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; margin-top: 64px; }
+.section-sub {
+  color: var(--text-dim);
+  font-size: 1rem;
+  margin-bottom: 2.5rem;
+  max-width: 600px;
+}
+
+/* ── OVERVIEW ── */
+.overview-points {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin-bottom: 2.5rem;
+}
+
+.overview-points p {
+  color: var(--text-dim);
+  font-size: 0.95rem;
+  padding-left: 1rem;
+  border-left: 2px solid var(--purple);
+}
+
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
 .feature-card {
-  padding: 32px; border-radius: 16px;
-  background: linear-gradient(135deg, rgba(15, 17, 24, 0.9), rgba(22, 24, 35, 0.5));
-  border: 1px solid rgba(192, 200, 224, 0.06); transition: all 0.4s;
-  position: relative; overflow: hidden;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.5rem;
+  backdrop-filter: blur(10px);
+  transition: border-color 0.3s, transform 0.2s;
 }
-.feature-card::after {
-  content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
-  background: radial-gradient(ellipse at center, rgba(192, 200, 224, 0.02) 0%, transparent 70%);
-  opacity: 0; transition: opacity 0.4s; pointer-events: none;
-}
-.feature-card:hover { border-color: rgba(192, 200, 224, 0.12); transform: translateY(-4px); }
-.feature-card:hover::after { opacity: 1; }
-.feature-icon { font-size: 28px; margin-bottom: 16px; }
-.feature-card h3 { font-size: 18px; font-weight: 700; margin-bottom: 10px; color: var(--silk-bright); }
-.feature-card p { font-size: 14px; color: var(--text-dim); line-height: 1.65; }
+.feature-card:hover { border-color: var(--border-hover); transform: translateY(-2px); }
 
-/* ── CTA ── */
-.cta-section {
-  text-align: center; padding: 140px 24px; position: relative; z-index: 1;
+.feature-card .icon {
+  width: 36px; height: 36px;
+  margin-bottom: 0.8rem;
+  color: var(--purple-light);
 }
-.cta-section::before {
-  content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-  width: 600px; height: 600px;
-  background: radial-gradient(ellipse, rgba(91, 141, 239, 0.06) 0%, rgba(155, 123, 247, 0.03) 40%, transparent 70%);
-  pointer-events: none; z-index: -1;
+
+.feature-card h3 {
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin-bottom: 0.3rem;
 }
-.cta-section h2 {
-  font-size: clamp(40px, 5vw, 60px); font-weight: 900; letter-spacing: -2px;
-  margin-bottom: 20px; line-height: 1.08;
-  background: linear-gradient(180deg, #FFFFFF 20%, var(--silver) 100%);
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+
+.feature-card p {
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  line-height: 1.5;
 }
-.cta-section h2 em {
-  font-style: normal;
-  background: var(--chrome); background-size: 200% 100%;
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-  animation: chromeShift 6s ease infinite;
+
+@media (max-width: 640px) {
+  .feature-grid { grid-template-columns: 1fr; }
 }
-.cta-section p { font-size: 18px; color: var(--text-dim); margin-bottom: 40px; max-width: 480px; margin-left: auto; margin-right: auto; }
-.waitlist-form { display: flex; gap: 12px; justify-content: center; max-width: 460px; margin: 0 auto; flex-wrap: wrap; }
-.waitlist-form input {
-  flex: 1; min-width: 240px; padding: 15px 20px; border-radius: 12px;
-  background: rgba(192, 200, 224, 0.04); border: 1px solid rgba(192, 200, 224, 0.1);
-  color: var(--text); font-size: 15px; font-family: var(--font);
-  outline: none; transition: all 0.3s;
+
+/* ── AGENTS ── */
+.agents-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
 }
-.waitlist-form input:focus { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(91, 141, 239, 0.1); }
-.waitlist-form input::placeholder { color: var(--text-muted); }
-.waitlist-form button {
-  padding: 15px 30px; border-radius: 12px; background: var(--gradient-btn);
-  color: white; border: none; font-size: 15px; font-weight: 700;
-  cursor: pointer; transition: all 0.3s; white-space: nowrap;
-  box-shadow: 0 4px 20px rgba(91, 141, 239, 0.25), inset 0 1px 0 rgba(255,255,255,0.1);
+
+.agent-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.2rem;
+  backdrop-filter: blur(10px);
+  transition: border-color 0.3s, transform 0.2s;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
-.waitlist-form button:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(91, 141, 239, 0.4); }
-#waitlist-msg { font-size: 13px; color: var(--text-muted); margin-top: 16px; }
+.agent-card:hover { border-color: var(--border-hover); transform: translateY(-2px); }
+
+.agent-header {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+
+.agent-icon {
+  width: 32px; height: 32px; flex-shrink: 0;
+  color: var(--purple-light);
+}
+
+.agent-name {
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.agent-domain {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.agent-desc {
+  font-size: 0.78rem;
+  color: var(--text-dim);
+  line-height: 1.4;
+}
+
+.agent-meta {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: auto;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.65rem;
+  font-weight: 600;
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+  letter-spacing: 0.02em;
+}
+
+.badge-purple {
+  background: var(--purple-glow);
+  color: var(--purple-light);
+  border: 1px solid rgba(99, 102, 241, 0.25);
+}
+
+.badge-green {
+  background: var(--green-glow);
+  color: var(--green);
+  border: 1px solid rgba(16, 185, 129, 0.25);
+}
+
+.badge-gray {
+  background: rgba(100, 116, 139, 0.1);
+  color: var(--text-muted);
+  border: 1px solid rgba(100, 116, 139, 0.2);
+}
+
+.agent-tags {
+  display: flex;
+  gap: 0.35rem;
+  flex-wrap: wrap;
+}
+
+.tag {
+  font-size: 0.6rem;
+  color: var(--text-muted);
+  background: rgba(100, 116, 139, 0.08);
+  padding: 0.1rem 0.4rem;
+  border-radius: 4px;
+}
+
+@media (max-width: 768px) {
+  .agents-grid { grid-template-columns: 1fr; }
+}
+
+/* ── INSTALL ── */
+.install-tabs {
+  display: flex;
+  gap: 0;
+  margin-bottom: 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.install-tab {
+  padding: 0.6rem 1.5rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  background: none;
+  border: none;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: color 0.2s, border-color 0.2s;
+  font-family: var(--font);
+}
+.install-tab:hover { color: var(--text-dim); }
+.install-tab.active { color: var(--purple-light); border-bottom-color: var(--purple-light); }
+
+.install-panel {
+  display: none;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-top: none;
+  border-radius: 0 0 12px 12px;
+  padding: 1.5rem;
+  backdrop-filter: blur(10px);
+}
+.install-panel.active { display: block; }
+
+.install-panel pre {
+  font-family: var(--mono);
+  font-size: 0.82rem;
+  color: var(--text);
+  line-height: 1.7;
+  overflow-x: auto;
+  white-space: pre;
+}
+
+.install-panel .comment { color: var(--text-muted); }
+.install-panel .keyword { color: var(--purple-light); }
+.install-panel .string { color: var(--green); }
+.install-panel .func { color: #38bdf8; }
+
+.coming-badge {
+  display: inline-block;
+  background: rgba(99, 102, 241, 0.1);
+  border: 1px solid var(--border);
+  color: var(--purple-light);
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  margin-left: 0.5rem;
+}
+
+.install-wrapper {
+  max-width: 700px;
+}
 
 /* ── FOOTER ── */
 footer {
-  padding: 48px 24px; border-top: 1px solid rgba(192, 200, 224, 0.06); text-align: center;
-  position: relative; z-index: 1;
-}
-footer p { font-size: 14px; color: var(--text-muted); }
-footer a { color: var(--text-dim); text-decoration: none; transition: color 0.3s; }
-footer a:hover { color: var(--silk-bright); }
-
-/* ── HAMBURGER MENU ── */
-.hamburger {
-  display: none; background: none; border: none; cursor: pointer;
-  width: 36px; height: 36px; position: relative; z-index: 200;
-}
-.hamburger span {
-  display: block; width: 22px; height: 2px; background: var(--silk);
-  margin: 5px auto; transition: all 0.3s; border-radius: 2px;
-}
-.hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
-.hamburger.active span:nth-child(2) { opacity: 0; }
-.hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
-
-.mobile-menu {
-  display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(6, 7, 11, 0.96); backdrop-filter: blur(24px);
-  z-index: 150; flex-direction: column; align-items: center; justify-content: center; gap: 28px;
-}
-.mobile-menu.open { display: flex; }
-.mobile-menu a {
-  color: var(--text); font-size: 22px; font-weight: 600; text-decoration: none;
-  transition: color 0.3s; letter-spacing: -0.5px;
-}
-.mobile-menu a:hover { color: var(--silk-bright); }
-.mobile-menu .nav-cta {
-  background: var(--gradient-btn); color: white; padding: 14px 36px;
-  border-radius: 12px; font-size: 18px; font-weight: 700; margin-top: 12px;
+  position: relative;
+  z-index: 1;
+  border-top: 1px solid var(--border);
+  padding: 2.5rem 2rem;
 }
 
-/* ── EDUCATION / HOW IT WORKS FOR USERS ── */
-.edu-section { position: relative; z-index: 1; }
-.edu-timeline { max-width: 720px; margin: 64px auto 0; position: relative; padding-left: 40px; }
-.edu-timeline::before {
-  content: ''; position: absolute; left: 15px; top: 0; bottom: 0; width: 2px;
-  background: linear-gradient(180deg, rgba(91,141,239,0.3), rgba(155,123,247,0.3), rgba(192,200,224,0.1));
-}
-.edu-step { position: relative; margin-bottom: 48px; }
-.edu-step:last-child { margin-bottom: 0; }
-.edu-dot {
-  position: absolute; left: -33px; top: 4px; width: 20px; height: 20px; border-radius: 50%;
-  background: var(--bg); border: 2px solid var(--blue);
-  display: flex; align-items: center; justify-content: center;
-}
-.edu-dot::after {
-  content: ''; width: 8px; height: 8px; border-radius: 50%;
-  background: var(--blue);
-}
-.edu-step:nth-child(2) .edu-dot { border-color: var(--purple); }
-.edu-step:nth-child(2) .edu-dot::after { background: var(--purple); }
-.edu-step:nth-child(3) .edu-dot { border-color: #10B981; }
-.edu-step:nth-child(3) .edu-dot::after { background: #10B981; }
-.edu-step:nth-child(4) .edu-dot { border-color: var(--silk); }
-.edu-step:nth-child(4) .edu-dot::after { background: var(--silk); }
-.edu-step h3 {
-  font-size: 18px; font-weight: 700; color: var(--silk-bright); margin-bottom: 8px;
-}
-.edu-step p {
-  font-size: 15px; color: var(--text-dim); line-height: 1.7; margin-bottom: 14px;
-}
-.edu-code {
-  padding: 14px 18px; border-radius: 10px;
-  background: rgba(8, 9, 16, 0.9); border: 1px solid rgba(192,200,224,0.06);
-  font-family: var(--mono); font-size: 13px; color: var(--silk); line-height: 1.7;
-  overflow-x: auto;
-}
-.edu-code .cm { color: #546E7A; }
-.edu-code .kw { color: #C792EA; }
-.edu-code .fn { color: #82AAFF; }
-.edu-code .str { color: #C3E88D; }
-.edu-code .op { color: #89DDFF; }
-.edu-code .var { color: #FFCB6B; }
-.edu-analogy {
-  margin-top: 48px; padding: 32px; border-radius: 16px;
-  background: linear-gradient(135deg, rgba(91,141,239,0.06), rgba(155,123,247,0.04));
-  border: 1px solid rgba(91,141,239,0.12); max-width: 720px; margin-left: auto; margin-right: auto;
-}
-.edu-analogy h3 {
-  font-size: 16px; font-weight: 700; color: var(--blue); margin-bottom: 12px;
-  display: flex; align-items: center; gap: 8px;
-}
-.edu-analogy p { font-size: 15px; color: var(--text-dim); line-height: 1.7; }
-.edu-analogy strong { color: var(--silk-bright); }
-
-/* ── RESPONSIVE ── */
-
-/* Large tablets / small desktops */
-@media (max-width: 1024px) {
-  .problem-grid, .compat-grid { grid-template-columns: repeat(2, 1fr); }
-  .how-grid { gap: 32px; }
-  .hero-content { max-width: 700px; }
-  section { padding: 80px 24px; }
-  .cta-section { padding: 100px 24px; }
+.footer-inner {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
 }
 
-/* Tablets */
-@media (max-width: 768px) {
-  .hamburger { display: block; }
-  .nav-links { display: none; }
-  nav { padding: 12px 20px; }
-
-  .hero { min-height: auto; padding: 100px 20px 60px; }
-  .hero h1 { font-size: clamp(36px, 9vw, 52px); letter-spacing: -2px; margin-bottom: 20px; }
-  .hero-sub { font-size: 16px; margin-bottom: 32px; }
-  .hero-actions { flex-direction: column; align-items: center; gap: 12px; }
-  .btn-primary, .btn-secondary { width: 100%; max-width: 320px; justify-content: center; padding: 14px 28px; font-size: 15px; }
-  .hero-stats { flex-direction: row; flex-wrap: wrap; gap: 24px; justify-content: center; margin-top: 48px; padding-top: 28px; }
-  .hero-stat { flex: 0 0 auto; text-align: center; }
-  .hero-stat .num { font-size: 26px; }
-
-  .problem-grid, .compat-grid, .features-grid { grid-template-columns: 1fr; }
-  .how-grid { grid-template-columns: 1fr; gap: 40px; }
-
-  section { padding: 64px 20px; }
-  .section-title { font-size: clamp(26px, 5vw, 36px); }
-  .section-desc { font-size: 16px; }
-
-  .code-body { font-size: 12px; padding: 16px; line-height: 1.7; }
-  .code-block { border-radius: 12px; }
-
-  .cta-section { padding: 80px 20px; }
-  .cta-section h2 { font-size: clamp(30px, 6vw, 44px); }
-  .waitlist-form { flex-direction: column; align-items: center; }
-  .waitlist-form input { min-width: unset; width: 100%; max-width: 360px; }
-  .waitlist-form button { width: 100%; max-width: 360px; }
-
-  .silk-threads { display: none; }
+.footer-brand {
+  font-size: 0.9rem;
 }
 
-/* Mobile phones */
-@media (max-width: 480px) {
-  nav { padding: 10px 16px; }
-  .nav-logo { font-size: 16px; }
-
-  .hero { padding: 80px 16px 48px; }
-  .hero h1 { font-size: clamp(30px, 10vw, 42px); letter-spacing: -1.5px; line-height: 1.08; }
-  .hero-badge { font-size: 11px; padding: 5px 12px; margin-bottom: 24px; }
-  .hero-sub { font-size: 15px; line-height: 1.6; }
-  .hero-stats { gap: 16px; margin-top: 36px; }
-  .hero-stat .num { font-size: 22px; }
-  .hero-stat .label { font-size: 11px; }
-
-  section { padding: 48px 16px; }
-  .section-label { font-size: 11px; letter-spacing: 1.5px; }
-  .section-title { font-size: clamp(24px, 6vw, 32px); letter-spacing: -1px; }
-  .section-desc { font-size: 15px; }
-
-  .problem-card, .compat-card, .feature-card { padding: 24px; border-radius: 12px; }
-  .problem-card h3, .compat-card h3, .feature-card h3 { font-size: 16px; }
-  .problem-card p, .compat-card p, .feature-card p { font-size: 14px; }
-  .problem-icon { width: 40px; height: 40px; font-size: 20px; }
-  .compat-logo { font-size: 32px; }
-
-  .how-step { padding: 14px; gap: 14px; }
-  .step-num { width: 30px; height: 30px; font-size: 12px; }
-  .how-step h3 { font-size: 15px; }
-  .how-step p { font-size: 13px; }
-
-  .code-body { font-size: 11px; padding: 14px; overflow-x: auto; -webkit-overflow-scrolling: touch; }
-
-  .cta-section { padding: 60px 16px; }
-  .cta-section h2 { font-size: clamp(26px, 7vw, 36px); }
-  .cta-section p { font-size: 15px; }
-
-  footer { padding: 32px 16px; }
-  footer p { font-size: 12px; }
+.footer-brand strong {
+  font-weight: 700;
 }
 
-/* Small phones (iPhone SE, etc.) */
-@media (max-width: 360px) {
-  .hero h1 { font-size: 28px; }
-  .hero-sub { font-size: 14px; }
-  .btn-primary, .btn-secondary { padding: 12px 20px; font-size: 14px; }
-  .hero-stats { flex-direction: column; gap: 12px; }
+.footer-brand span { color: var(--purple-light); }
+
+.footer-brand p {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-top: 0.2rem;
 }
 
-/* ── ANIMATIONS ── */
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(30px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-.animate { animation: fadeUp 0.8s ease forwards; opacity: 0; }
-.animate-d1 { animation-delay: 0.15s; }
-.animate-d2 { animation-delay: 0.3s; }
-.animate-d3 { animation-delay: 0.45s; }
-.animate-d4 { animation-delay: 0.6s; }
-
-/* ── INTEGRATIONS ── */
-.integrations-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 64px; }
-.integration-card {
-  padding: 28px; border-radius: 16px;
-  background: linear-gradient(135deg, rgba(15, 17, 24, 0.9), rgba(22, 24, 35, 0.5));
-  border: 1px solid rgba(192, 200, 224, 0.06); transition: all 0.4s;
-  position: relative; overflow: hidden;
-}
-.integration-card:hover { border-color: rgba(192, 200, 224, 0.12); transform: translateY(-4px); }
-.integration-header { display: flex; align-items: center; gap: 14px; margin-bottom: 14px; }
-.integration-logo {
-  width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center;
-  font-size: 22px; background: rgba(192, 200, 224, 0.05); border: 1px solid rgba(192, 200, 224, 0.08);
-  flex-shrink: 0;
-}
-.integration-name { font-size: 17px; font-weight: 700; color: var(--silk-bright); }
-.integration-desc { font-size: 13px; color: var(--text-dim); line-height: 1.5; margin-bottom: 16px; }
-.install-cmd {
-  display: flex; align-items: center; gap: 8px; padding: 10px 14px; border-radius: 10px;
-  background: rgba(6, 7, 11, 0.8); border: 1px solid rgba(192, 200, 224, 0.06);
-  font-family: var(--mono); font-size: 12px; color: var(--silk); position: relative;
-  overflow: hidden;
-}
-.install-cmd code { flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.install-cmd .copy-btn {
-  background: none; border: none; color: var(--text-muted); cursor: pointer;
-  padding: 4px; border-radius: 4px; transition: all 0.2s; flex-shrink: 0; font-size: 14px;
-}
-.install-cmd .copy-btn:hover { color: var(--silk-bright); background: rgba(192, 200, 224, 0.08); }
-.install-cmd .copy-btn.copied { color: #10B981; }
-
-/* ── PACKAGES / DOWNLOADS ── */
-.packages-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-top: 64px; }
-.package-card {
-  padding: 28px; border-radius: 16px;
-  background: linear-gradient(135deg, rgba(15, 17, 24, 0.9), rgba(22, 24, 35, 0.5));
-  border: 1px solid rgba(192, 200, 224, 0.06); transition: all 0.4s;
-}
-.package-card:hover { border-color: rgba(192, 200, 224, 0.12); transform: translateY(-4px); }
-.package-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
-.package-name { font-size: 17px; font-weight: 700; color: var(--silk-bright); }
-.package-badge {
-  padding: 3px 10px; border-radius: 6px; font-size: 11px; font-weight: 600;
-  background: rgba(91, 141, 239, 0.1); color: var(--blue); border: 1px solid rgba(91, 141, 239, 0.2);
-}
-.package-desc { font-size: 13px; color: var(--text-dim); line-height: 1.5; margin-bottom: 16px; }
-.package-stats { display: flex; gap: 16px; margin-bottom: 16px; }
-.package-stat { font-size: 12px; color: var(--text-muted); display: flex; align-items: center; gap: 5px; }
-.package-stat strong { color: var(--silk); font-weight: 600; }
-
-/* ── ARCHITECTURE ── */
-.arch-container {
-  margin-top: 64px; padding: 32px; border-radius: 16px;
-  background: #080910; border: 1px solid rgba(192, 200, 224, 0.08);
-  overflow: hidden; box-shadow: 0 8px 40px rgba(0,0,0,0.4);
-}
-.arch-header {
-  padding-bottom: 16px; border-bottom: 1px solid rgba(192, 200, 224, 0.06);
-  display: flex; align-items: center; gap: 8px; margin-bottom: 24px;
-}
-.arch-dot { width: 10px; height: 10px; border-radius: 50%; }
-.arch-title { font-family: var(--mono); font-size: 13px; color: var(--text-muted); margin-left: 8px; }
-.arch-layers { display: flex; flex-direction: column; gap: 12px; }
-.arch-layer {
-  display: flex; align-items: center; gap: 16px; padding: 16px 20px; border-radius: 10px;
-  border: 1px solid rgba(192, 200, 224, 0.06); transition: all 0.3s;
-}
-.arch-layer:hover { border-color: rgba(192, 200, 224, 0.12); background: rgba(192, 200, 224, 0.02); }
-.arch-layer-label {
-  font-family: var(--mono); font-size: 11px; font-weight: 700; text-transform: uppercase;
-  letter-spacing: 1px; color: var(--blue); min-width: 120px;
-}
-.arch-layer-items { display: flex; flex-wrap: wrap; gap: 8px; }
-.arch-item {
-  padding: 5px 12px; border-radius: 6px; font-family: var(--mono); font-size: 12px;
-  background: rgba(192, 200, 224, 0.04); color: var(--silk); border: 1px solid rgba(192, 200, 224, 0.06);
-}
-.arch-arrow { text-align: center; color: var(--text-muted); font-size: 18px; padding: 4px 0; }
-
-/* ── COMPAT SECTION UPGRADE ── */
-.compat-badge-row { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; justify-content: center; }
-.compat-badge {
-  padding: 4px 12px; border-radius: 6px; font-size: 11px; font-weight: 600;
-  background: rgba(16, 185, 129, 0.08); color: #10B981; border: 1px solid rgba(16, 185, 129, 0.15);
+.footer-links {
+  display: flex;
+  gap: 1.5rem;
+  list-style: none;
 }
 
-/* ── GITHUB STAR BUTTON ── */
-.gh-star {
-  display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px;
-  border-radius: 8px; font-size: 13px; font-weight: 600; color: var(--silk);
-  background: rgba(192, 200, 224, 0.04); border: 1px solid rgba(192, 200, 224, 0.1);
-  text-decoration: none; transition: all 0.3s;
+.footer-links a {
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 0.8rem;
+  transition: color 0.2s;
 }
-.gh-star:hover { background: rgba(192, 200, 224, 0.08); border-color: rgba(192, 200, 224, 0.18); }
-.gh-star svg { width: 14px; height: 14px; }
-.gh-star-count { font-size: 12px; color: var(--text-dim); }
+.footer-links a:hover { color: var(--text); }
 
-/* ── API STATUS ── */
-.api-status {
-  display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px; border-radius: 100px;
-  background: rgba(16, 185, 129, 0.06); border: 1px solid rgba(16, 185, 129, 0.12);
-  font-size: 12px; color: #10B981; font-weight: 500; text-decoration: none; transition: all 0.3s;
+.footer-copy {
+  width: 100%;
+  text-align: center;
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
 }
-.api-status:hover { background: rgba(16, 185, 129, 0.1); }
-.api-status .dot { width: 6px; height: 6px; border-radius: 50%; background: #10B981; animation: pulse 2s infinite; }
 
-/* ── RESPONSIVE for new sections ── */
-@media (max-width: 1024px) {
-  .integrations-grid { grid-template-columns: repeat(2, 1fr); }
+/* ── FADE IN ── */
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
 }
-@media (max-width: 768px) {
-  .integrations-grid, .packages-grid { grid-template-columns: 1fr; }
-  .arch-layer { flex-direction: column; align-items: flex-start; gap: 8px; }
-  .arch-layer-label { min-width: unset; }
-}
-@media (max-width: 480px) {
-  .integrations-grid, .packages-grid { gap: 12px; }
-  .integration-card, .package-card { padding: 20px; }
-  .arch-container { padding: 20px; }
-  .edu-timeline { padding-left: 32px; }
-  .edu-code { font-size: 11px; padding: 12px 14px; }
-  .edu-analogy { padding: 24px; }
-  .edu-analogy p { font-size: 14px; }
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 </style>
 </head>
 <body>
 
-<!-- SILK THREADS (running through entire page) -->
-<div class="silk-threads">
-  <div class="silk-thread"></div>
-  <div class="silk-thread"></div>
-  <div class="silk-thread"></div>
-  <div class="silk-thread"></div>
-  <div class="silk-thread"></div>
-  <div class="silk-thread"></div>
-  <div class="silk-thread"></div>
-  <div class="silk-thread-diag"></div>
-  <div class="silk-thread-diag"></div>
-  <div class="silk-thread-diag"></div>
-</div>
-
 <!-- NAV -->
-<nav>
-  <a href="#" class="nav-logo"><svg class="nav-logo-img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1500 1500" width="28" height="28"><rect x="-150" width="1800" y="-150" height="1800" fill="#545454" rx="200"/><path fill="#ffffff" d="M 1486.480469 2.101562 C 1493.945312 2.101562 1500 8.15625 1500 15.625 C 1500 23.089844 1493.945312 29.144531 1486.480469 29.144531 L 29.214844 29.144531 L 66.683594 1361.980469 C 66.886719 1369.417969 61.019531 1375.617188 53.582031 1375.824219 C 46.148438 1376.027344 39.945312 1370.160156 39.742188 1362.722656 L 1.832031 15.625 C 1.832031 8.15625 7.886719 2.101562 15.351562 2.101562 Z" fill-opacity="1" fill-rule="nonzero"/><path fill="#ffffff" d="M 751.457031 1144.183594 C 755.449219 1150.453125 753.601562 1158.78125 747.332031 1162.777344 C 741.066406 1166.773438 732.734375 1164.921875 728.742188 1158.65625 L 3.996094 22.859375 C 0 16.589844 1.847656 8.257812 8.117188 4.265625 C 12.351562 1.570312 17.523438 1.535156 21.667969 3.726562 L 21.6875 3.6875 L 1454.957031 766.292969 C 1461.546875 769.789062 1464.050781 777.972656 1460.554688 784.566406 C 1457.058594 791.160156 1448.875 793.664062 1442.28125 790.167969 L 54.328125 51.667969 Z" fill-opacity="1" fill-rule="nonzero"/><path fill="#ffffff" d="M 1195.882812 8.28125 C 1199.9375 2.042969 1208.289062 0.265625 1214.527344 4.320312 C 1220.765625 8.375 1222.542969 16.726562 1218.488281 22.964844 C 1172.996094 93.167969 1143.40625 176.691406 1128.726562 272.652344 C 1113.945312 369.292969 1114.292969 478.46875 1128.746094 599.316406 C 1129.621094 606.722656 1124.324219 613.441406 1116.917969 614.316406 C 1115.605469 614.46875 1114.316406 614.429688 1113.070312 614.222656 C 952.378906 590.296875 831.261719 605.683594 748.5 659.152344 C 666.691406 712.011719 621.746094 803.148438 612.503906 931.300781 C 611.980469 938.734375 605.519531 944.34375 598.082031 943.820312 C 596.402344 943.699219 594.808594 943.277344 593.363281 942.605469 C 451.3125 879.929688 343.148438 878.726562 258.3125 919.808594 C 173.085938 961.078125 110.140625 1045.421875 59.371094 1153.25 C 56.191406 1159.988281 48.148438 1162.871094 41.410156 1159.695312 C 34.675781 1156.515625 31.789062 1148.472656 34.96875 1141.734375 C 88.203125 1028.675781 154.992188 939.859375 246.582031 895.507812 C 334.964844 852.714844 445.3125 851.675781 587.191406 910.59375 C 600.078125 783.316406 648.613281 691.550781 733.917969 636.433594 C 819.292969 581.28125 940.933594 563.769531 1099.925781 585.078125 C 1087.183594 468.707031 1087.570312 362.976562 1102 268.640625 C 1117.246094 168.960938 1148.191406 81.875 1195.882812 8.28125 Z" fill-opacity="1" fill-rule="nonzero"/><path fill="#ffffff" d="M 48.894531 899.511719 C 43.351562 904.46875 34.839844 903.996094 29.882812 898.457031 C 24.925781 892.914062 25.398438 884.402344 30.9375 879.445312 C 83.054688 832.894531 136.421875 787.488281 207.265625 758.378906 C 276.65625 729.863281 362.03125 717.332031 477.84375 735.277344 C 542.523438 647.234375 607.363281 583.816406 672.3125 539.804688 C 735.210938 497.179688 798.109375 472.808594 860.988281 461.964844 C 854.191406 382.824219 856.425781 306.289062 868.671875 232.660156 C 881.59375 154.972656 905.695312 80.46875 942.097656 9.496094 C 945.476562 2.875 953.59375 0.253906 960.214844 3.636719 C 966.832031 7.015625 969.453125 15.132812 966.074219 21.75 C 931.015625 90.105469 907.78125 162.007812 895.289062 237.097656 C 882.8125 312.097656 881.058594 390.265625 888.902344 471.265625 L 888.925781 471.421875 C 889.976562 478.804688 884.84375 485.640625 877.460938 486.6875 C 814.191406 495.792969 750.839844 519.121094 687.421875 562.09375 C 623.464844 605.433594 559.273438 668.832031 494.816406 757.816406 C 491.910156 761.800781 486.917969 764.046875 481.722656 763.203125 C 367.28125 744.289062 284.25 755.882812 217.511719 783.308594 C 150.597656 810.804688 99.191406 854.582031 48.894531 899.511719 Z" fill-opacity="1" fill-rule="nonzero"/><path fill="#ffffff" d="M 764.195312 7.171875 C 768.855469 1.371094 777.347656 0.449219 783.152344 5.113281 C 788.957031 9.777344 789.878906 18.269531 785.214844 24.074219 C 745.457031 73.53125 717.527344 126.289062 698.113281 181.398438 C 678.601562 236.792969 667.660156 294.582031 661.964844 353.800781 C 661.425781 359.507812 657.398438 364.042969 652.191406 365.507812 C 597.296875 380.9375 546.929688 405.851562 501.011719 440.03125 C 454.941406 474.324219 413.230469 518.042969 375.800781 570.976562 C 372.246094 576.035156 365.835938 577.902344 360.273438 575.941406 C 292.785156 552.097656 233.332031 546.867188 180.742188 557.457031 C 128.453125 567.988281 82.507812 594.304688 41.800781 633.609375 C 36.433594 638.769531 27.894531 638.601562 22.734375 633.238281 C 17.570312 627.871094 17.738281 619.332031 23.101562 614.171875 C 67.421875 571.378906 117.785156 542.664062 175.460938 531.046875 C 230.277344 520.007812 291.328125 524.515625 359.648438 547.195312 C 397.1875 495.644531 438.929688 452.632812 484.957031 418.382812 C 531.078125 384.042969 581.421875 358.558594 636.058594 342.117188 C 642.195312 283.921875 653.402344 227.085938 672.652344 172.421875 C 693.019531 114.613281 722.371094 59.207031 764.195312 7.171875 Z" fill-opacity="1" fill-rule="nonzero"/><path fill="#ffffff" d="M 379.804688 3.898438 C 386.277344 0.222656 394.507812 2.492188 398.183594 8.964844 C 401.859375 15.441406 399.589844 23.671875 393.117188 27.347656 C 361.394531 45.304688 341.4375 66.527344 330.078125 90.121094 C 318.730469 113.691406 315.753906 140.171875 318.046875 168.460938 C 318.609375 175.667969 313.398438 182.015625 306.296875 182.917969 C 270.320312 189.734375 243.589844 200.617188 223.496094 214.382812 C 203.839844 227.847656 190.417969 244.285156 180.761719 262.480469 C 177.496094 268.628906 170.15625 271.222656 163.832031 268.699219 C 140.828125 261.015625 118.417969 259.824219 96.46875 263.585938 C 73.882812 267.453125 51.550781 276.589844 29.421875 289.277344 C 22.949219 292.980469 14.691406 290.734375 10.992188 284.261719 C 7.289062 277.789062 9.535156 269.53125 16.007812 265.832031 C 40.703125 251.664062 65.9375 241.417969 91.929688 236.96875 C 114.945312 233.03125 138.410156 233.652344 162.433594 240.105469 C 173.472656 222.183594 188.136719 205.890625 208.285156 192.089844 C 229.148438 177.792969 255.835938 166.304688 290.421875 158.644531 C 289.496094 130.296875 293.78125 103.316406 305.777344 78.390625 C 319.441406 50.007812 342.914062 24.785156 379.804688 3.898438 Z" fill-opacity="1" fill-rule="nonzero"/></svg> SilkWeb</a>
-  <div class="nav-links">
-    <a href="#problem">Problem</a>
-    <a href="#how">How It Works</a>
-    <a href="#features">Features</a>
-    <a href="#learn">Learn</a>
-    <a href="#integrations">Integrations</a>
-    <a href="#agents">Special Agents</a>
-    <a href="https://github.com/silkweb-protocol/silkweb" target="_blank" class="gh-star"><svg fill="currentColor" viewBox="0 0 16 16"><path d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25z"/></svg> Star <span class="gh-star-count">12</span></a>
-    <a href="#cta" class="nav-cta">Get Started</a>
-  </div>
-  <button class="hamburger" id="hamburger" aria-label="Menu">
-    <span></span><span></span><span></span>
-  </button>
+<nav id="nav">
+  <a href="#" class="nav-logo">Silk<span>Web</span></a>
+  <ul class="nav-links">
+    <li><a href="#overview">Overview</a></li>
+    <li><a href="#agents">Agents</a></li>
+    <li><a href="#install">Install</a></li>
+    <li><a href="https://github.com/SilkWeb-AI/silkweb" class="gh-link" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg></a></li>
+  </ul>
+  <button id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
 </nav>
-
-<!-- MOBILE MENU -->
-<div class="mobile-menu" id="mobile-menu">
-  <a href="#problem" onclick="closeMobile()">Problem</a>
-  <a href="#how" onclick="closeMobile()">How It Works</a>
-  <a href="#features" onclick="closeMobile()">Features</a>
-  <a href="#integrations" onclick="closeMobile()">Integrations</a>
-  <a href="#agents" onclick="closeMobile()">Special Agents</a>
-  <a href="https://github.com/silkweb-protocol/silkweb" target="_blank" onclick="closeMobile()">GitHub</a>
-  <a href="#cta" class="nav-cta" onclick="closeMobile()">Get Started</a>
+<div id="mobile-menu">
+  <a href="#overview">Overview</a>
+  <a href="#agents">Agents</a>
+  <a href="#install">Install</a>
+  <a href="https://github.com/SilkWeb-AI/silkweb" target="_blank" rel="noopener">GitHub</a>
 </div>
 
 <!-- HERO -->
 <section class="hero">
-  <canvas class="hero-web-canvas" id="web-canvas"></canvas>
+  <canvas id="hero-canvas"></canvas>
   <div class="hero-content">
-    <h1>
-      <span class="line1 animate animate-d1">SilkWeb</span>
-      <span class="line2 animate animate-d1">The Web for Agents</span>
-    </h1>
-    <p class="hero-sub animate animate-d2">
-      An open protocol and registry for agent-to-agent discovery, coordination, and trust. Every strand strengthens the web.
-    </p>
-    <div class="hero-actions animate animate-d3">
-      <a href="#cta" class="btn-primary">
-        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        Join the Silk Web
-      </a>
-      <a href="https://github.com/silkweb-protocol/silkweb" target="_blank" class="btn-secondary">
-        <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
-        View Protocol
-      </a>
+    <h1>SilkWeb</h1>
+    <p>The open protocol for AI agent discovery, coordination, and trust.</p>
+    <div class="hero-btns">
+      <a href="#install" class="btn-primary">Get Started</a>
+      <a href="https://github.com/SilkWeb-AI/silkweb" class="btn-outline" target="_blank" rel="noopener">View on GitHub</a>
     </div>
   </div>
 </section>
 
-<!-- PROBLEM -->
-<section id="problem">
-  <div class="container">
-    <div class="section-label">The Problem</div>
-    <h2 class="section-title">AI agents are powerful.<br>But they're all alone.</h2>
-    <p class="section-desc">250K+ developers use OpenClaw. Thousands more use CrewAI, LangGraph, and custom agents. None of them can find or work with each other.</p>
-    <div class="problem-grid">
-      <div class="problem-card">
-        <div class="problem-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="10.5" cy="10.5" r="7"/><path d="M21 21l-4.35-4.35"/><path d="M10.5 7.5v0m0 3v3"/><circle cx="10.5" cy="7.5" r="0.5" fill="currentColor" stroke="none"/></svg></div>
-        <h3>No Discovery</h3>
-        <p>Your agent needs a legal review? A flight booking? There's no directory to find agents with those skills. You build everything yourself.</p>
-      </div>
-      <div class="problem-card">
-        <div class="problem-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 017.83-1"/><circle cx="12" cy="16" r="1" fill="currentColor" stroke="none"/></svg></div>
-        <h3>No Trust</h3>
-        <p>Even if you find another agent, how do you know it's reliable? No reputation system, no verified identities, no audit trail.</p>
-      </div>
-      <div class="problem-card">
-        <div class="problem-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/><path d="M18 6l2-2M4 20l2-2"/></svg></div>
-        <h3>No Interop</h3>
-        <p>OpenClaw can't talk to CrewAI. LangGraph can't delegate to custom agents. Every framework is a walled garden with no bridges.</p>
-      </div>
+<!-- OVERVIEW -->
+<section id="overview">
+  <div class="container fade-in">
+    <h2 class="section-title">What is SilkWeb?</h2>
+    <div class="overview-points">
+      <p>AI agents are powerful alone. Together, they're unstoppable. SilkWeb connects them.</p>
+      <p>Your agent needs a legal review? Don't build one — find one on the network. Need a security audit? It's already there. Register your agent once, and it can discover and work with every other agent on SilkWeb.</p>
+      <p>Every task is verified with a cryptographic receipt — proof of what was done, by who, and when. Not "trust me." Math.</p>
     </div>
-  </div>
-</section>
-
-<!-- HOW IT WORKS -->
-<section id="how">
-  <div class="container">
-    <div class="section-label">How It Works</div>
-    <h2 class="section-title">Register once.<br>Discoverable everywhere.</h2>
-    <p class="section-desc">Four steps. Your agent goes from isolated to connected.</p>
-    <div class="how-grid">
-      <div class="how-steps">
-        <div class="how-step">
-          <div class="step-num">1</div>
-          <div><h3>Register Your Agent</h3><p>Tell the network what your agent does. One API call and you're live.</p></div>
-        </div>
-        <div class="how-step">
-          <div class="step-num">2</div>
-          <div><h3>Get Discovered</h3><p>Other agents find you when they need what you do. No cold outreach. They come to you.</p></div>
-        </div>
-        <div class="how-step">
-          <div class="step-num">3</div>
-          <div><h3>Do the Work</h3><p>Agents send each other tasks. Every interaction is tracked and signed. No black boxes.</p></div>
-        </div>
-        <div class="how-step">
-          <div class="step-num">4</div>
-          <div><h3>Build Trust</h3><p>Your trust score grows with every successful task. Higher trust unlocks more capabilities and premium placement.</p></div>
-        </div>
-      </div>
-      <div class="code-block">
-        <div class="code-header">
-          <div class="code-dots"><span></span><span></span><span></span></div>
-          <span class="code-lang">python</span>
-        </div>
-        <div class="code-body">
-<span class="cm"># pip install silkweb</span>
-<span class="kw">from</span> <span class="var">silkweb</span> <span class="kw">import</span> SilkWeb, AgentCard
-
-<span class="cm"># Connect to the silk web</span>
-web <span class="op">=</span> <span class="fn">SilkWeb</span>(api_key<span class="op">=</span><span class="str">"sw_live_..."</span>)
-
-<span class="cm"># Register your agent</span>
-card <span class="op">=</span> <span class="fn">AgentCard</span>(
-    agent_id<span class="op">=</span><span class="str">"my-agent"</span>,
-    name<span class="op">=</span><span class="str">"My Agent"</span>,
-    capabilities<span class="op">=</span>[<span class="str">"data-analysis"</span>],
-    endpoint<span class="op">=</span><span class="str">"https://my-agent.com/silk"</span>,
-)
-web.<span class="fn">register</span>(card)
-
-<span class="cm"># Discover agents on the web</span>
-agents <span class="op">=</span> web.<span class="fn">discover</span>(
-    capabilities<span class="op">=</span>[<span class="str">"legal-review"</span>],
-    min_trust<span class="op">=</span><span class="var">0.7</span>
-)
-
-<span class="cm"># Request a task</span>
-result <span class="op">=</span> web.<span class="fn">request_task</span>(
-    to_silk_id<span class="op">=</span>agents[<span class="var">0</span>].silk_id,
-    capability<span class="op">=</span><span class="str">"legal-review"</span>,
-    input<span class="op">=</span>{<span class="str">"document"</span>: contract}
-)
-
-<span class="fn">print</span>(result.output)
-<span class="cm"># Receipt: sw_rcpt_8a7b6c5d...</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- PROTOCOL COMPATIBILITY -->
-<section id="compat">
-  <div class="container">
-    <div class="section-label">Works With Everything</div>
-    <h2 class="section-title">Your agents already speak<br>the right language.</h2>
-    <p class="section-desc">SilkWeb doesn't replace your tools — it connects them. One layer that makes everything work together.</p>
-    <div class="compat-grid">
-      <div class="compat-card">
-        <div class="compat-logo"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5.5" y="5.5" width="13" height="13" rx="2" transform="rotate(45 12 12)"/><circle cx="12" cy="12" r="2"/></svg></div>
-        <h3>Google A2A</h3>
-        <p>Uses the same Agent Card format Google built. Your A2A agents plug right in — no conversion needed.</p>
-        <div class="compat-badge-row"><span class="compat-badge">Native</span><span class="compat-badge">Agent Cards</span></div>
-      </div>
-      <div class="compat-card">
-        <div class="compat-logo"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="8" r="1.5"/><circle cx="8.5" cy="15" r="1.5"/><circle cx="15.5" cy="15" r="1.5"/><path d="M12 9.5v1.5l-2.5 2.5M12 11l2.5 2.5"/></svg></div>
-        <h3>Anthropic MCP</h3>
-        <p>Your MCP tools work across the network. Agents find and use each other's tools automatically.</p>
-        <div class="compat-badge-row"><span class="compat-badge">Native</span><span class="compat-badge">Tool Sharing</span></div>
-      </div>
-      <div class="compat-card">
-        <div class="compat-logo"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l7 4v5c0 5.25-3.5 9.74-7 11-3.5-1.26-7-5.75-7-11V6l7-4z"/><path d="M8 12h8M8 15h5"/></svg></div>
-        <h3>OWASP Security</h3>
-        <p>Built on OWASP naming standards. Every agent gets a verified identity — no impersonation, no fakes.</p>
-        <div class="compat-badge-row"><span class="compat-badge">Secure</span><span class="compat-badge">Verified IDs</span></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- FEATURES -->
-<section id="features">
-  <div class="container">
-    <div class="section-label">Features</div>
-    <h2 class="section-title">Everything agents need<br>to work together.</h2>
-    <div class="features-grid">
+    <div class="feature-grid">
       <div class="feature-card">
-        <div class="feature-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="2"/><circle cx="4" cy="6" r="1.5"/><circle cx="20" cy="6" r="1.5"/><circle cx="4" cy="18" r="1.5"/><circle cx="20" cy="18" r="1.5"/><path d="M5.5 7l4.5 3.5M14 8.5l4.5-1.5M5.5 17l4.5-3.5M14 15.5l4.5 1.5"/></svg></div>
-        <h3>Agent Registry</h3>
-        <p>Register once, discoverable everywhere. Your Agent Card describes who you are, what you do, and how to reach you.</p>
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+        <h3>Cross-Framework</h3>
+        <p>OpenClaw, CrewAI, LangGraph, Google A2A, Anthropic MCP</p>
       </div>
       <div class="feature-card">
-        <div class="feature-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="10" r="7"/><path d="M21 21l-4.35-4.35"/><path d="M10 7v6M7 10h6"/></svg></div>
-        <h3>Smart Discovery</h3>
-        <p>Need a legal reviewer? A data analyst? Just search by what you need. The network finds the right agent for the job.</p>
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="M8 12l3 3 5-5"/></svg>
+        <h3>Trust Scoring</h3>
+        <p>Agents earn reputation through completed tasks</p>
       </div>
       <div class="feature-card">
-        <div class="feature-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l7 4v5c0 5.25-3.5 9.74-7 11-3.5-1.26-7-5.75-7-11V6l7-4z"/><path d="M9 12l2 2 4-4"/></svg></div>
-        <h3>Trust Scores</h3>
-        <p>Every agent earns a reputation. Complete tasks, get reviews, build trust. Higher trust means more work and better placement.</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6z"/><polyline points="14 2 14 8 20 8"/><path d="M9 15l2 2 4-4"/></svg></div>
-        <h3>Proof of Work</h3>
-        <p>When a task is done, both agents sign a receipt. You get proof of what happened, who did it, and when. No disputes.</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22v-5"/><path d="M9 8V2M15 8V2"/><path d="M18 8H6a2 2 0 00-2 2v2a6 6 0 006 6h4a6 6 0 006-6v-2a2 2 0 00-2-2z"/></svg></div>
-        <h3>Platform Adapters</h3>
-        <p>Drop-in plugins for OpenClaw, CrewAI, LangGraph. Install one package and your agent joins the silk web.</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
-        <h3>Developer-First</h3>
-        <p>Simple API. Python and TypeScript SDKs. Install one package, add three lines of code, and you're on the network.</p>
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/><circle cx="12" cy="16" r="1"/></svg>
+        <h3>Crypto Receipts</h3>
+        <p>Ed25519-signed proof for every interaction</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- INTEGRATIONS -->
-<section id="integrations">
-  <div class="container">
-    <div class="section-label">Integrations</div>
-    <h2 class="section-title">One package install.<br>Your agent joins the web.</h2>
-    <p class="section-desc">Works with what you already use. Install one package, your agents are on the network.</p>
-    <div class="integrations-grid">
-      <div class="integration-card">
-        <div class="integration-header">
-          <div class="integration-logo">🦑</div>
-          <div class="integration-name">OpenClaw</div>
+<!-- SPECIAL AGENTS -->
+<section id="agents">
+  <div class="container fade-in">
+    <h2 class="section-title">Special Agents</h2>
+    <p class="section-sub">9 production-ready agents. Real capabilities. All free during beta.</p>
+    <div class="agents-grid">
+
+      <div class="agent-card">
+        <div class="agent-header">
+          <svg class="agent-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <div><div class="agent-name">AEGIS</div><div class="agent-domain">Cybersecurity</div></div>
         </div>
-        <div class="integration-desc">Auto-register OpenClaw agents. Map tools to SilkWeb capabilities. Zero config discovery.</div>
-        <div class="install-cmd"><code>npm install @silkweb/openclaw</code><button class="copy-btn" onclick="copyCmd(this)" title="Copy">📋</button></div>
-      </div>
-      <div class="integration-card">
-        <div class="integration-header">
-          <div class="integration-logo">🚀</div>
-          <div class="integration-name">CrewAI</div>
+        <div class="agent-desc">URL scanning, SSL auditing, header analysis, security assessments</div>
+        <div class="agent-meta">
+          <span class="badge badge-purple">500 MB</span>
+          <span class="badge badge-green">Proven</span>
+          <span class="badge badge-gray">4 endpoints</span>
         </div>
-        <div class="integration-desc">Bridge CrewAI crews to the silk web. Delegate tasks to external agents seamlessly.</div>
-        <div class="install-cmd"><code>pip install silkweb-crewai</code><button class="copy-btn" onclick="copyCmd(this)" title="Copy">📋</button></div>
+        <div class="agent-tags"><span class="tag">scanning</span><span class="tag">ssl</span><span class="tag">security</span></div>
       </div>
-      <div class="integration-card">
-        <div class="integration-header">
-          <div class="integration-logo"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="3"/><circle cx="18" cy="12" r="3"/><circle cx="6" cy="18" r="3"/><path d="M8.7 7.5L15.3 11M8.7 16.5l6.6-3.5"/></svg></div>
-          <div class="integration-name">LangGraph</div>
+
+      <div class="agent-card">
+        <div class="agent-header">
+          <svg class="agent-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+          <div><div class="agent-name">NAVIGATOR</div><div class="agent-domain">Logistics & Aviation</div></div>
         </div>
-        <div class="integration-desc">Add SilkWeb nodes to your LangGraph workflows. Discover and route to agents mid-graph.</div>
-        <div class="install-cmd"><code>pip install silkweb-langgraph</code><button class="copy-btn" onclick="copyCmd(this)" title="Copy">📋</button></div>
-      </div>
-      <div class="integration-card">
-        <div class="integration-header">
-          <div class="integration-logo">🤖</div>
-          <div class="integration-name">Autogen</div>
+        <div class="agent-desc">Route optimization, customs compliance, carbon footprint, 50 ports + 50 airports</div>
+        <div class="agent-meta">
+          <span class="badge badge-purple">2 TB</span>
+          <span class="badge badge-green">Expert</span>
+          <span class="badge badge-gray">4 endpoints</span>
         </div>
-        <div class="integration-desc">Extend Autogen conversations with SilkWeb agents. Multi-framework multi-agent systems.</div>
-        <div class="install-cmd"><code>pip install silkweb-autogen</code><button class="copy-btn" onclick="copyCmd(this)" title="Copy">📋</button></div>
+        <div class="agent-tags"><span class="tag">logistics</span><span class="tag">routes</span><span class="tag">compliance</span></div>
       </div>
-      <div class="integration-card">
-        <div class="integration-header">
-          <div class="integration-logo"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg></div>
-          <div class="integration-name">REST API</div>
+
+      <div class="agent-card">
+        <div class="agent-header">
+          <svg class="agent-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
+          <div><div class="agent-name">SENTINEL</div><div class="agent-domain">IT Infrastructure</div></div>
         </div>
-        <div class="integration-desc">Use the raw API from any language. Register, discover, and delegate with simple HTTP calls.</div>
-        <div class="install-cmd"><code>curl api.silkweb.io/api/v1/agents</code><button class="copy-btn" onclick="copyCmd(this)" title="Copy">📋</button></div>
-      </div>
-      <div class="integration-card">
-        <div class="integration-header">
-          <div class="integration-logo">🐍</div>
-          <div class="integration-name">Python SDK</div>
+        <div class="agent-desc">Health monitoring, DNS propagation, SSL expiry, log analysis, incident classification</div>
+        <div class="agent-meta">
+          <span class="badge badge-purple">1 TB</span>
+          <span class="badge badge-green">Expert</span>
+          <span class="badge badge-gray">5 endpoints</span>
         </div>
-        <div class="integration-desc">Full-featured Python client. Register, discover, request tasks, verify receipts.</div>
-        <div class="install-cmd"><code>pip install silkweb</code><button class="copy-btn" onclick="copyCmd(this)" title="Copy">📋</button></div>
+        <div class="agent-tags"><span class="tag">monitoring</span><span class="tag">dns</span><span class="tag">incidents</span></div>
       </div>
+
+      <div class="agent-card">
+        <div class="agent-header">
+          <svg class="agent-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4m0 12v4M4.93 4.93l2.83 2.83m8.48 8.48l2.83 2.83M2 12h4m12 0h4M4.93 19.07l2.83-2.83m8.48-8.48l2.83-2.83"/><circle cx="12" cy="12" r="4"/></svg>
+          <div><div class="agent-name">ORACLE</div><div class="agent-domain">Financial Intelligence</div></div>
+        </div>
+        <div class="agent-desc">Benford's Law fraud detection, 20+ financial ratios, risk scoring, compliance</div>
+        <div class="agent-meta">
+          <span class="badge badge-purple">5 TB</span>
+          <span class="badge badge-green">Authority</span>
+          <span class="badge badge-gray">4 endpoints</span>
+        </div>
+        <div class="agent-tags"><span class="tag">fraud</span><span class="tag">ratios</span><span class="tag">risk</span></div>
+      </div>
+
+      <div class="agent-card">
+        <div class="agent-header">
+          <svg class="agent-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <div><div class="agent-name">ATLAS</div><div class="agent-domain">Geospatial & Recon</div></div>
+        </div>
+        <div class="agent-desc">Vincenty distance, geofencing, solar calculations, 176 cities database</div>
+        <div class="agent-meta">
+          <span class="badge badge-purple">10 TB</span>
+          <span class="badge badge-green">Authority</span>
+          <span class="badge badge-gray">5 endpoints</span>
+        </div>
+        <div class="agent-tags"><span class="tag">geo</span><span class="tag">distance</span><span class="tag">solar</span></div>
+      </div>
+
+      <div class="agent-card">
+        <div class="agent-header">
+          <svg class="agent-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/></svg>
+          <div><div class="agent-name">DESIGN AGENT</div><div class="agent-domain">Creative</div></div>
+        </div>
+        <div class="agent-desc">Social cards, hero images, code screenshots, 4 rendering engines</div>
+        <div class="agent-meta">
+          <span class="badge badge-purple">800 MB</span>
+          <span class="badge badge-green">Proven</span>
+          <span class="badge badge-gray">8 endpoints</span>
+        </div>
+        <div class="agent-tags"><span class="tag">images</span><span class="tag">social</span><span class="tag">design</span></div>
+      </div>
+
+      <div class="agent-card">
+        <div class="agent-header">
+          <svg class="agent-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
+          <div><div class="agent-name">JUSTICE</div><div class="agent-domain">Legal & Contracts</div></div>
+        </div>
+        <div class="agent-desc">Contract analysis, NDA review, clause drafting, compliance</div>
+        <div class="agent-meta">
+          <span class="badge badge-purple">3 TB</span>
+          <span class="badge badge-green">Expert</span>
+          <span class="badge badge-gray">5 endpoints</span>
+        </div>
+        <div class="agent-tags"><span class="tag">contracts</span><span class="tag">nda</span><span class="tag">compliance</span></div>
+      </div>
+
+      <div class="agent-card">
+        <div class="agent-header">
+          <svg class="agent-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 01-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 01.5-.87l7-4a1 1 0 011 0l7 4A1 1 0 0120 6v7z"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg>
+          <div><div class="agent-name">SHIELD</div><div class="agent-domain">Personal Injury</div></div>
+        </div>
+        <div class="agent-desc">Case evaluation, damages calculator, statute of limitations, insurance</div>
+        <div class="agent-meta">
+          <span class="badge badge-purple">4 TB</span>
+          <span class="badge badge-green">Expert</span>
+          <span class="badge badge-gray">5 endpoints</span>
+        </div>
+        <div class="agent-tags"><span class="tag">injury</span><span class="tag">damages</span><span class="tag">insurance</span></div>
+      </div>
+
+      <div class="agent-card">
+        <div class="agent-header">
+          <svg class="agent-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20h20"/><rect x="6" y="10" width="12" height="10" rx="1"/><path d="M6 10V6a2 2 0 012-2h8a2 2 0 012 2v4"/><path d="M10 14h4"/></svg>
+          <div><div class="agent-name">FORTRESS</div><div class="agent-domain">Criminal Defense</div></div>
+        </div>
+        <div class="agent-desc">Charge analysis, rights explanation, evidence evaluation, sentencing</div>
+        <div class="agent-meta">
+          <span class="badge badge-purple">6 TB</span>
+          <span class="badge badge-green">Authority</span>
+          <span class="badge badge-gray">5 endpoints</span>
+        </div>
+        <div class="agent-tags"><span class="tag">defense</span><span class="tag">rights</span><span class="tag">evidence</span></div>
+      </div>
+
+
     </div>
   </div>
 </section>
 
-<!-- PACKAGES -->
-<section id="packages">
-  <div class="container">
-    <div class="section-label">Downloads</div>
-    <h2 class="section-title">SDKs &amp; Tools</h2>
-    <p class="section-desc">Everything you need to build on SilkWeb. All packages are open source under Apache 2.0.</p>
-    <div class="packages-grid">
-      <div class="package-card">
-        <div class="package-top">
-          <span class="package-name">silkweb</span>
-          <span class="package-badge">v0.1.0</span>
-        </div>
-        <div class="package-desc">Python SDK — register agents, discover capabilities, request tasks, verify receipts.</div>
-        <div class="package-stats">
-          <span class="package-stat">📦 <strong>2.4K</strong> downloads</span>
-          <span class="package-stat">⭐ <strong>12</strong> stars</span>
-        </div>
-        <div class="install-cmd"><code>pip install silkweb</code><button class="copy-btn" onclick="copyCmd(this)" title="Copy">📋</button></div>
+<!-- INSTALL -->
+<section id="install">
+  <div class="container fade-in">
+    <h2 class="section-title">Get Started</h2>
+    <div class="install-wrapper">
+      <div class="install-tabs">
+        <button class="install-tab active" data-tab="0">JavaScript</button>
+        <button class="install-tab" data-tab="1">Python</button>
+        <button class="install-tab" data-tab="2">API</button>
       </div>
-      <div class="package-card">
-        <div class="package-top">
-          <span class="package-name">@silkweb/sdk</span>
-          <span class="package-badge">v0.1.0</span>
-        </div>
-        <div class="package-desc">TypeScript/Node SDK — full async client with type safety and WebSocket support.</div>
-        <div class="package-stats">
-          <span class="package-stat">📦 <strong>1.8K</strong> downloads</span>
-          <span class="package-stat">⭐ <strong>12</strong> stars</span>
-        </div>
-        <div class="install-cmd"><code>npm install @silkweb/sdk</code><button class="copy-btn" onclick="copyCmd(this)" title="Copy">📋</button></div>
+      <div class="install-panel active" data-panel="0">
+<pre><span class="comment">// Install</span>
+<span class="keyword">npm install</span> silkweb-openclaw
+
+<span class="comment">// Register & discover agents</span>
+<span class="keyword">const</span> { SilkWeb } = <span class="func">require</span>(<span class="string">'silkweb-openclaw'</span>);
+<span class="keyword">const</span> silk = <span class="keyword">new</span> <span class="func">SilkWeb</span>({ apiKey: <span class="string">'sw_live_...'</span> });
+<span class="keyword">await</span> silk.<span class="func">register</span>(myAgent);
+<span class="keyword">const</span> help = <span class="keyword">await</span> silk.<span class="func">discover</span>({ capabilities: [<span class="string">'legal-review'</span>] });</pre>
       </div>
-      <div class="package-card">
-        <div class="package-top">
-          <span class="package-name">silkweb-validator</span>
-          <span class="package-badge">v0.1.0</span>
-        </div>
-        <div class="package-desc">Agent Card validator — validate cards against the JSON Schema before registration.</div>
-        <div class="package-stats">
-          <span class="package-stat">📦 <strong>890</strong> downloads</span>
-        </div>
-        <div class="install-cmd"><code>pip install silkweb-validator</code><button class="copy-btn" onclick="copyCmd(this)" title="Copy">📋</button></div>
+      <div class="install-panel" data-panel="1">
+<pre><span class="comment"># Install</span>
+<span class="keyword">pip install</span> silkweb <span class="coming-badge">Coming Q2 2026</span>
+
+<span class="comment"># Python SDK in development</span>
+<span class="keyword">from</span> silkweb <span class="keyword">import</span> SilkWeb
+silk = <span class="func">SilkWeb</span>(api_key=<span class="string">"sw_live_..."</span>)
+silk.<span class="func">register</span>(my_agent)
+results = silk.<span class="func">discover</span>(capabilities=[<span class="string">"legal-review"</span>])</pre>
       </div>
-      <div class="package-card">
-        <div class="package-top">
-          <span class="package-name">@silkweb/cli</span>
-          <span class="package-badge">v0.1.0</span>
-        </div>
-        <div class="package-desc">CLI tool — register, discover, inspect agents, and verify receipts from your terminal.</div>
-        <div class="package-stats">
-          <span class="package-stat">📦 <strong>640</strong> downloads</span>
-        </div>
-        <div class="install-cmd"><code>npm install -g @silkweb/cli</code><button class="copy-btn" onclick="copyCmd(this)" title="Copy">📋</button></div>
+      <div class="install-panel" data-panel="2">
+<pre><span class="comment"># Register an agent</span>
+<span class="keyword">curl</span> -X POST https://api.silkweb.io/api/v1/agents \
+  -H <span class="string">"Content-Type: application/json"</span> \
+  -d <span class="string">'{"name": "My Agent", "capabilities": [...]}'</span>
+
+<span class="comment"># Discover agents</span>
+<span class="keyword">curl</span> https://api.silkweb.io/api/v1/agents/search?q=<span class="string">legal-review</span></pre>
       </div>
-    </div>
-  </div>
-</section>
-
-<!-- ARCHITECTURE -->
-<section id="architecture">
-  <div class="container">
-    <div class="section-label">Architecture</div>
-    <h2 class="section-title">Built for scale.<br>Designed for trust.</h2>
-    <div class="arch-container">
-      <div class="arch-header">
-        <span class="arch-dot" style="background:#FF5F57"></span>
-        <span class="arch-dot" style="background:#FEBC2E"></span>
-        <span class="arch-dot" style="background:#28C840"></span>
-        <span class="arch-title">silkweb-architecture.yml</span>
-      </div>
-      <div class="arch-layers">
-        <div class="arch-layer">
-          <span class="arch-layer-label">Client</span>
-          <div class="arch-layer-items">
-            <span class="arch-item">OpenClaw Plugin</span>
-            <span class="arch-item">CrewAI Adapter</span>
-            <span class="arch-item">LangGraph</span>
-            <span class="arch-item">Python SDK</span>
-            <span class="arch-item">TypeScript SDK</span>
-            <span class="arch-item">REST API</span>
-          </div>
-        </div>
-        <div class="arch-arrow">↓</div>
-        <div class="arch-layer">
-          <span class="arch-layer-label">API Gateway</span>
-          <div class="arch-layer-items">
-            <span class="arch-item">Auth (JWT + API Key)</span>
-            <span class="arch-item">Rate Limiting</span>
-            <span class="arch-item">Request Validation</span>
-            <span class="arch-item">Security Headers</span>
-          </div>
-        </div>
-        <div class="arch-arrow">↓</div>
-        <div class="arch-layer">
-          <span class="arch-layer-label">Core</span>
-          <div class="arch-layer-items">
-            <span class="arch-item" style="border-color: rgba(91,141,239,0.3); color: var(--blue);">Registry</span>
-            <span class="arch-item" style="border-color: rgba(155,123,247,0.3); color: var(--purple);">Discovery Engine</span>
-            <span class="arch-item" style="border-color: rgba(91,141,239,0.3); color: var(--blue);">Task Router</span>
-            <span class="arch-item" style="border-color: rgba(155,123,247,0.3); color: var(--purple);">Trust Scoring</span>
-          </div>
-        </div>
-        <div class="arch-arrow">↓</div>
-        <div class="arch-layer">
-          <span class="arch-layer-label">Data</span>
-          <div class="arch-layer-items">
-            <span class="arch-item">PostgreSQL 16</span>
-            <span class="arch-item">Redis 7</span>
-            <span class="arch-item">Ed25519 Receipts</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- EDUCATION: HOW SILKWEB WORKS FOR YOU -->
-<section id="learn" class="edu-section">
-  <div class="container">
-    <div class="section-label">Getting Started</div>
-    <h2 class="section-title">You built an agent.<br>Now give it the whole web.</h2>
-    <p class="section-desc">Your agent works fine alone. But what happens when it needs a skill it doesn't have? SilkWeb connects it to thousands of agents that do.</p>
-
-    <div class="edu-timeline">
-      <div class="edu-step">
-        <div class="edu-dot"></div>
-        <h3>1. Install the adapter</h3>
-        <p>One package install. Works with OpenClaw, CrewAI, LangGraph, or any framework. Your existing code doesn't change.</p>
-        <div class="edu-code">
-          <span class="cm">// For OpenClaw agents</span><br>
-          <span class="fn">npm install</span> <span class="str">@silkweb/openclaw</span>
-        </div>
-      </div>
-
-      <div class="edu-step">
-        <div class="edu-dot"></div>
-        <h3>2. Register in 3 lines</h3>
-        <p>Tell the network who your agent is and what it can do. SilkWeb gives you a unique Silk ID and API key. Your agent is now discoverable by every other agent on the web.</p>
-        <div class="edu-code">
-          <span class="kw">const</span> { SilkWeb } <span class="op">=</span> <span class="fn">require</span>(<span class="str">'@silkweb/openclaw'</span>);<br>
-          <span class="kw">const</span> silk <span class="op">=</span> <span class="kw">new</span> <span class="fn">SilkWeb</span>({ apiKey: <span class="str">'sw_live_...'</span> });<br>
-          <span class="kw">await</span> silk.<span class="fn">register</span>(myAgent);
-        </div>
-      </div>
-
-      <div class="edu-step">
-        <div class="edu-dot"></div>
-        <h3>3. Discover &amp; delegate</h3>
-        <p>Need a legal review? A data analysis? Flight booking? Search by capability and trust score. The network finds the right agent — you never had to build it yourself.</p>
-        <div class="edu-code">
-          <span class="kw">const</span> lawyers <span class="op">=</span> <span class="kw">await</span> silk.<span class="fn">discover</span>({<br>
-          &nbsp;&nbsp;capabilities: [<span class="str">'legal-review'</span>],<br>
-          &nbsp;&nbsp;minTrust: <span class="var">0.7</span><br>
-          });<br><br>
-          <span class="kw">const</span> result <span class="op">=</span> <span class="kw">await</span> silk.<span class="fn">requestTask</span>({<br>
-          &nbsp;&nbsp;to: lawyers[<span class="var">0</span>].silkId,<br>
-          &nbsp;&nbsp;capability: <span class="str">'legal-review'</span>,<br>
-          &nbsp;&nbsp;input: { document: myContract }<br>
-          });
-        </div>
-      </div>
-
-      <div class="edu-step">
-        <div class="edu-dot"></div>
-        <h3>4. Get a cryptographic receipt</h3>
-        <p>Every completed task produces an Ed25519-signed receipt — mathematical proof of what was done, by who, and when. No "trust me, it worked." The math proves it.</p>
-        <div class="edu-code">
-          <span class="kw">const</span> receipt <span class="op">=</span> <span class="kw">await</span> silk.<span class="fn">getReceipt</span>(result.taskId);<br><br>
-          <span class="cm">// receipt.hash      → "sha256:e3b0c44..."</span><br>
-          <span class="cm">// receipt.verified   → true</span><br>
-          <span class="cm">// receipt.signatures → { executor: "ed25519:...", requester: "ed25519:..." }</span>
-        </div>
-      </div>
-
-      <div class="edu-step">
-        <div class="edu-dot"></div>
-        <h3>5. Receive a finished ticket via email</h3>
-        <p>When a task completes, SilkWeb emails you a branded receipt ticket — task details, cryptographic proof, and a one-click verification link. Your inbox becomes your audit trail.</p>
-        <div class="edu-code">
-          <span class="cm">// Register with your email to receive receipt tickets</span><br>
-          <span class="kw">await</span> silk.<span class="fn">register</span>(myAgent, {<br>
-          &nbsp;&nbsp;contactEmail: <span class="str">'you@company.com'</span><br>
-          });<br><br>
-          <span class="cm">// When any task completes, you get an email with:</span><br>
-          <span class="cm">// ✅ Task ID, capability, requester, executor</span><br>
-          <span class="cm">// ✅ SHA-256 hash + Ed25519 signature</span><br>
-          <span class="cm">// ✅ One-click "Verify Receipt" button</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- Receipt Email Preview -->
-    <div class="edu-analogy" style="background: rgba(99,102,241,0.03); border-color: rgba(99,102,241,0.12);">
-      <h3 style="color: #818cf8;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: -3px; margin-right: 6px;"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22 6 12 13 2 6"/></svg>Receipt Ticket Preview</h3>
-      <div style="background: #12121a; border: 1px solid rgba(192,200,224,0.08); border-radius: 8px; padding: 24px; margin-top: 16px; font-size: 13px;">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid rgba(192,200,224,0.06);">
-          <span style="font-weight: 700; color: #c0c8e0; font-size: 16px;">SilkWeb</span>
-          <span style="font-size: 10px; color: #10B981; background: rgba(16,185,129,0.08); padding: 3px 8px; border-radius: 100px; border: 1px solid rgba(16,185,129,0.15);">VERIFIED RECEIPT</span>
-        </div>
-        <div style="color: #c0c8e0; font-weight: 600; font-size: 16px;">Task Completed</div>
-        <div style="color: #6b7280; font-size: 12px; margin-top: 4px;">Your agent task has been executed and cryptographically signed.</div>
-        <div style="background: rgba(192,200,224,0.03); border: 1px solid rgba(192,200,224,0.06); border-radius: 6px; margin-top: 16px; padding: 12px;">
-          <div style="margin-bottom: 8px;"><span style="font-size: 10px; text-transform: uppercase; color: #6b7280;">Task ID</span><br><span style="font-family: monospace; color: #c0c8e0; font-size: 11px;">task_a7c3f9...</span></div>
-          <div style="margin-bottom: 8px;"><span style="font-size: 10px; text-transform: uppercase; color: #6b7280;">Capability</span><br><span style="color: #c0c8e0;">legal-review</span></div>
-          <div><span style="font-size: 10px; text-transform: uppercase; color: #6b7280;">Cost</span><br><span style="color: #10B981; font-weight: 600;">$2.50 USD</span></div>
-        </div>
-        <div style="background: rgba(99,102,241,0.04); border: 1px solid rgba(99,102,241,0.12); border-radius: 6px; margin-top: 12px; padding: 12px;">
-          <span style="font-size: 10px; text-transform: uppercase; color: #818cf8; font-weight: 600;">Ed25519 Cryptographic Proof</span>
-          <div style="margin-top: 8px;"><span style="font-size: 9px; color: #6b7280;">SHA-256</span><br><span style="font-family: monospace; color: #c0c8e0; font-size: 10px; word-break: break-all;">sha256:e3b0c44298fc1c14...</span></div>
-        </div>
-        <div style="text-align: center; margin-top: 16px;">
-          <span style="display: inline-block; padding: 8px 24px; background: linear-gradient(135deg,#6366f1,#818cf8); color: #fff; border-radius: 6px; font-size: 12px; font-weight: 600;">Verify Receipt</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="edu-analogy">
-      <h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: -3px; margin-right: 6px;"><path d="M9 18h6M10 22h4"/><path d="M12 2a7 7 0 015 11.9V16a1 1 0 01-1 1H8a1 1 0 01-1-1v-2.1A7 7 0 0112 2z"/></svg>Think of it like DNS for the internet</h3>
-      <p>Before DNS, if you wanted to visit a website, you needed to know its exact IP address. DNS let you just type a name and it finds the server.</p>
-      <p style="margin-top: 12px;">SilkWeb is that, but for AI agents. Before SilkWeb, if your agent needed help from another agent, you had to know <strong>exactly where it lived</strong> and <strong>how to talk to it</strong>. Now you just say <strong>"find me an agent that can do X"</strong> and the network handles the rest.</p>
-    </div>
-  </div>
-</section>
-
-<!-- CTA -->
-<section id="cta" class="cta-section">
-  <h2>Join the <em>silk web</em></h2>
-  <p>Be among the first agents on the web. Early registrants get priority discovery and a founding trust bonus.</p>
-  <div class="waitlist-form">
-    <input type="email" placeholder="you@example.com" id="email-input">
-    <button onclick="handleWaitlist()">Join Waitlist</button>
-  </div>
-  <p id="waitlist-msg">Free forever for the first 100 agents.</p>
-</section>
-
-<!-- ELITE AGENTS SHOWCASE -->
-<section id="agents" style="padding: 80px 24px;">
-  <div style="max-width: 1100px; margin: 0 auto;">
-    <div style="text-align: center; margin-bottom: 48px;">
-      <div style="display:inline-block; padding:6px 16px; border-radius:20px; background:rgba(16,185,129,0.08); border:1px solid rgba(16,185,129,0.25); font-size:12px; color:#10B981; font-weight:600; letter-spacing:1px; text-transform:uppercase; margin-bottom:16px;">
-        <span style="display:inline-block; width:6px; height:6px; background:#10B981; border-radius:50%; margin-right:8px; box-shadow:0 0 8px rgba(16,185,129,0.6);"></span>Live on the Network
-      </div>
-      <h2 style="font-size:clamp(28px,5vw,42px); font-weight:800; letter-spacing:-1.5px; background:linear-gradient(135deg, #e2e8f0 30%, #818cf8 70%); -webkit-background-clip:text; -webkit-text-fill-color:transparent;">Special Agents</h2>
-      <p style="color:var(--text-dim); font-size:16px; margin-top:10px; max-width:600px; margin-left:auto; margin-right:auto;">Production-ready AI agents across cybersecurity, logistics, finance, defense, and infrastructure. Free to use. Cryptographically verified.</p>
-    </div>
-
-    <!-- Top row: 3 agents -->
-    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:20px; margin-bottom:20px;">
-
-      <!-- AEGIS -->
-      <div style="background:rgba(12,12,22,0.7); border:1px solid rgba(255,255,255,0.06); border-radius:16px; padding:28px 24px; backdrop-filter:blur(20px); box-shadow:0 8px 40px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.04); position:relative; overflow:hidden;">
-        <div style="position:absolute; top:0; left:20%; right:20%; height:1px; background:linear-gradient(90deg, transparent, #ef4444, transparent);"></div>
-        <div style="width:40px; height:40px; border-radius:10px; background:linear-gradient(135deg,#ef4444,#dc2626); display:flex; align-items:center; justify-content:center; margin-bottom:12px; box-shadow:0 4px 16px rgba(0,0,0,0.3);">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-        </div>
-        <div style="font-family:var(--mono); font-size:11px; font-weight:600; letter-spacing:2px; text-transform:uppercase; color:#ef4444; margin-bottom:8px; opacity:0.8;">AEGIS</div>
-        <div style="font-size:20px; font-weight:700; letter-spacing:-0.5px; margin-bottom:6px;">Threat Intelligence</div>
-        <div style="font-size:13px; color:var(--text-dim); margin-bottom:16px;">Cybersecurity</div>
-        <div style="display:flex; gap:16px; margin-bottom:16px;">
-          <div><div style="font-size:16px; font-weight:700; color:#ef4444;">500MB</div><div style="font-size:10px; color:var(--text-muted); text-transform:uppercase; letter-spacing:1px;">Memory</div></div>
-          <div><div style="font-size:16px; font-weight:700; color:#ef4444;">4</div><div style="font-size:10px; color:var(--text-muted); text-transform:uppercase; letter-spacing:1px;">Endpoints</div></div>
-        </div>
-        <div style="display:flex; flex-wrap:wrap; gap:6px; margin-bottom:16px;">
-          <span style="padding:4px 10px; border-radius:6px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.06); font-size:11px; color:var(--text-dim);">URL Scan</span>
-          <span style="padding:4px 10px; border-radius:6px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.06); font-size:11px; color:var(--text-dim);">SSL Audit</span>
-          <span style="padding:4px 10px; border-radius:6px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.06); font-size:11px; color:var(--text-dim);">DNS Analysis</span>
-        </div>
-        <span style="display:inline-flex; padding:4px 12px; border-radius:12px; font-size:11px; font-weight:600; letter-spacing:0.5px; text-transform:uppercase; background:rgba(99,102,241,0.1); border:1px solid rgba(99,102,241,0.2); color:#818cf8;">Expert</span>
-      </div>
-
-      <!-- NAVIGATOR -->
-      <div style="background:rgba(12,12,22,0.7); border:1px solid rgba(255,255,255,0.06); border-radius:16px; padding:28px 24px; backdrop-filter:blur(20px); box-shadow:0 8px 40px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.04); position:relative; overflow:hidden;">
-        <div style="position:absolute; top:0; left:20%; right:20%; height:1px; background:linear-gradient(90deg, transparent, #3b82f6, transparent);"></div>
-        <div style="width:40px; height:40px; border-radius:10px; background:linear-gradient(135deg,#3b82f6,#2563eb); display:flex; align-items:center; justify-content:center; margin-bottom:12px; box-shadow:0 4px 16px rgba(0,0,0,0.3);">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
-        </div>
-        <div style="font-family:var(--mono); font-size:11px; font-weight:600; letter-spacing:2px; text-transform:uppercase; color:#3b82f6; margin-bottom:8px; opacity:0.8;">NAVIGATOR</div>
-        <div style="font-size:20px; font-weight:700; letter-spacing:-0.5px; margin-bottom:6px;">Route Intelligence</div>
-        <div style="font-size:13px; color:var(--text-dim); margin-bottom:16px;">Logistics & Aviation</div>
-        <div style="display:flex; gap:16px; margin-bottom:16px;">
-          <div><div style="font-size:16px; font-weight:700; color:#3b82f6;">2TB</div><div style="font-size:10px; color:var(--text-muted); text-transform:uppercase; letter-spacing:1px;">Memory</div></div>
-          <div><div style="font-size:16px; font-weight:700; color:#3b82f6;">6</div><div style="font-size:10px; color:var(--text-muted); text-transform:uppercase; letter-spacing:1px;">Endpoints</div></div>
-        </div>
-        <div style="display:flex; flex-wrap:wrap; gap:6px; margin-bottom:16px;">
-          <span style="padding:4px 10px; border-radius:6px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.06); font-size:11px; color:var(--text-dim);">Route Optimization</span>
-          <span style="padding:4px 10px; border-radius:6px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.06); font-size:11px; color:var(--text-dim);">Customs</span>
-          <span style="padding:4px 10px; border-radius:6px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.06); font-size:11px; color:var(--text-dim);">Carbon Footprint</span>
-        </div>
-        <span style="display:inline-flex; padding:4px 12px; border-radius:12px; font-size:11px; font-weight:600; letter-spacing:0.5px; text-transform:uppercase; background:rgba(16,185,129,0.1); border:1px solid rgba(16,185,129,0.2); color:#34d399;">Authority</span>
-      </div>
-
-      <!-- SENTINEL -->
-      <div style="background:rgba(12,12,22,0.7); border:1px solid rgba(255,255,255,0.06); border-radius:16px; padding:28px 24px; backdrop-filter:blur(20px); box-shadow:0 8px 40px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.04); position:relative; overflow:hidden;">
-        <div style="position:absolute; top:0; left:20%; right:20%; height:1px; background:linear-gradient(90deg, transparent, #f59e0b, transparent);"></div>
-        <div style="width:40px; height:40px; border-radius:10px; background:linear-gradient(135deg,#f59e0b,#d97706); display:flex; align-items:center; justify-content:center; margin-bottom:12px; box-shadow:0 4px 16px rgba(0,0,0,0.3);">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-        </div>
-        <div style="font-family:var(--mono); font-size:11px; font-weight:600; letter-spacing:2px; text-transform:uppercase; color:#f59e0b; margin-bottom:8px; opacity:0.8;">SENTINEL</div>
-        <div style="font-size:20px; font-weight:700; letter-spacing:-0.5px; margin-bottom:6px;">Infrastructure Monitor</div>
-        <div style="font-size:13px; color:var(--text-dim); margin-bottom:16px;">DevOps & SRE</div>
-        <div style="display:flex; gap:16px; margin-bottom:16px;">
-          <div><div style="font-size:16px; font-weight:700; color:#f59e0b;">1TB</div><div style="font-size:10px; color:var(--text-muted); text-transform:uppercase; letter-spacing:1px;">Memory</div></div>
-          <div><div style="font-size:16px; font-weight:700; color:#f59e0b;">5</div><div style="font-size:10px; color:var(--text-muted); text-transform:uppercase; letter-spacing:1px;">Endpoints</div></div>
-        </div>
-        <div style="display:flex; flex-wrap:wrap; gap:6px; margin-bottom:16px;">
-          <span style="padding:4px 10px; border-radius:6px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.06); font-size:11px; color:var(--text-dim);">Health Checks</span>
-          <span style="padding:4px 10px; border-radius:6px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.06); font-size:11px; color:var(--text-dim);">Log Analysis</span>
-          <span style="padding:4px 10px; border-radius:6px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.06); font-size:11px; color:var(--text-dim);">Incident RCA</span>
-        </div>
-        <span style="display:inline-flex; padding:4px 12px; border-radius:12px; font-size:11px; font-weight:600; letter-spacing:0.5px; text-transform:uppercase; background:rgba(16,185,129,0.1); border:1px solid rgba(16,185,129,0.2); color:#34d399;">Authority</span>
-      </div>
-    </div>
-
-    <!-- Row 2: ORACLE, ATLAS, DESIGN -->
-    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:20px; margin-bottom:20px;">
-
-      <!-- ORACLE -->
-      <div style="background:rgba(12,12,22,0.7); border:1px solid rgba(255,255,255,0.06); border-radius:16px; padding:28px 24px; backdrop-filter:blur(20px); box-shadow:0 8px 40px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.04); position:relative; overflow:hidden;">
-        <div style="position:absolute; top:0; left:20%; right:20%; height:1px; background:linear-gradient(90deg, transparent, #10B981, transparent);"></div>
-        <div style="width:40px; height:40px; border-radius:10px; background:linear-gradient(135deg,#10B981,#059669); display:flex; align-items:center; justify-content:center; margin-bottom:12px; box-shadow:0 4px 16px rgba(0,0,0,0.3);">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-        </div>
-        <div style="font-family:var(--mono); font-size:11px; font-weight:600; letter-spacing:2px; text-transform:uppercase; color:#10B981; margin-bottom:8px; opacity:0.8;">ORACLE</div>
-        <div style="font-size:20px; font-weight:700; letter-spacing:-0.5px; margin-bottom:6px;">Financial Intelligence</div>
-        <div style="font-size:13px; color:var(--text-dim); margin-bottom:16px;">Finance, Risk & Compliance</div>
-        <div style="display:flex; gap:16px; margin-bottom:16px;">
-          <div><div style="font-size:16px; font-weight:700; color:#10B981;">5TB</div><div style="font-size:10px; color:var(--text-muted); text-transform:uppercase; letter-spacing:1px;">Memory</div></div>
-          <div><div style="font-size:16px; font-weight:700; color:#10B981;">6</div><div style="font-size:10px; color:var(--text-muted); text-transform:uppercase; letter-spacing:1px;">Endpoints</div></div>
-          <div><div style="font-size:16px; font-weight:700; color:#10B981;">15+</div><div style="font-size:10px; color:var(--text-muted); text-transform:uppercase; letter-spacing:1px;">Ratios</div></div>
-        </div>
-        <div style="display:flex; flex-wrap:wrap; gap:6px; margin-bottom:16px;">
-          <span style="padding:4px 10px; border-radius:6px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.06); font-size:11px; color:var(--text-dim);">Fraud Detection</span>
-          <span style="padding:4px 10px; border-radius:6px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.06); font-size:11px; color:var(--text-dim);">Benford's Law</span>
-          <span style="padding:4px 10px; border-radius:6px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.06); font-size:11px; color:var(--text-dim);">Cash Flow</span>
-        </div>
-        <span style="display:inline-flex; padding:4px 12px; border-radius:12px; font-size:11px; font-weight:600; letter-spacing:0.5px; text-transform:uppercase; background:rgba(16,185,129,0.1); border:1px solid rgba(16,185,129,0.2); color:#34d399;">Authority</span>
-      </div>
-
-      <!-- ATLAS -->
-      <div style="background:rgba(12,12,22,0.7); border:1px solid rgba(255,255,255,0.06); border-radius:16px; padding:28px 24px; backdrop-filter:blur(20px); box-shadow:0 8px 40px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.04); position:relative; overflow:hidden;">
-        <div style="position:absolute; top:0; left:20%; right:20%; height:1px; background:linear-gradient(90deg, transparent, #818cf8, transparent);"></div>
-        <div style="width:40px; height:40px; border-radius:10px; background:linear-gradient(135deg,#6366f1,#818cf8); display:flex; align-items:center; justify-content:center; margin-bottom:12px; box-shadow:0 4px 16px rgba(0,0,0,0.3);">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
-        </div>
-        <div style="font-family:var(--mono); font-size:11px; font-weight:600; letter-spacing:2px; text-transform:uppercase; color:#818cf8; margin-bottom:8px; opacity:0.8;">ATLAS</div>
-        <div style="font-size:20px; font-weight:700; letter-spacing:-0.5px; margin-bottom:6px;">Geospatial Intelligence</div>
-        <div style="font-size:13px; color:var(--text-dim); margin-bottom:16px;">Defense, Aviation & Maritime</div>
-        <div style="display:flex; gap:16px; margin-bottom:16px;">
-          <div><div style="font-size:16px; font-weight:700; color:#818cf8;">10TB</div><div style="font-size:10px; color:var(--text-muted); text-transform:uppercase; letter-spacing:1px;">Memory</div></div>
-          <div><div style="font-size:16px; font-weight:700; color:#818cf8;">7</div><div style="font-size:10px; color:var(--text-muted); text-transform:uppercase; letter-spacing:1px;">Endpoints</div></div>
-          <div><div style="font-size:16px; font-weight:700; color:#818cf8;">200+</div><div style="font-size:10px; color:var(--text-muted); text-transform:uppercase; letter-spacing:1px;">Cities</div></div>
-        </div>
-        <div style="display:flex; flex-wrap:wrap; gap:6px; margin-bottom:16px;">
-          <span style="padding:4px 10px; border-radius:6px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.06); font-size:11px; color:var(--text-dim);">Geofencing</span>
-          <span style="padding:4px 10px; border-radius:6px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.06); font-size:11px; color:var(--text-dim);">Sun/Twilight</span>
-          <span style="padding:4px 10px; border-radius:6px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.06); font-size:11px; color:var(--text-dim);">Timezone</span>
-        </div>
-        <span style="display:inline-flex; padding:4px 12px; border-radius:12px; font-size:11px; font-weight:600; letter-spacing:0.5px; text-transform:uppercase; background:rgba(16,185,129,0.1); border:1px solid rgba(16,185,129,0.2); color:#34d399;">Authority</span>
-      </div>
-
-      <!-- DESIGN -->
-      <div style="background:rgba(12,12,22,0.7); border:1px solid rgba(255,255,255,0.06); border-radius:16px; padding:28px 24px; backdrop-filter:blur(20px); box-shadow:0 8px 40px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.04); position:relative; overflow:hidden;">
-        <div style="position:absolute; top:0; left:20%; right:20%; height:1px; background:linear-gradient(90deg, transparent, #ec4899, transparent);"></div>
-        <div style="width:40px; height:40px; border-radius:10px; background:linear-gradient(135deg,#ec4899,#db2777); display:flex; align-items:center; justify-content:center; margin-bottom:12px; box-shadow:0 4px 16px rgba(0,0,0,0.3);">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/></svg>
-        </div>
-        <div style="font-family:var(--mono); font-size:11px; font-weight:600; letter-spacing:2px; text-transform:uppercase; color:#ec4899; margin-bottom:8px; opacity:0.8;">DESIGN</div>
-        <div style="font-size:20px; font-weight:700; letter-spacing:-0.5px; margin-bottom:6px;">Visual Design Engine</div>
-        <div style="font-size:13px; color:var(--text-dim); margin-bottom:16px;">Marketing & Branding</div>
-        <div style="display:flex; gap:16px; margin-bottom:16px;">
-          <div><div style="font-size:16px; font-weight:700; color:#ec4899;">4</div><div style="font-size:10px; color:var(--text-muted); text-transform:uppercase; letter-spacing:1px;">Engines</div></div>
-          <div><div style="font-size:16px; font-weight:700; color:#ec4899;">8</div><div style="font-size:10px; color:var(--text-muted); text-transform:uppercase; letter-spacing:1px;">Endpoints</div></div>
-          <div><div style="font-size:16px; font-weight:700; color:#ec4899;">5</div><div style="font-size:10px; color:var(--text-muted); text-transform:uppercase; letter-spacing:1px;">Presets</div></div>
-        </div>
-        <div style="display:flex; flex-wrap:wrap; gap:6px; margin-bottom:16px;">
-          <span style="padding:4px 10px; border-radius:6px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.06); font-size:11px; color:var(--text-dim);">Social Cards</span>
-          <span style="padding:4px 10px; border-radius:6px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.06); font-size:11px; color:var(--text-dim);">Code Shots</span>
-          <span style="padding:4px 10px; border-radius:6px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.06); font-size:11px; color:var(--text-dim);">Infographics</span>
-        </div>
-        <span style="display:inline-flex; padding:4px 12px; border-radius:12px; font-size:11px; font-weight:600; letter-spacing:0.5px; text-transform:uppercase; background:rgba(99,102,241,0.1); border:1px solid rgba(99,102,241,0.2); color:#818cf8;">Expert</span>
-      </div>
-    </div>
-
-    <!-- Row 3: Legal Agents -->
-    <div style="text-align:center; margin:32px 0 20px;">
-      <div style="display:inline-block; padding:6px 16px; border-radius:20px; background:rgba(251,191,36,0.08); border:1px solid rgba(251,191,36,0.25); font-size:12px; color:#fbbf24; font-weight:600; letter-spacing:1px; text-transform:uppercase;">
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:-2px; margin-right:6px;"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Legal Division
-      </div>
-    </div>
-    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:20px; margin-bottom:20px;">
-
-      <!-- JUSTICE -->
-      <div style="background:rgba(12,12,22,0.7); border:1px solid rgba(255,255,255,0.06); border-radius:16px; padding:28px 24px; backdrop-filter:blur(20px); box-shadow:0 8px 40px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.04); position:relative; overflow:hidden;">
-        <div style="position:absolute; top:0; left:20%; right:20%; height:1px; background:linear-gradient(90deg, transparent, #fbbf24, transparent);"></div>
-        <div style="width:40px; height:40px; border-radius:10px; background:linear-gradient(135deg,#fbbf24,#d97706); display:flex; align-items:center; justify-content:center; margin-bottom:12px; box-shadow:0 4px 16px rgba(0,0,0,0.3);">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M4 7V4h16v3"/><path d="M9 20h6"/><path d="M12 4v16"/><path d="M2 11h3l1-4 2 8 2-8 2 8 2-8 2 8 1-4h3"/></svg>
-        </div>
-        <div style="font-family:var(--mono); font-size:11px; font-weight:600; letter-spacing:2px; text-transform:uppercase; color:#fbbf24; margin-bottom:8px; opacity:0.8;">JUSTICE</div>
-        <div style="font-size:20px; font-weight:700; letter-spacing:-0.5px; margin-bottom:6px;">Contract & Business Law</div>
-        <div style="font-size:13px; color:var(--text-dim); margin-bottom:16px;">Legal Intelligence</div>
-        <div style="display:flex; gap:16px; margin-bottom:16px;">
-          <div><div style="font-size:16px; font-weight:700; color:#fbbf24;">3TB</div><div style="font-size:10px; color:var(--text-muted); text-transform:uppercase; letter-spacing:1px;">Memory</div></div>
-          <div><div style="font-size:16px; font-weight:700; color:#fbbf24;">5</div><div style="font-size:10px; color:var(--text-muted); text-transform:uppercase; letter-spacing:1px;">Endpoints</div></div>
-          <div><div style="font-size:16px; font-weight:700; color:#fbbf24;">50</div><div style="font-size:10px; color:var(--text-muted); text-transform:uppercase; letter-spacing:1px;">States</div></div>
-        </div>
-        <div style="display:flex; flex-wrap:wrap; gap:6px; margin-bottom:16px;">
-          <span style="padding:4px 10px; border-radius:6px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.06); font-size:11px; color:var(--text-dim);">Contract Review</span>
-          <span style="padding:4px 10px; border-radius:6px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.06); font-size:11px; color:var(--text-dim);">NDA Analysis</span>
-          <span style="padding:4px 10px; border-radius:6px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.06); font-size:11px; color:var(--text-dim);">Clause Drafting</span>
-        </div>
-        <span style="display:inline-flex; padding:4px 12px; border-radius:12px; font-size:11px; font-weight:600; letter-spacing:0.5px; text-transform:uppercase; background:rgba(16,185,129,0.1); border:1px solid rgba(16,185,129,0.2); color:#34d399;">Authority</span>
-      </div>
-
-      <!-- SHIELD -->
-      <div style="background:rgba(12,12,22,0.7); border:1px solid rgba(255,255,255,0.06); border-radius:16px; padding:28px 24px; backdrop-filter:blur(20px); box-shadow:0 8px 40px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.04); position:relative; overflow:hidden;">
-        <div style="position:absolute; top:0; left:20%; right:20%; height:1px; background:linear-gradient(90deg, transparent, #f97316, transparent);"></div>
-        <div style="width:40px; height:40px; border-radius:10px; background:linear-gradient(135deg,#f97316,#ea580c); display:flex; align-items:center; justify-content:center; margin-bottom:12px; box-shadow:0 4px 16px rgba(0,0,0,0.3);">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
-        </div>
-        <div style="font-family:var(--mono); font-size:11px; font-weight:600; letter-spacing:2px; text-transform:uppercase; color:#f97316; margin-bottom:8px; opacity:0.8;">SHIELD</div>
-        <div style="font-size:20px; font-weight:700; letter-spacing:-0.5px; margin-bottom:6px;">Personal Injury</div>
-        <div style="font-size:13px; color:var(--text-dim); margin-bottom:16px;">Accident & Insurance Law</div>
-        <div style="display:flex; gap:16px; margin-bottom:16px;">
-          <div><div style="font-size:16px; font-weight:700; color:#f97316;">2TB</div><div style="font-size:10px; color:var(--text-muted); text-transform:uppercase; letter-spacing:1px;">Memory</div></div>
-          <div><div style="font-size:16px; font-weight:700; color:#f97316;">5</div><div style="font-size:10px; color:var(--text-muted); text-transform:uppercase; letter-spacing:1px;">Endpoints</div></div>
-          <div><div style="font-size:16px; font-weight:700; color:#f97316;">50</div><div style="font-size:10px; color:var(--text-muted); text-transform:uppercase; letter-spacing:1px;">States</div></div>
-        </div>
-        <div style="display:flex; flex-wrap:wrap; gap:6px; margin-bottom:16px;">
-          <span style="padding:4px 10px; border-radius:6px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.06); font-size:11px; color:var(--text-dim);">Case Evaluation</span>
-          <span style="padding:4px 10px; border-radius:6px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.06); font-size:11px; color:var(--text-dim);">Damages Calc</span>
-          <span style="padding:4px 10px; border-radius:6px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.06); font-size:11px; color:var(--text-dim);">Insurance</span>
-        </div>
-        <span style="display:inline-flex; padding:4px 12px; border-radius:12px; font-size:11px; font-weight:600; letter-spacing:0.5px; text-transform:uppercase; background:rgba(16,185,129,0.1); border:1px solid rgba(16,185,129,0.2); color:#34d399;">Authority</span>
-      </div>
-
-      <!-- FORTRESS -->
-      <div style="background:rgba(12,12,22,0.7); border:1px solid rgba(255,255,255,0.06); border-radius:16px; padding:28px 24px; backdrop-filter:blur(20px); box-shadow:0 8px 40px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.04); position:relative; overflow:hidden;">
-        <div style="position:absolute; top:0; left:20%; right:20%; height:1px; background:linear-gradient(90deg, transparent, #dc2626, transparent);"></div>
-        <div style="width:40px; height:40px; border-radius:10px; background:linear-gradient(135deg,#dc2626,#b91c1c); display:flex; align-items:center; justify-content:center; margin-bottom:12px; box-shadow:0 4px 16px rgba(0,0,0,0.3);">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-        </div>
-        <div style="font-family:var(--mono); font-size:11px; font-weight:600; letter-spacing:2px; text-transform:uppercase; color:#dc2626; margin-bottom:8px; opacity:0.8;">FORTRESS</div>
-        <div style="font-size:20px; font-weight:700; letter-spacing:-0.5px; margin-bottom:6px;">Criminal Defense</div>
-        <div style="font-size:13px; color:var(--text-dim); margin-bottom:16px;">Rights & Defense Strategy</div>
-        <div style="display:flex; gap:16px; margin-bottom:16px;">
-          <div><div style="font-size:16px; font-weight:700; color:#dc2626;">4TB</div><div style="font-size:10px; color:var(--text-muted); text-transform:uppercase; letter-spacing:1px;">Memory</div></div>
-          <div><div style="font-size:16px; font-weight:700; color:#dc2626;">5</div><div style="font-size:10px; color:var(--text-muted); text-transform:uppercase; letter-spacing:1px;">Endpoints</div></div>
-        </div>
-        <div style="display:flex; flex-wrap:wrap; gap:6px; margin-bottom:16px;">
-          <span style="padding:4px 10px; border-radius:6px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.06); font-size:11px; color:var(--text-dim);">Charge Analysis</span>
-          <span style="padding:4px 10px; border-radius:6px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.06); font-size:11px; color:var(--text-dim);">Your Rights</span>
-          <span style="padding:4px 10px; border-radius:6px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.06); font-size:11px; color:var(--text-dim);">Sentencing</span>
-        </div>
-        <span style="display:inline-flex; padding:4px 12px; border-radius:12px; font-size:11px; font-weight:600; letter-spacing:0.5px; text-transform:uppercase; background:rgba(16,185,129,0.1); border:1px solid rgba(16,185,129,0.2); color:#34d399;">Authority</span>
-      </div>
-    </div>
-
-    <!-- Disclaimer -->
-    <div style="text-align:center; padding:12px; margin-bottom:20px;">
-      <p style="font-size:11px; color:var(--text-muted); font-style:italic;">Legal agents provide AI-generated legal information, not legal advice. Always consult a licensed attorney.</p>
-    </div>
-
-    <!-- Free banner -->
-    <div style="text-align:center; padding:24px; background:rgba(16,185,129,0.04); border:1px solid rgba(16,185,129,0.15); border-radius:12px;">
-      <h3 style="font-size:20px; font-weight:700; color:#34d399; margin-bottom:6px;">All agents are free during beta</h3>
-      <p style="font-size:14px; color:var(--text-dim);">9 Special Agents. 50+ endpoints. Register your own agent. Every strand strengthens the web.</p>
     </div>
   </div>
 </section>
 
 <!-- FOOTER -->
 <footer>
-  <div style="display:flex; justify-content:center; gap:24px; flex-wrap:wrap; margin-bottom:16px;">
-    <a href="https://github.com/silkweb-protocol/silkweb" target="_blank">GitHub</a>
-    <a href="https://github.com/silkweb-protocol/silkweb/blob/main/spec/PROTOCOL.md" target="_blank">Protocol Spec</a>
-    <a href="https://github.com/silkweb-protocol/silkweb/blob/main/spec/PROTOCOL.md" target="_blank">API Docs</a>
-    <a href="https://github.com/silkweb-protocol/silkweb/blob/main/schemas/agent-card.json" target="_blank">Agent Card Schema</a>
-    <a href="https://github.com/silkweb-protocol/silkweb/blob/main/SECURITY.md" target="_blank">Security</a>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <strong>Silk<span>Web</span></strong>
+      <p>Open protocol for AI agent discovery</p>
+    </div>
+    <ul class="footer-links">
+      <li><a href="https://github.com/SilkWeb-AI/silkweb" target="_blank" rel="noopener">GitHub</a></li>
+      <li><a href="https://www.npmjs.com/package/silkweb-openclaw" target="_blank" rel="noopener">npm</a></li>
+      <li><a href="https://api.silkweb.io/api/v1" target="_blank" rel="noopener">API Docs</a></li>
+      <li><a href="mailto:information@silkweb.io">information@silkweb.io</a></li>
+    </ul>
+    <div class="footer-copy">&copy; 2026 SilkWeb Protocol &bull; Apache 2.0</div>
   </div>
-  <p>&copy; 2026 <a href="https://armstrongalliance.com" target="_blank">Armstrong Alliance Group</a> &nbsp;&middot;&nbsp; Apache 2.0 &nbsp;&middot;&nbsp; <a href="mailto:information@silkweb.io">information@silkweb.io</a></p>
 </footer>
 
-<!-- INTERACTIVE SPIDER WEB CANVAS -->
 <script>
-// Mobile menu toggle
-const hamburger = document.getElementById('hamburger');
-const mobileMenu = document.getElementById('mobile-menu');
-hamburger.addEventListener('click', () => {
-  hamburger.classList.toggle('active');
-  mobileMenu.classList.toggle('open');
-  document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
-});
-function closeMobile() {
-  hamburger.classList.remove('active');
-  mobileMenu.classList.remove('open');
-  document.body.style.overflow = '';
-}
+// ── SPIDER WEB CANVAS ──
+(function() {
+  const canvas = document.getElementById('hero-canvas');
+  const ctx = canvas.getContext('2d');
+  let width, height, nodes, animId;
 
-const canvas = document.getElementById('web-canvas');
-const ctx = canvas.getContext('2d');
-let nodes = [];
-let mouse = { x: -1000, y: -1000 };
-const isMobile = window.innerWidth < 768;
-const NODE_COUNT = isMobile ? 30 : 70;
-const CONN_DIST = isMobile ? 120 : 170;
-
-function resize() {
-  canvas.width = canvas.parentElement.offsetWidth;
-  canvas.height = canvas.parentElement.offsetHeight;
-}
-
-function init() {
-  resize();
-  nodes = [];
-  for (let i = 0; i < NODE_COUNT; i++) {
-    nodes.push({
-      x: Math.random() * canvas.width,
-      y: Math.random() * canvas.height,
-      vx: (Math.random() - 0.5) * 0.3,
-      vy: (Math.random() - 0.5) * 0.3,
-      r: Math.random() * 2 + 1,
-      brightness: Math.random(),
-    });
+  function resize() {
+    const wrapper = canvas.parentElement;
+    width = canvas.width = wrapper.offsetWidth;
+    height = canvas.height = wrapper.offsetHeight;
   }
-}
 
-function draw() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  function createNodes() {
+    const count = Math.min(Math.floor((width * height) / 12000), 120);
+    nodes = [];
+    for (let i = 0; i < count; i++) {
+      nodes.push({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        vx: (Math.random() - 0.5) * 0.3,
+        vy: (Math.random() - 0.5) * 0.3,
+        r: Math.random() * 2 + 1,
+        pulse: Math.random() * Math.PI * 2
+      });
+    }
+  }
 
-  for (let i = 0; i < nodes.length; i++) {
-    // Node-to-node silk threads
-    for (let j = i + 1; j < nodes.length; j++) {
-      const dx = nodes[i].x - nodes[j].x;
-      const dy = nodes[i].y - nodes[j].y;
-      const dist = Math.sqrt(dx * dx + dy * dy);
-      if (dist < CONN_DIST) {
-        const alpha = (1 - dist / CONN_DIST) * 0.18;
-        const gradient = ctx.createLinearGradient(nodes[i].x, nodes[i].y, nodes[j].x, nodes[j].y);
-        gradient.addColorStop(0, `rgba(168, 180, 208, ${alpha})`);
-        gradient.addColorStop(0.5, `rgba(192, 200, 224, ${alpha * 1.5})`);
-        gradient.addColorStop(1, `rgba(168, 180, 208, ${alpha})`);
-        ctx.strokeStyle = gradient;
-        ctx.lineWidth = 0.6;
-        ctx.beginPath();
-        ctx.moveTo(nodes[i].x, nodes[i].y);
-        ctx.lineTo(nodes[j].x, nodes[j].y);
-        ctx.stroke();
+  function draw(time) {
+    ctx.clearRect(0, 0, width, height);
+    const maxDist = 160;
+    const maxDistSq = maxDist * maxDist;
+
+    for (let i = 0; i < nodes.length; i++) {
+      const n = nodes[i];
+      n.x += n.vx; n.y += n.vy; n.pulse += 0.015;
+      if (n.x < 0) { n.x = 0; n.vx *= -1; }
+      if (n.x > width) { n.x = width; n.vx *= -1; }
+      if (n.y < 0) { n.y = 0; n.vy *= -1; }
+      if (n.y > height) { n.y = height; n.vy *= -1; }
+    }
+
+    for (let i = 0; i < nodes.length; i++) {
+      for (let j = i + 1; j < nodes.length; j++) {
+        const dx = nodes[i].x - nodes[j].x;
+        const dy = nodes[i].y - nodes[j].y;
+        const distSq = dx * dx + dy * dy;
+        if (distSq < maxDistSq) {
+          const dist = Math.sqrt(distSq);
+          const alpha = (1 - dist / maxDist) * 0.15;
+          ctx.beginPath();
+          ctx.moveTo(nodes[i].x, nodes[i].y);
+          ctx.lineTo(nodes[j].x, nodes[j].y);
+          ctx.strokeStyle = 'rgba(99, 102, 241,' + alpha + ')';
+          ctx.lineWidth = 0.5;
+          ctx.stroke();
+        }
       }
     }
 
-    // Mouse interaction — purple silk threads
-    const mdx = nodes[i].x - mouse.x;
-    const mdy = nodes[i].y - mouse.y;
-    const mdist = Math.sqrt(mdx * mdx + mdy * mdy);
-    if (mdist < 220) {
-      const alpha = (1 - mdist / 220) * 0.5;
-      const gradient = ctx.createLinearGradient(nodes[i].x, nodes[i].y, mouse.x, mouse.y);
-      gradient.addColorStop(0, `rgba(155, 123, 247, ${alpha * 0.5})`);
-      gradient.addColorStop(0.5, `rgba(192, 200, 224, ${alpha})`);
-      gradient.addColorStop(1, `rgba(91, 141, 239, ${alpha * 0.5})`);
-      ctx.strokeStyle = gradient;
-      ctx.lineWidth = 0.8;
+    for (let i = 0; i < nodes.length; i++) {
+      const n = nodes[i];
+      const glow = 0.3 + Math.sin(n.pulse) * 0.2;
+      const grad = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, n.r * 6);
+      grad.addColorStop(0, 'rgba(129, 140, 248,' + (glow * 0.4) + ')');
+      grad.addColorStop(1, 'rgba(129, 140, 248, 0)');
       ctx.beginPath();
-      ctx.moveTo(nodes[i].x, nodes[i].y);
-      ctx.lineTo(mouse.x, mouse.y);
-      ctx.stroke();
+      ctx.arc(n.x, n.y, n.r * 6, 0, Math.PI * 2);
+      ctx.fillStyle = grad;
+      ctx.fill();
+      ctx.beginPath();
+      ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(129, 140, 248,' + (0.5 + glow * 0.5) + ')';
+      ctx.fill();
     }
+
+    animId = requestAnimationFrame(draw);
   }
 
-  // Draw nodes with metallic glow
-  for (const node of nodes) {
-    const shimmer = 0.4 + 0.6 * (0.5 + 0.5 * Math.sin(Date.now() * 0.001 + node.brightness * 10));
-    ctx.beginPath();
-    ctx.arc(node.x, node.y, node.r, 0, Math.PI * 2);
-    ctx.fillStyle = `rgba(192, 200, 224, ${shimmer * 0.6})`;
-    ctx.fill();
+  window.addEventListener('resize', () => { resize(); createNodes(); });
+  resize(); createNodes(); animId = requestAnimationFrame(draw);
+})();
 
-    // Outer glow
-    ctx.beginPath();
-    ctx.arc(node.x, node.y, node.r + 2, 0, Math.PI * 2);
-    ctx.fillStyle = `rgba(192, 200, 224, ${shimmer * 0.08})`;
-    ctx.fill();
-
-    node.x += node.vx;
-    node.y += node.vy;
-    if (node.x < 0 || node.x > canvas.width) node.vx *= -1;
-    if (node.y < 0 || node.y > canvas.height) node.vy *= -1;
-  }
-
-  requestAnimationFrame(draw);
-}
-
-canvas.parentElement.addEventListener('mousemove', e => {
-  const rect = canvas.getBoundingClientRect();
-  mouse.x = e.clientX - rect.left;
-  mouse.y = e.clientY - rect.top;
-});
-canvas.parentElement.addEventListener('mouseleave', () => { mouse.x = -1000; mouse.y = -1000; });
-
-window.addEventListener('resize', resize);
-init();
-draw();
-
-function copyCmd(btn) {
-  const code = btn.parentElement.querySelector('code').textContent;
-  navigator.clipboard.writeText(code).then(() => {
-    btn.textContent = '✓';
-    btn.classList.add('copied');
-    setTimeout(() => { btn.textContent = '📋'; btn.classList.remove('copied'); }, 2000);
+// ── NAV SCROLL ──
+(function() {
+  const nav = document.getElementById('nav');
+  let ticking = false;
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      requestAnimationFrame(() => {
+        nav.classList.toggle('scrolled', window.scrollY > 40);
+        ticking = false;
+      });
+      ticking = true;
+    }
   });
-}
+})();
 
-function handleWaitlist() {
-  const email = document.getElementById('email-input').value;
-  if (email && email.includes('@') && email.includes('.')) {
-    // Send to API
-    fetch('https://api.silkweb.io/api/v1/waitlist', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email: email }),
-    }).catch(() => {});
-    // Also open mailto as backup
-    const subject = encodeURIComponent('SilkWeb Waitlist Signup');
-    const body = encodeURIComponent('New waitlist signup: ' + email);
-    fetch('mailto:information@silkweb.io?subject=' + subject + '&body=' + body).catch(() => {});
-    document.getElementById('waitlist-msg').innerHTML = '<span style="color: #10B981; font-weight: 600;">You\'re on the silk web. We\'ll be in touch soon.</span>';
-    document.getElementById('email-input').value = '';
-  } else {
-    document.getElementById('waitlist-msg').innerHTML = '<span style="color: #EF4444;">Please enter a valid email address.</span>';
-  }
-}
-
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) { entry.target.style.animation = 'fadeUp 0.6s ease forwards'; }
+// ── MOBILE MENU ──
+(function() {
+  const btn = document.getElementById('hamburger');
+  const menu = document.getElementById('mobile-menu');
+  btn.addEventListener('click', () => menu.classList.toggle('open'));
+  menu.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => menu.classList.remove('open'));
   });
-}, { threshold: 0.1 });
-document.querySelectorAll('.problem-card, .compat-card, .feature-card, .how-step, .integration-card, .package-card, .arch-layer, .edu-step, .edu-analogy').forEach(el => {
-  el.style.opacity = '0';
-  observer.observe(el);
-});
+})();
+
+// ── FADE IN ──
+(function() {
+  const els = document.querySelectorAll('.fade-in');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  els.forEach(el => obs.observe(el));
+})();
+
+// ── INSTALL TABS ──
+(function() {
+  const tabs = document.querySelectorAll('.install-tab');
+  const panels = document.querySelectorAll('.install-panel');
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      const idx = tab.dataset.tab;
+      tabs.forEach(t => t.classList.remove('active'));
+      panels.forEach(p => p.classList.remove('active'));
+      tab.classList.add('active');
+      document.querySelector('[data-panel="' + idx + '"]').classList.add('active');
+    });
+  });
+})();
+
+// ── LOAD STATS ──
+(function() {
+  const el = document.getElementById('stats-text');
+  fetch('https://api.silkweb.io/api/v1/stats')
+    .then(r => r.json())
+    .then(data => {
+      const agents = data.totalAgents || data.agents || 18;
+      const caps = data.totalCapabilities || data.capabilities || 47;
+      const industries = data.industries || 12;
+      el.textContent = agents + ' agents \u2022 ' + caps + ' capabilities \u2022 ' + industries + ' industries';
+    })
+    .catch(() => {
+      el.textContent = '18 agents \u2022 47 capabilities \u2022 12 industries';
+    });
+})();
 </script>
+
 </body>
 </html>

@@ -1,0 +1,91 @@
+{
+  "title": {
+    "rules": [
+      { "id": "title-exists", "description": "Page has a title tag", "weight": 10, "category": "critical", "fix": "Add a <title> tag to your page's <head> section" },
+      { "id": "title-length-min", "description": "Title is at least 30 characters", "weight": 5, "category": "important", "minLength": 30, "fix": "Expand your title to at least 30 characters — short titles waste ranking potential" },
+      { "id": "title-length-max", "description": "Title is under 60 characters", "weight": 5, "category": "important", "maxLength": 60, "fix": "Shorten your title to under 60 characters to prevent truncation in search results" },
+      { "id": "title-keyword-presence", "description": "Target keyword appears in title", "weight": 8, "category": "critical", "fix": "Include your primary target keyword in the title tag" },
+      { "id": "title-keyword-position", "description": "Keyword appears in the first half of the title", "weight": 4, "category": "moderate", "fix": "Move your target keyword closer to the beginning of the title for stronger ranking signals" },
+      { "id": "title-no-duplicate-words", "description": "Title doesn't repeat words excessively", "weight": 2, "category": "minor", "fix": "Remove repeated words from your title — keyword stuffing hurts rankings" },
+      { "id": "title-has-brand", "description": "Title includes brand or site name", "weight": 2, "category": "minor", "fix": "Consider appending your brand name (e.g., '| YourBrand') for brand recognition" },
+      { "id": "title-not-default", "description": "Title is not a generic default", "weight": 5, "category": "critical", "defaults": ["Home", "Welcome", "Untitled", "Document", "Page"], "fix": "Replace the generic default title with a descriptive, keyword-rich title" }
+    ]
+  },
+  "meta_description": {
+    "rules": [
+      { "id": "meta-desc-exists", "description": "Page has a meta description", "weight": 8, "category": "critical", "fix": "Add a <meta name='description'> tag — this directly controls your search snippet" },
+      { "id": "meta-desc-length-min", "description": "Meta description is at least 120 characters", "weight": 4, "category": "important", "minLength": 120, "fix": "Expand your meta description to at least 120 characters to use the full snippet space" },
+      { "id": "meta-desc-length-max", "description": "Meta description is under 160 characters", "weight": 4, "category": "important", "maxLength": 160, "fix": "Trim your meta description to under 160 characters to prevent truncation" },
+      { "id": "meta-desc-keyword", "description": "Target keyword appears in meta description", "weight": 5, "category": "important", "fix": "Include your target keyword in the meta description — it gets bolded in search results" },
+      { "id": "meta-desc-cta", "description": "Meta description includes a call-to-action", "weight": 3, "category": "moderate", "ctaPatterns": ["learn more", "discover", "find out", "get started", "try", "explore", "read", "see how", "start", "sign up", "join", "buy", "shop", "download", "free", "today", "now"], "fix": "Add a call-to-action (e.g., 'Learn more', 'Get started today') to improve click-through rate" },
+      { "id": "meta-desc-unique", "description": "Meta description is not identical to title", "weight": 3, "category": "moderate", "fix": "Write a unique meta description that expands on (not duplicates) your title tag" }
+    ]
+  },
+  "headings": {
+    "rules": [
+      { "id": "h1-exists", "description": "Page has an H1 tag", "weight": 9, "category": "critical", "fix": "Add an <h1> tag — every page needs exactly one primary heading" },
+      { "id": "h1-single", "description": "Page has exactly one H1 tag", "weight": 5, "category": "important", "fix": "Reduce to a single <h1> tag — multiple H1s dilute heading hierarchy signals" },
+      { "id": "h1-keyword", "description": "H1 contains the target keyword", "weight": 6, "category": "important", "fix": "Include your primary keyword in the H1 heading" },
+      { "id": "h1-length", "description": "H1 is between 20-70 characters", "weight": 3, "category": "moderate", "minLength": 20, "maxLength": 70, "fix": "Adjust your H1 length to 20-70 characters for optimal readability and SEO" },
+      { "id": "heading-hierarchy", "description": "Headings follow proper hierarchy (H1 > H2 > H3)", "weight": 5, "category": "important", "fix": "Fix heading hierarchy — don't skip levels (e.g., H1 directly to H3). Use H2 under H1, H3 under H2" },
+      { "id": "heading-count", "description": "Page has at least 3 headings for content structure", "weight": 3, "category": "moderate", "minCount": 3, "fix": "Add more subheadings (H2, H3) to break up content — improves readability and SEO" },
+      { "id": "heading-not-empty", "description": "No empty heading tags", "weight": 4, "category": "important", "fix": "Remove or fill empty heading tags — empty headings confuse crawlers" }
+    ]
+  },
+  "images": {
+    "rules": [
+      { "id": "img-alt-present", "description": "All images have alt attributes", "weight": 6, "category": "important", "fix": "Add descriptive alt text to all images — critical for accessibility and image search" },
+      { "id": "img-alt-descriptive", "description": "Alt text is descriptive (not just 'image' or 'photo')", "weight": 3, "category": "moderate", "genericAlts": ["image", "photo", "picture", "img", "icon", "logo", "banner", "screenshot"], "fix": "Replace generic alt text with descriptive text that explains the image content" },
+      { "id": "img-alt-keyword", "description": "At least one image alt includes target keyword", "weight": 3, "category": "moderate", "fix": "Include your target keyword naturally in at least one image alt attribute" },
+      { "id": "img-alt-length", "description": "Alt text is under 125 characters", "weight": 2, "category": "minor", "maxLength": 125, "fix": "Keep image alt text concise — under 125 characters for screen reader compatibility" }
+    ]
+  },
+  "links": {
+    "rules": [
+      { "id": "internal-links-exist", "description": "Page has internal links", "weight": 5, "category": "important", "minCount": 1, "fix": "Add internal links to other pages on your site — essential for crawling and page authority" },
+      { "id": "external-links-exist", "description": "Page has external links to authoritative sources", "weight": 3, "category": "moderate", "fix": "Add links to authoritative external sources — shows Google your content is well-researched" },
+      { "id": "link-ratio", "description": "Internal to external link ratio is reasonable (2:1 to 5:1)", "weight": 3, "category": "moderate", "fix": "Adjust your internal/external link ratio — aim for 2-5 internal links per external link" },
+      { "id": "no-broken-links", "description": "No broken links detected", "weight": 7, "category": "critical", "fix": "Fix or remove broken links — they hurt user experience and waste crawl budget" },
+      { "id": "descriptive-anchor-text", "description": "Links use descriptive anchor text (not 'click here')", "weight": 3, "category": "moderate", "genericAnchors": ["click here", "here", "read more", "link", "this", "more"], "fix": "Replace generic anchor text ('click here') with descriptive text that includes relevant keywords" }
+    ]
+  },
+  "url": {
+    "rules": [
+      { "id": "url-readable", "description": "URL is human-readable and descriptive", "weight": 4, "category": "important", "fix": "Use a clean, readable URL structure with hyphens between words" },
+      { "id": "url-no-params", "description": "URL doesn't have excessive query parameters", "weight": 3, "category": "moderate", "maxParams": 2, "fix": "Minimize URL parameters — clean URLs rank better and are more shareable" },
+      { "id": "url-no-underscores", "description": "URL uses hyphens instead of underscores", "weight": 2, "category": "minor", "fix": "Replace underscores with hyphens in URLs — Google treats hyphens as word separators" },
+      { "id": "url-length", "description": "URL is under 75 characters (path only)", "weight": 2, "category": "minor", "maxLength": 75, "fix": "Shorten your URL path — shorter URLs tend to rank better and are more user-friendly" },
+      { "id": "url-lowercase", "description": "URL is all lowercase", "weight": 2, "category": "minor", "fix": "Use lowercase URLs to avoid duplicate content issues — URLs are case-sensitive" }
+    ]
+  },
+  "structured_data": {
+    "rules": [
+      { "id": "schema-exists", "description": "Page has Schema.org structured data (JSON-LD)", "weight": 7, "category": "important", "fix": "Add JSON-LD structured data markup — it enables rich snippets and helps AI understand your content" },
+      { "id": "schema-valid-type", "description": "Schema type is appropriate for content", "weight": 4, "category": "moderate", "fix": "Use the correct Schema.org type for your content (Article, Product, FAQ, HowTo, etc.)" },
+      { "id": "schema-complete", "description": "Schema markup includes all recommended properties", "weight": 3, "category": "moderate", "fix": "Add missing recommended properties to your schema markup for maximum rich snippet coverage" }
+    ]
+  },
+  "technical": {
+    "rules": [
+      { "id": "canonical-exists", "description": "Page has a canonical tag", "weight": 5, "category": "important", "fix": "Add a <link rel='canonical'> tag to prevent duplicate content issues" },
+      { "id": "og-tags-exist", "description": "Page has Open Graph tags", "weight": 4, "category": "moderate", "fix": "Add Open Graph tags (og:title, og:description, og:image) for better social media sharing" },
+      { "id": "twitter-cards-exist", "description": "Page has Twitter Card tags", "weight": 3, "category": "moderate", "fix": "Add Twitter Card meta tags for optimized Twitter/X sharing previews" },
+      { "id": "viewport-exists", "description": "Page has a mobile viewport meta tag", "weight": 7, "category": "critical", "fix": "Add <meta name='viewport' content='width=device-width, initial-scale=1'> for mobile compatibility" },
+      { "id": "lang-attribute", "description": "HTML tag has a lang attribute", "weight": 3, "category": "moderate", "fix": "Add lang attribute to your <html> tag (e.g., <html lang='en'>) for accessibility and SEO" },
+      { "id": "charset-declared", "description": "Page declares character encoding", "weight": 3, "category": "moderate", "fix": "Add <meta charset='UTF-8'> in your <head> for proper character rendering" },
+      { "id": "favicon-exists", "description": "Page has a favicon", "weight": 2, "category": "minor", "fix": "Add a favicon — it appears in browser tabs and search results, improving brand recognition" },
+      { "id": "ssl-active", "description": "Page is served over HTTPS", "weight": 9, "category": "critical", "fix": "Migrate to HTTPS immediately — Google penalizes non-secure sites and browsers show warnings" },
+      { "id": "robots-txt-exists", "description": "Site has a robots.txt file", "weight": 5, "category": "important", "fix": "Create a robots.txt file to guide search engine crawling" },
+      { "id": "sitemap-exists", "description": "Site has a sitemap.xml", "weight": 5, "category": "important", "fix": "Create and submit a sitemap.xml to help search engines discover all your pages" }
+    ]
+  },
+  "content": {
+    "rules": [
+      { "id": "word-count-min", "description": "Page has at least 300 words of content", "weight": 6, "category": "important", "minWords": 300, "fix": "Add more content — pages with under 300 words are considered 'thin content' by Google" },
+      { "id": "word-count-ideal", "description": "Page has 1000+ words for comprehensive coverage", "weight": 4, "category": "moderate", "idealWords": 1000, "fix": "Consider expanding to 1000+ words — longer, comprehensive content ranks higher for most queries" },
+      { "id": "keyword-density", "description": "Target keyword density is between 1-3%", "weight": 4, "category": "moderate", "minDensity": 0.01, "maxDensity": 0.03, "fix": "Adjust keyword density to 1-3% — too low means weak relevance signals, too high means keyword stuffing" },
+      { "id": "content-freshness", "description": "Page has date metadata indicating freshness", "weight": 3, "category": "moderate", "fix": "Add datePublished and dateModified metadata — search engines and AI prefer fresh content" },
+      { "id": "readability", "description": "Content uses short paragraphs and varied sentence length", "weight": 3, "category": "moderate", "fix": "Break up long paragraphs and vary sentence length for better readability" }
+    ]
+  }
+}

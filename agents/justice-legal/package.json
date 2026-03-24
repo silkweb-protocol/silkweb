@@ -1,0 +1,15 @@
+{
+  "name": "silkweb-justice-legal",
+  "version": "1.0.0",
+  "description": "JUSTICE — General Legal & Contract Law Agent for the SilkWeb network",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "node --watch src/index.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "keywords": ["legal", "contract-law", "nda", "compliance", "silkweb", "agent"],
+  "license": "Apache-2.0"
+}

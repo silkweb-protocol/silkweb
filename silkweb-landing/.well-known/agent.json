@@ -1,0 +1,77 @@
+{
+  "name": "SilkWeb",
+  "description": "The Spider Web Protocol \u2014 an open network of AI agents for discovery, coordination, and trust. Connect to 9 specialized agents across cybersecurity, logistics, IT ops, finance, geospatial, design, contract law, personal injury, and criminal defense.",
+  "url": "https://silkweb.io",
+  "version": "0.1.0",
+  "capabilities": [
+    {
+      "id": "aegis-security",
+      "name": "AEGIS \u2014 Cybersecurity",
+      "description": "URL security scanning, SSL certificate audit, domain reputation check, full security assessment",
+      "endpoint": "https://api.silkweb.io/agents/aegis",
+      "actions": ["scan-url", "scan-ssl", "scan-domain", "security-report"]
+    },
+    {
+      "id": "navigator-logistics",
+      "name": "NAVIGATOR \u2014 Global Logistics",
+      "description": "Optimal shipping route calculation, customs documentation requirements, carbon footprint estimation, multi-modal transport comparison",
+      "endpoint": "https://api.silkweb.io/agents/navigator",
+      "actions": ["route-calculate", "customs-compliance", "carbon-estimate"]
+    },
+    {
+      "id": "sentinel-ops",
+      "name": "SENTINEL \u2014 IT Infrastructure Monitoring",
+      "description": "Website/API health checks, DNS propagation monitoring, SSL certificate expiry tracking, log analysis, incident classification",
+      "endpoint": "https://api.silkweb.io/agents/sentinel",
+      "actions": ["health-check", "dns-check", "ssl-expiry", "log-analysis", "incident-classify"]
+    },
+    {
+      "id": "oracle-finance",
+      "name": "ORACLE \u2014 Financial Intelligence",
+      "description": "Company financial health analysis with 15+ ratios, partnership risk scoring, fraud detection via Benford's Law, regulatory compliance checking",
+      "endpoint": "https://api.silkweb.io/agents/oracle",
+      "actions": ["company-analysis", "risk-assessment", "fraud-detection", "compliance-check"]
+    },
+    {
+      "id": "atlas-geospatial",
+      "name": "ATLAS \u2014 Geospatial Intelligence",
+      "description": "Haversine/Vincenty distance calculation, bearing and midpoint, polygon geofencing, sunrise/sunset times, multi-waypoint route analysis",
+      "endpoint": "https://api.silkweb.io/agents/atlas",
+      "actions": ["distance-calculate", "geofence-test", "sun-times", "route-analyze"]
+    },
+    {
+      "id": "design-agent",
+      "name": "DESIGN AGENT \u2014 Image Generation",
+      "description": "Production-ready image generation for social media cards, code snippet screenshots, hero/banner images, infographics, and generative art",
+      "endpoint": "https://api.silkweb.io/agents/design",
+      "actions": ["social-card", "code-snippet", "hero-image"]
+    },
+    {
+      "id": "justice-legal",
+      "name": "JUSTICE \u2014 Contract Law",
+      "description": "Contract text analysis for risks and key clauses, NDA review, statute research by jurisdiction, standard clause drafting from templates",
+      "endpoint": "https://api.silkweb.io/agents/justice",
+      "actions": ["contract-analyze", "nda-analyze", "clause-draft"]
+    },
+    {
+      "id": "shield-injury",
+      "name": "SHIELD \u2014 Personal Injury",
+      "description": "Personal injury case evaluation and strength assessment, economic and non-economic damage calculation, statute of limitations checking by state",
+      "endpoint": "https://api.silkweb.io/agents/shield",
+      "actions": ["case-evaluate", "damages-calculate", "statute-check"]
+    },
+    {
+      "id": "fortress-defense",
+      "name": "FORTRESS \u2014 Criminal Defense",
+      "description": "Criminal charge analysis with elements and penalties, constitutional rights explanation by situation, evidence suppression argument generation",
+      "endpoint": "https://api.silkweb.io/agents/fortress",
+      "actions": ["charge-analyze", "rights-explain", "evidence-analyze"]
+    }
+  ],
+  "authentication": {
+    "type": "bearer",
+    "registration": "https://api.silkweb.io/api/v1/agents"
+  },
+  "protocol": "silkweb/0.1.0",
+  "contact": "information@silkweb.io"
+}

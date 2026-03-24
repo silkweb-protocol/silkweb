@@ -692,12 +692,296 @@ app.post('/report', async (req, res) => {
   }
 });
 
+// ─── POST /scan/email ────────────────────────
+// Checks email domain for SPF/DKIM/DMARC, validates MX, checks breach databases
+
+app.post('/scan/email', async (req, res) => {
+  try {
+    const { email } = req.body;
+    if (!email) return res.status(400).json({ error: 'email is required' });
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) return res.status(400).json({ error: 'Invalid email format' });
+
+    const domain = email.split('@')[1].toLowerCase();
+    let score = 100;
+    const findings = [];
+    const deductions = [];
+
+    // Check MX records
+    let mxRecords = [];
+    try {
+      mxRecords = await dnsResolve(domain, 'MX');
+      findings.push({ check: 'MX Records', status: 'pass', detail: `${mxRecords.length} MX record(s) found`, records: mxRecords.slice(0, 5) });
+    } catch (e) {
+      findings.push({ check: 'MX Records', status: 'fail', detail: 'No MX records found - domain may not accept email' });
+      score -= 20;
+      deductions.push({ reason: 'No MX records', points: -20 });
+    }
+
+    // Check SPF
+    let spfRecord = null;
+    try {
+      const txtRecords = await dnsResolve(domain, 'TXT');
+      spfRecord = txtRecords.find(r => {
+        const val = Array.isArray(r) ? r.join('') : r;
+        return val.startsWith('v=spf1');
+      });
+      if (spfRecord) {
+        const spfVal = Array.isArray(spfRecord) ? spfRecord.join('') : spfRecord;
+        const spfIssues = [];
+        if (spfVal.includes('+all')) spfIssues.push('Uses +all (allows any server to send - defeats purpose of SPF)');
+        if (spfVal.includes('?all')) spfIssues.push('Uses ?all (neutral - provides no protection)');
+        findings.push({ check: 'SPF Record', status: spfIssues.length > 0 ? 'warning' : 'pass', detail: spfIssues.length > 0 ? spfIssues.join('; ') : 'Valid SPF record found', value: spfVal });
+        if (spfIssues.length > 0) { score -= 10; deductions.push({ reason: 'SPF configuration issue', points: -10 }); }
+      } else {
+        findings.push({ check: 'SPF Record', status: 'fail', detail: 'No SPF record found - domain is vulnerable to email spoofing' });
+        score -= 15;
+        deductions.push({ reason: 'No SPF record', points: -15 });
+      }
+    } catch (e) {
+      findings.push({ check: 'SPF Record', status: 'fail', detail: 'Could not query TXT records' });
+      score -= 15;
+      deductions.push({ reason: 'No SPF record', points: -15 });
+    }
+
+    // Check DKIM (look for common selectors)
+    const dkimSelectors = ['default', 'google', 'k1', 'selector1', 'selector2', 'mail', 'dkim', 's1', 's2'];
+    let dkimFound = false;
+    for (const selector of dkimSelectors) {
+      try {
+        const dkimRecords = await dnsResolve(`${selector}._domainkey.${domain}`, 'TXT');
+        if (dkimRecords && dkimRecords.length > 0) {
+          dkimFound = true;
+          findings.push({ check: 'DKIM Record', status: 'pass', detail: `DKIM record found for selector "${selector}"`, selector });
+          break;
+        }
+      } catch (e) { /* selector not found, try next */ }
+    }
+    if (!dkimFound) {
+      findings.push({ check: 'DKIM Record', status: 'warning', detail: 'No DKIM records found for common selectors (may use non-standard selector)' });
+      score -= 10;
+      deductions.push({ reason: 'No DKIM found', points: -10 });
+    }
+
+    // Check DMARC
+    let dmarcRecord = null;
+    try {
+      const dmarcTxt = await dnsResolve(`_dmarc.${domain}`, 'TXT');
+      dmarcRecord = dmarcTxt.find(r => {
+        const val = Array.isArray(r) ? r.join('') : r;
+        return val.startsWith('v=DMARC1');
+      });
+      if (dmarcRecord) {
+        const dmarcVal = Array.isArray(dmarcRecord) ? dmarcRecord.join('') : dmarcRecord;
+        const dmarcIssues = [];
+        if (dmarcVal.includes('p=none')) dmarcIssues.push('Policy is "none" (monitoring only, not enforcing)');
+        findings.push({ check: 'DMARC Record', status: dmarcIssues.length > 0 ? 'warning' : 'pass', detail: dmarcIssues.length > 0 ? dmarcIssues.join('; ') : 'Valid DMARC record with enforcement', value: dmarcVal });
+        if (dmarcIssues.length > 0) { score -= 5; deductions.push({ reason: 'DMARC not enforcing', points: -5 }); }
+      } else {
+        findings.push({ check: 'DMARC Record', status: 'fail', detail: 'No DMARC record found - email authentication is incomplete' });
+        score -= 15;
+        deductions.push({ reason: 'No DMARC record', points: -15 });
+      }
+    } catch (e) {
+      findings.push({ check: 'DMARC Record', status: 'fail', detail: 'No DMARC record found' });
+      score -= 15;
+      deductions.push({ reason: 'No DMARC record', points: -15 });
+    }
+
+    // Simulated breach database check
+    const knownBreaches = {
+      'yahoo.com': { breached: true, date: '2013-2014', records: '3 billion', severity: 'critical' },
+      'linkedin.com': { breached: true, date: '2012/2021', records: '700 million', severity: 'high' },
+      'adobe.com': { breached: true, date: '2013', records: '153 million', severity: 'high' },
+      'dropbox.com': { breached: true, date: '2012', records: '68 million', severity: 'high' },
+      'myspace.com': { breached: true, date: '2016', records: '360 million', severity: 'critical' },
+      'twitter.com': { breached: true, date: '2022', records: '200 million', severity: 'high' },
+      'canva.com': { breached: true, date: '2019', records: '137 million', severity: 'high' }
+    };
+
+    const breach = knownBreaches[domain];
+    if (breach) {
+      findings.push({ check: 'Breach Database', status: 'fail', detail: `Domain found in breach database: ${breach.records} records exposed (${breach.date})`, severity: breach.severity });
+      score -= 20;
+      deductions.push({ reason: 'Known breach', points: -20 });
+    } else {
+      findings.push({ check: 'Breach Database', status: 'pass', detail: 'Domain not found in known breach databases (simulated check)' });
+    }
+
+    // Disposable email check
+    const disposableDomains = ['mailinator.com', 'guerrillamail.com', 'tempmail.com', 'throwaway.email', 'yopmail.com', 'sharklasers.com', 'grr.la', 'dispostable.com', 'trashmail.com', '10minutemail.com'];
+    if (disposableDomains.includes(domain)) {
+      findings.push({ check: 'Disposable Email', status: 'fail', detail: 'Domain is a known disposable/temporary email provider' });
+      score -= 25;
+      deductions.push({ reason: 'Disposable email domain', points: -25 });
+    }
+
+    score = Math.max(0, score);
+
+    res.json({
+      agent: 'aegis-security',
+      scan: 'email',
+      target: email,
+      domain,
+      timestamp: new Date().toISOString(),
+      securityScore: {
+        score,
+        grade: scoreToGrade(score),
+        deductions
+      },
+      findings,
+      recommendations: findings.filter(f => f.status !== 'pass').map(f => ({
+        issue: f.check,
+        action: f.detail
+      }))
+    });
+  } catch (err) {
+    res.status(500).json({ error: err.message, scan: 'email' });
+  }
+});
+
+// ─── POST /scan/password ────────────────────
+// Checks password strength (DO NOT log or store the password)
+
+app.post('/scan/password', (req, res) => {
+  try {
+    const { password } = req.body;
+    if (!password) return res.status(400).json({ error: 'password is required' });
+
+    // NOTE: In production, password should be hashed client-side. We analyze and discard immediately.
+    let score = 0;
+    const findings = [];
+    const recommendations = [];
+    const length = password.length;
+
+    // Length scoring
+    if (length >= 16) { score += 30; findings.push({ check: 'Length', status: 'excellent', detail: `${length} characters (16+ is excellent)` }); }
+    else if (length >= 12) { score += 25; findings.push({ check: 'Length', status: 'good', detail: `${length} characters (12+ is good)` }); }
+    else if (length >= 8) { score += 15; findings.push({ check: 'Length', status: 'adequate', detail: `${length} characters (minimum acceptable)` }); recommendations.push('Increase password length to at least 12 characters'); }
+    else { score += 5; findings.push({ check: 'Length', status: 'weak', detail: `${length} characters (too short)` }); recommendations.push('Password must be at least 8 characters, 12+ recommended'); }
+
+    // Character class analysis
+    const hasLower = /[a-z]/.test(password);
+    const hasUpper = /[A-Z]/.test(password);
+    const hasDigit = /\d/.test(password);
+    const hasSpecial = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?`~]/.test(password);
+    const classCount = [hasLower, hasUpper, hasDigit, hasSpecial].filter(Boolean).length;
+
+    if (classCount >= 4) { score += 25; findings.push({ check: 'Complexity', status: 'excellent', detail: 'Uses all 4 character classes (lower, upper, digits, special)' }); }
+    else if (classCount >= 3) { score += 20; findings.push({ check: 'Complexity', status: 'good', detail: `Uses ${classCount} of 4 character classes` }); }
+    else if (classCount >= 2) { score += 10; findings.push({ check: 'Complexity', status: 'adequate', detail: `Uses ${classCount} of 4 character classes` }); recommendations.push('Add more character types (uppercase, digits, special characters)'); }
+    else { score += 5; findings.push({ check: 'Complexity', status: 'weak', detail: 'Uses only 1 character class' }); recommendations.push('Mix uppercase, lowercase, digits, and special characters'); }
+
+    // Common password patterns
+    const commonPatterns = [
+      { pattern: /^(password|passwd|pass)/i, name: 'Contains "password"' },
+      { pattern: /^(123456|12345678|1234567890)/i, name: 'Sequential numbers' },
+      { pattern: /^(qwerty|asdfgh|zxcvbn)/i, name: 'Keyboard pattern' },
+      { pattern: /^(admin|root|user|login|master)/i, name: 'Common admin term' },
+      { pattern: /^(letmein|welcome|monkey|dragon|football|baseball|soccer|hockey|batman|superman)/i, name: 'Common word' },
+      { pattern: /^(abc123|iloveyou|trustno1|sunshine|princess)/i, name: 'Common password' },
+      { pattern: /(.)\1{3,}/i, name: 'Repeated characters (4+)' },
+      { pattern: /^(0123|1234|2345|3456|4567|5678|6789|7890)/i, name: 'Sequential digits' },
+      { pattern: /^(abcd|bcde|cdef|defg|efgh)/i, name: 'Sequential letters' }
+    ];
+
+    const patternMatches = [];
+    for (const cp of commonPatterns) {
+      if (cp.pattern.test(password)) {
+        patternMatches.push(cp.name);
+        score -= 10;
+      }
+    }
+
+    if (patternMatches.length > 0) {
+      findings.push({ check: 'Common Patterns', status: 'fail', detail: `Detected: ${patternMatches.join(', ')}` });
+      recommendations.push('Avoid common words, keyboard patterns, and sequential characters');
+    } else {
+      score += 15;
+      findings.push({ check: 'Common Patterns', status: 'pass', detail: 'No common patterns detected' });
+    }
+
+    // Dictionary word check (simple)
+    const dictWords = ['password', 'hello', 'welcome', 'letmein', 'monkey', 'dragon', 'master', 'admin', 'login', 'sunshine', 'princess', 'football', 'baseball', 'shadow', 'michael', 'jennifer', 'summer', 'winter', 'spring', 'autumn', 'computer', 'internet', 'access', 'batman', 'superman', 'charlie', 'thomas', 'jessica', 'purple', 'orange', 'banana'];
+    const passwordLower = password.toLowerCase();
+    const dictMatches = dictWords.filter(w => passwordLower.includes(w) && w.length >= 4);
+    if (dictMatches.length > 0) {
+      score -= 10;
+      findings.push({ check: 'Dictionary Words', status: 'warning', detail: `Contains common dictionary word(s)` });
+      recommendations.push('Avoid using common dictionary words in your password');
+    } else {
+      score += 10;
+      findings.push({ check: 'Dictionary Words', status: 'pass', detail: 'No common dictionary words detected' });
+    }
+
+    // Entropy estimation
+    let charsetSize = 0;
+    if (hasLower) charsetSize += 26;
+    if (hasUpper) charsetSize += 26;
+    if (hasDigit) charsetSize += 10;
+    if (hasSpecial) charsetSize += 32;
+    const entropy = Math.round(length * Math.log2(charsetSize || 1) * 10) / 10;
+
+    if (entropy >= 60) { score += 20; findings.push({ check: 'Entropy', status: 'excellent', detail: `${entropy} bits (very strong)` }); }
+    else if (entropy >= 40) { score += 15; findings.push({ check: 'Entropy', status: 'good', detail: `${entropy} bits (strong)` }); }
+    else if (entropy >= 28) { score += 10; findings.push({ check: 'Entropy', status: 'adequate', detail: `${entropy} bits (moderate)` }); }
+    else { score += 0; findings.push({ check: 'Entropy', status: 'weak', detail: `${entropy} bits (weak)` }); recommendations.push('Increase password length and complexity for higher entropy'); }
+
+    // Crack time estimation (simplified)
+    const guessesPerSecond = 1e10; // 10 billion guesses/sec (modern GPU)
+    const possibleCombinations = Math.pow(charsetSize || 1, length);
+    const secondsToCrack = possibleCombinations / guessesPerSecond / 2; // average case
+
+    let crackTime;
+    if (secondsToCrack > 3.154e+15) crackTime = 'Centuries+';
+    else if (secondsToCrack > 3.154e+7) crackTime = `${Math.round(secondsToCrack / 3.154e+7)} years`;
+    else if (secondsToCrack > 2.592e+6) crackTime = `${Math.round(secondsToCrack / 2.592e+6)} months`;
+    else if (secondsToCrack > 86400) crackTime = `${Math.round(secondsToCrack / 86400)} days`;
+    else if (secondsToCrack > 3600) crackTime = `${Math.round(secondsToCrack / 3600)} hours`;
+    else if (secondsToCrack > 60) crackTime = `${Math.round(secondsToCrack / 60)} minutes`;
+    else crackTime = 'Less than a minute';
+
+    score = Math.max(0, Math.min(100, score));
+
+    let strength;
+    if (score >= 80) strength = 'Strong';
+    else if (score >= 60) strength = 'Moderate';
+    else if (score >= 40) strength = 'Weak';
+    else strength = 'Very Weak';
+
+    // Clear password from memory (best effort)
+    // Note: in production, use secure memory handling
+
+    res.json({
+      agent: 'aegis-security',
+      scan: 'password',
+      timestamp: new Date().toISOString(),
+      score,
+      strength,
+      grade: scoreToGrade(score),
+      analysis: {
+        length,
+        characterClasses: { lowercase: hasLower, uppercase: hasUpper, digits: hasDigit, special: hasSpecial, total: classCount },
+        entropy: `${entropy} bits`,
+        estimatedCrackTime: crackTime,
+        commonPatternsDetected: patternMatches.length > 0 ? patternMatches : 'None'
+      },
+      findings,
+      recommendations: recommendations.length > 0 ? recommendations : ['Password meets security requirements'],
+      note: 'Password was analyzed in memory and was NOT logged or stored.'
+    });
+  } catch (err) {
+    res.status(500).json({ error: err.message, scan: 'password' });
+  }
+});
+
 // ─── A2A Protocol ────────────────────────────
 
 app.get('/.well-known/agent.json', (req, res) => {
   res.json({
     name: 'AEGIS Security Agent',
-    description: 'Cybersecurity threat intelligence — HTTP header analysis, SSL inspection, DNS security, domain reputation scoring',
+    description: 'Cybersecurity threat intelligence — HTTP header analysis, SSL inspection, DNS security, domain reputation scoring, email security, password strength',
     version: '1.0.0',
     protocol: 'a2a',
     capabilities: [
@@ -707,11 +991,13 @@ app.get('/.well-known/agent.json', (req, res) => {
       'domain-reputation',
       'vulnerability-detection',
       'comprehensive-security-report',
+      'email-security-scan',
+      'password-strength-analysis',
     ],
     endpoints: {
       base: `http://localhost:${PORT}`,
       health: '/health',
-      scans: ['/scan/url', '/scan/ssl', '/scan/domain', '/report'],
+      scans: ['/scan/url', '/scan/ssl', '/scan/domain', '/scan/email', '/scan/password', '/report'],
     },
     tags: ['security', 'cybersecurity', 'ssl', 'dns', 'vulnerability', 'compliance', 'silkweb'],
   });
@@ -736,6 +1022,8 @@ app.listen(PORT, () => {
   ║   POST /scan/url                        ║
   ║   POST /scan/ssl                        ║
   ║   POST /scan/domain                     ║
+  ║   POST /scan/email                      ║
+  ║   POST /scan/password                   ║
   ║   POST /report                          ║
   ║                                         ║
   ║   GET  /.well-known/agent.json          ║

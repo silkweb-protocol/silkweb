@@ -1,0 +1,184 @@
+{
+  "traffic_stop": {
+    "situation": "Traffic Stop",
+    "constitutional_basis": ["4th Amendment (unreasonable searches)", "5th Amendment (self-incrimination)"],
+    "rights": [
+      "You must provide license, registration, and proof of insurance when requested",
+      "You have the right to remain silent beyond identifying yourself",
+      "You can refuse to answer questions about where you are going or coming from",
+      "You can refuse consent to search your vehicle (say clearly: 'I do not consent to a search')",
+      "Police may order you and passengers out of the vehicle (Pennsylvania v. Mimms)",
+      "Police may conduct a pat-down if they have reasonable suspicion you are armed (Terry v. Ohio)",
+      "Police cannot extend the stop beyond the time needed for its purpose without reasonable suspicion (Rodriguez v. United States)",
+      "You have the right to record the interaction (1st Amendment in most jurisdictions)"
+    ],
+    "what_to_do": [
+      "Pull over safely and turn on interior lights at night",
+      "Keep hands visible on the steering wheel",
+      "Be polite but exercise your rights",
+      "Clearly state 'I do not consent to a search' if asked",
+      "You may ask 'Am I free to go?' to determine if you are being detained",
+      "Inform the officer if you need to reach for documents",
+      "Provide license and registration when requested"
+    ],
+    "what_not_to_do": [
+      "Do not reach for anything without telling the officer first",
+      "Do not argue, resist, or obstruct even if you believe the stop is unlawful",
+      "Do not flee from the stop",
+      "Do not consent to a search of your vehicle or person",
+      "Do not lie or provide false identification",
+      "Do not make sudden movements"
+    ],
+    "when_to_invoke_counsel": "If you are arrested or if questioning goes beyond a routine traffic stop, clearly state: 'I want to speak with an attorney before answering any questions.'"
+  },
+  "arrest": {
+    "situation": "Being Placed Under Arrest",
+    "constitutional_basis": ["4th Amendment (arrest must be based on probable cause)", "5th Amendment (Miranda rights)", "6th Amendment (right to counsel)"],
+    "rights": [
+      "You have the right to remain silent (Miranda v. Arizona)",
+      "Anything you say can and will be used against you in court",
+      "You have the right to an attorney",
+      "If you cannot afford an attorney, one will be appointed for you",
+      "You have the right to know the charges against you",
+      "You have the right to make a phone call (timing varies by jurisdiction)",
+      "You have the right to be brought before a judge within a reasonable time (typically 48-72 hours)",
+      "You have the right to bail in most non-capital cases (8th Amendment)"
+    ],
+    "what_to_do": [
+      "Clearly state: 'I invoke my right to remain silent'",
+      "Clearly state: 'I want an attorney'",
+      "Comply with the physical arrest (do not resist)",
+      "Remember officer names, badge numbers, and patrol car numbers",
+      "Note the time and circumstances of the arrest",
+      "Remain calm and polite",
+      "Make your phone call to an attorney or family member"
+    ],
+    "what_not_to_do": [
+      "Do NOT resist arrest, even if you believe it is unlawful",
+      "Do NOT answer questions after invoking your right to silence",
+      "Do NOT sign anything without your attorney present",
+      "Do NOT consent to any searches",
+      "Do NOT discuss your case with cellmates or on jail phones (calls are recorded)",
+      "Do NOT make statements 'off the record' (there is no such thing)"
+    ],
+    "when_to_invoke_counsel": "Immediately upon arrest. Say clearly: 'I am invoking my right to remain silent and I want to speak with an attorney.' Then stop talking."
+  },
+  "search": {
+    "situation": "Search of Person, Home, or Property",
+    "constitutional_basis": ["4th Amendment (protection against unreasonable searches and seizures)"],
+    "rights": [
+      "Police generally need a warrant to search your home (with exceptions)",
+      "You can refuse consent to a search of your home, car, or person",
+      "If police have a warrant, you have the right to see it and verify its scope",
+      "Police may search incident to a lawful arrest (Chimel v. California)",
+      "The 'plain view' doctrine allows seizure of contraband in plain sight during lawful presence",
+      "Exigent circumstances may justify a warrantless search (imminent destruction of evidence, hot pursuit)",
+      "You have the right to observe the search if present",
+      "Items seized outside the warrant's scope may be suppressible"
+    ],
+    "what_to_do": [
+      "Clearly state: 'I do not consent to this search'",
+      "Ask to see the warrant and note what it authorizes (specific location, items)",
+      "Do not physically interfere with the search, even if you believe it is unlawful",
+      "Take mental notes of what is searched and seized",
+      "Ask for a receipt/inventory of items seized",
+      "Contact an attorney as soon as possible"
+    ],
+    "what_not_to_do": [
+      "Do NOT physically resist or obstruct the search",
+      "Do NOT destroy, hide, or discard evidence during the search",
+      "Do NOT give consent even if pressured (they can search without your consent if they have a warrant)",
+      "Do NOT answer questions during the search"
+    ],
+    "when_to_invoke_counsel": "As soon as you are aware a search is being conducted. State: 'I do not consent to this search and I want to speak with my attorney.'"
+  },
+  "interrogation": {
+    "situation": "Police Interrogation / Questioning",
+    "constitutional_basis": ["5th Amendment (self-incrimination)", "6th Amendment (right to counsel)", "14th Amendment (due process)"],
+    "rights": [
+      "You have the right to remain silent at all times",
+      "Miranda warnings must be given before custodial interrogation",
+      "You can invoke your right to silence at any time during questioning",
+      "You can request an attorney at any time, and questioning must stop (Edwards v. Arizona)",
+      "Once you invoke your right to counsel, police cannot reinitiate questioning without your attorney",
+      "Voluntary statements made before Miranda warnings may still be used (in some circumstances)",
+      "You cannot be punished for invoking your right to remain silent",
+      "Confessions obtained through coercion are inadmissible"
+    ],
+    "what_to_do": [
+      "Clearly and unambiguously invoke your rights: 'I want a lawyer' (not 'Maybe I should get a lawyer')",
+      "After invoking, remain completely silent",
+      "Do not engage in small talk with officers (it can be used against you)",
+      "Request that questioning stop immediately",
+      "Wait for your attorney before answering any questions"
+    ],
+    "what_not_to_do": [
+      "Do NOT waive your Miranda rights",
+      "Do NOT agree to 'just tell your side of the story'",
+      "Do NOT believe promises of leniency from interrogators",
+      "Do NOT try to outsmart the interrogators",
+      "Do NOT make partial admissions thinking they will help you",
+      "Do NOT take a polygraph (lie detector) test without attorney advice",
+      "Do NOT answer 'just a few questions' without your lawyer"
+    ],
+    "when_to_invoke_counsel": "Before answering ANY substantive questions. The magic words are: 'I invoke my right to remain silent. I want a lawyer.' Then say nothing more."
+  },
+  "protest": {
+    "situation": "Attending a Protest / Demonstration",
+    "constitutional_basis": ["1st Amendment (freedom of speech, assembly, petition)", "4th Amendment (unreasonable seizures)", "14th Amendment (equal protection)"],
+    "rights": [
+      "You have the right to peacefully assemble and protest on public property",
+      "Counter-protesters have the same rights you do",
+      "You can photograph and record police and public events in public spaces",
+      "Police cannot prevent you from protesting based on viewpoint",
+      "You may need a permit for certain activities (large gatherings, amplified sound, street closures)",
+      "Private property owners can restrict protest on their property",
+      "You have the right to distribute literature and display signs in public",
+      "Police must give clear dispersal orders before declaring an unlawful assembly"
+    ],
+    "what_to_do": [
+      "Know the local permit requirements beforehand",
+      "Write the number of a legal aid organization on your arm",
+      "Carry government-issued ID",
+      "Keep your phone charged and have an emergency contact",
+      "Stay on public property (sidewalks, parks, plazas)",
+      "Document any interactions with police",
+      "Follow lawful police orders (including lawful dispersal orders)",
+      "Stay aware of your surroundings"
+    ],
+    "what_not_to_do": [
+      "Do NOT engage in violence or property destruction (not protected speech)",
+      "Do NOT block traffic or emergency vehicles unless permitted",
+      "Do NOT trespass on private property",
+      "Do NOT resist arrest if you are detained",
+      "Do NOT bring weapons",
+      "Do NOT make threats (true threats are not protected by the 1st Amendment)"
+    ],
+    "when_to_invoke_counsel": "If you are detained or arrested during a protest, immediately state: 'I want an attorney.' Do not discuss the protest or your activities with police."
+  },
+  "grand_jury": {
+    "situation": "Grand Jury Subpoena / Testimony",
+    "constitutional_basis": ["5th Amendment (self-incrimination)", "6th Amendment (right to counsel, though limited in grand jury)"],
+    "rights": [
+      "You can invoke the 5th Amendment and refuse to answer questions that might incriminate you",
+      "You do not have the right to have an attorney present IN the grand jury room (federal), but you can step outside to consult",
+      "You must appear if subpoenaed, but you can assert privilege on specific questions",
+      "Grand jury proceedings are secret (Rule 6(e), FRCP)",
+      "You cannot be compelled to testify if granted immunity and the testimony could still incriminate you under state law",
+      "If granted use immunity, you must testify (your testimony cannot be used against you, but other evidence can)"
+    ],
+    "what_to_do": [
+      "Retain an attorney immediately upon receiving a subpoena",
+      "Discuss potential 5th Amendment invocations with your attorney before appearing",
+      "You may step out of the grand jury room to consult with your attorney between questions",
+      "Be truthful if you do answer (lying to a grand jury is perjury)"
+    ],
+    "what_not_to_do": [
+      "Do NOT ignore a grand jury subpoena (contempt of court)",
+      "Do NOT discuss your testimony with anyone other than your attorney",
+      "Do NOT lie or make false statements",
+      "Do NOT destroy documents or evidence covered by the subpoena"
+    ],
+    "when_to_invoke_counsel": "Immediately upon receiving a grand jury subpoena. An attorney can help you understand your rights, prepare for testimony, and identify questions you may refuse to answer."
+  }
+}

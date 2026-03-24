@@ -1,0 +1,85 @@
+{
+  "prefixes": {
+    "informational": ["what is", "how to", "how does", "why is", "when to", "where to", "who uses", "guide to", "introduction to", "understanding", "learn", "explained", "meaning of", "definition of", "examples of"],
+    "commercial": ["best", "top", "top 10", "leading", "popular", "recommended", "trusted", "rated", "reviewed", "affordable", "cheap", "expensive", "premium", "enterprise", "professional"],
+    "transactional": ["buy", "purchase", "order", "sign up", "subscribe", "download", "get", "try", "start", "hire", "book", "schedule", "register", "apply"],
+    "comparison": ["vs", "versus", "compared to", "or", "difference between", "better than", "alternative to", "like", "similar to", "competitor to"],
+    "qualifier": ["free", "open source", "online", "local", "remote", "fast", "secure", "easy", "simple", "advanced", "beginner", "enterprise", "small business", "startup"],
+    "temporal": ["2026", "2025", "latest", "new", "updated", "modern", "current", "upcoming", "future of", "trends in"],
+    "negative": ["without", "no", "avoid", "stop", "prevent", "fix", "solve", "troubleshoot", "problems with", "issues with"]
+  },
+  "suffixes": {
+    "product": ["tool", "tools", "platform", "software", "app", "application", "service", "solution", "system", "framework", "library", "SDK", "API", "plugin", "extension"],
+    "content": ["guide", "tutorial", "course", "book", "ebook", "template", "checklist", "cheat sheet", "examples", "case study", "whitepaper", "report"],
+    "evaluation": ["review", "reviews", "comparison", "benchmark", "test", "rating", "analysis", "pros and cons", "advantages", "disadvantages"],
+    "action": ["tips", "tricks", "hacks", "strategies", "techniques", "methods", "best practices", "workflow", "process", "steps"],
+    "business": ["pricing", "cost", "plans", "features", "integrations", "demo", "trial", "ROI", "benefits", "use cases", "alternatives"],
+    "technical": ["documentation", "setup", "installation", "configuration", "implementation", "architecture", "performance", "security", "scalability", "debugging"]
+  },
+  "question_formats": [
+    "how to {keyword}",
+    "what is {keyword}",
+    "what are the best {keyword}",
+    "how does {keyword} work",
+    "is {keyword} worth it",
+    "why use {keyword}",
+    "when to use {keyword}",
+    "{keyword} vs {alt}",
+    "how much does {keyword} cost",
+    "what is the best {keyword} for {usecase}",
+    "how to choose a {keyword}",
+    "can {keyword} do {task}",
+    "{keyword} for beginners",
+    "{keyword} alternatives",
+    "is {keyword} good for {usecase}",
+    "pros and cons of {keyword}",
+    "how to get started with {keyword}",
+    "{keyword} examples",
+    "{keyword} best practices",
+    "{keyword} tutorial"
+  ],
+  "long_tail_patterns": [
+    "best {keyword} for small business",
+    "best {keyword} for enterprise",
+    "best free {keyword} tools",
+    "best open source {keyword}",
+    "how to use {keyword} to {goal}",
+    "{keyword} for {industry} companies",
+    "{keyword} integration with {tool}",
+    "step by step {keyword} guide",
+    "{keyword} without {limitation}",
+    "fastest way to {keyword}",
+    "{keyword} in {year}",
+    "complete guide to {keyword}",
+    "{keyword} for developers",
+    "{keyword} for marketers",
+    "{keyword} automation tools"
+  ],
+  "industry_modifiers": {
+    "technology": ["SaaS", "cloud", "AI", "machine learning", "automation", "DevOps", "microservices", "serverless", "blockchain", "IoT", "API", "no-code", "low-code"],
+    "legal": ["law firm", "attorney", "legal tech", "compliance", "regulation", "litigation", "contract", "intellectual property", "GDPR", "privacy"],
+    "finance": ["fintech", "banking", "insurance", "investment", "trading", "payment", "accounting", "audit", "tax", "crypto"],
+    "healthcare": ["health tech", "telemedicine", "clinical", "patient", "HIPAA", "EHR", "medical device", "pharma", "wellness", "mental health"],
+    "ecommerce": ["online store", "shopify", "marketplace", "dropshipping", "fulfillment", "conversion", "cart", "checkout", "product page", "inventory"],
+    "marketing": ["SEO", "content marketing", "social media", "email marketing", "PPC", "influencer", "brand", "analytics", "CRM", "lead generation"],
+    "education": ["e-learning", "LMS", "online course", "training", "certification", "tutorial", "workshop", "curriculum", "EdTech", "student"]
+  },
+  "intent_signals": {
+    "informational": {
+      "indicators": ["what", "how", "why", "when", "who", "guide", "tutorial", "learn", "understand", "explain", "definition", "meaning", "example"],
+      "description": "User wants to learn or understand something"
+    },
+    "navigational": {
+      "indicators": ["login", "sign in", "website", "official", "homepage", "dashboard", "account", "portal", "app"],
+      "description": "User wants to reach a specific website or page"
+    },
+    "transactional": {
+      "indicators": ["buy", "purchase", "order", "price", "cost", "pricing", "discount", "coupon", "deal", "sale", "subscribe", "download", "free trial"],
+      "description": "User wants to complete a purchase or action"
+    },
+    "commercial_investigation": {
+      "indicators": ["best", "top", "review", "comparison", "vs", "alternative", "pros cons", "worth it", "recommend", "which", "should I"],
+      "description": "User is researching before making a decision"
+    }
+  }
+}

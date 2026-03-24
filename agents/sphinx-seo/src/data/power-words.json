@@ -1,0 +1,46 @@
+{
+  "urgency": [
+    "now", "today", "instant", "immediately", "hurry", "limited", "deadline",
+    "last chance", "before it's gone", "act now", "don't miss", "expires",
+    "running out", "final", "quick", "fast", "rapid", "time-sensitive"
+  ],
+  "exclusivity": [
+    "exclusive", "secret", "insider", "members-only", "VIP", "invitation",
+    "private", "hidden", "behind-the-scenes", "unreleased", "first access",
+    "early access", "limited edition", "handpicked", "curated", "elite"
+  ],
+  "trust": [
+    "proven", "guaranteed", "certified", "verified", "trusted", "official",
+    "authentic", "reliable", "secure", "backed", "endorsed", "approved",
+    "accredited", "tested", "research-backed", "science-based", "evidence-based",
+    "no-risk", "money-back"
+  ],
+  "curiosity": [
+    "surprising", "unexpected", "little-known", "shocking", "bizarre",
+    "unusual", "remarkable", "strange", "mysterious", "unbelievable",
+    "mind-blowing", "eye-opening", "fascinating", "intriguing", "revealed",
+    "uncovered", "never before"
+  ],
+  "value": [
+    "free", "bonus", "save", "discount", "deal", "bargain", "affordable",
+    "budget", "economical", "value", "worth", "ROI", "profitable",
+    "cost-effective", "priceless", "invaluable", "complimentary"
+  ],
+  "authority": [
+    "expert", "definitive", "comprehensive", "complete", "ultimate",
+    "advanced", "professional", "industry-leading", "cutting-edge",
+    "state-of-the-art", "world-class", "award-winning", "battle-tested",
+    "enterprise-grade", "best-in-class", "gold standard"
+  ],
+  "emotion": [
+    "powerful", "breakthrough", "revolutionary", "game-changing",
+    "transformative", "life-changing", "essential", "critical", "vital",
+    "incredible", "amazing", "outstanding", "extraordinary", "phenomenal",
+    "spectacular", "brilliant", "superb"
+  ],
+  "simplicity": [
+    "easy", "simple", "effortless", "straightforward", "step-by-step",
+    "beginner-friendly", "no-code", "plug-and-play", "turnkey", "ready-to-use",
+    "hassle-free", "painless", "seamless", "smooth", "intuitive"
+  ]
+}

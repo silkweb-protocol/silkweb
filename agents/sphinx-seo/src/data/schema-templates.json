@@ -1,0 +1,299 @@
+{
+  "Article": {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "{headline}",
+    "description": "{description}",
+    "image": "{imageUrl}",
+    "author": {
+      "@type": "Person",
+      "name": "{authorName}",
+      "url": "{authorUrl}"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "{publisherName}",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "{logoUrl}"
+      }
+    },
+    "datePublished": "{datePublished}",
+    "dateModified": "{dateModified}",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "{pageUrl}"
+    },
+    "keywords": "{keywords}",
+    "wordCount": "{wordCount}",
+    "articleSection": "{section}"
+  },
+  "Product": {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": "{productName}",
+    "description": "{description}",
+    "image": "{imageUrl}",
+    "brand": {
+      "@type": "Brand",
+      "name": "{brandName}"
+    },
+    "offers": {
+      "@type": "Offer",
+      "price": "{price}",
+      "priceCurrency": "{currency}",
+      "availability": "https://schema.org/InStock",
+      "url": "{pageUrl}",
+      "priceValidUntil": "{priceValidUntil}"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "{ratingValue}",
+      "reviewCount": "{reviewCount}"
+    },
+    "review": {
+      "@type": "Review",
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": "{reviewRating}",
+        "bestRating": "5"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "{reviewerName}"
+      }
+    },
+    "sku": "{sku}",
+    "mpn": "{mpn}"
+  },
+  "SoftwareApplication": {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "{appName}",
+    "description": "{description}",
+    "applicationCategory": "{category}",
+    "operatingSystem": "{operatingSystem}",
+    "offers": {
+      "@type": "Offer",
+      "price": "{price}",
+      "priceCurrency": "{currency}"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "{ratingValue}",
+      "reviewCount": "{reviewCount}"
+    },
+    "author": {
+      "@type": "Organization",
+      "name": "{authorName}",
+      "url": "{authorUrl}"
+    },
+    "screenshot": "{screenshotUrl}",
+    "softwareVersion": "{version}",
+    "featureList": "{features}",
+    "url": "{pageUrl}"
+  },
+  "FAQPage": {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "{question1}",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "{answer1}"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "{question2}",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "{answer2}"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "{question3}",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "{answer3}"
+        }
+      }
+    ]
+  },
+  "HowTo": {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": "{title}",
+    "description": "{description}",
+    "image": "{imageUrl}",
+    "totalTime": "{totalTime}",
+    "estimatedCost": {
+      "@type": "MonetaryAmount",
+      "currency": "{currency}",
+      "value": "{cost}"
+    },
+    "supply": [
+      { "@type": "HowToSupply", "name": "{supply1}" },
+      { "@type": "HowToSupply", "name": "{supply2}" }
+    ],
+    "tool": [
+      { "@type": "HowToTool", "name": "{tool1}" },
+      { "@type": "HowToTool", "name": "{tool2}" }
+    ],
+    "step": [
+      {
+        "@type": "HowToStep",
+        "name": "{step1Title}",
+        "text": "{step1Text}",
+        "url": "{step1Url}",
+        "image": "{step1Image}"
+      },
+      {
+        "@type": "HowToStep",
+        "name": "{step2Title}",
+        "text": "{step2Text}",
+        "url": "{step2Url}",
+        "image": "{step2Image}"
+      },
+      {
+        "@type": "HowToStep",
+        "name": "{step3Title}",
+        "text": "{step3Text}",
+        "url": "{step3Url}",
+        "image": "{step3Image}"
+      }
+    ]
+  },
+  "Organization": {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "{orgName}",
+    "url": "{url}",
+    "logo": "{logoUrl}",
+    "description": "{description}",
+    "foundingDate": "{foundingDate}",
+    "founder": {
+      "@type": "Person",
+      "name": "{founderName}"
+    },
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "{street}",
+      "addressLocality": "{city}",
+      "addressRegion": "{state}",
+      "postalCode": "{zip}",
+      "addressCountry": "{country}"
+    },
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "telephone": "{phone}",
+      "contactType": "customer service",
+      "email": "{email}"
+    },
+    "sameAs": [
+      "{twitterUrl}",
+      "{linkedinUrl}",
+      "{githubUrl}"
+    ]
+  },
+  "Person": {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "{name}",
+    "jobTitle": "{jobTitle}",
+    "description": "{description}",
+    "url": "{url}",
+    "image": "{imageUrl}",
+    "email": "{email}",
+    "worksFor": {
+      "@type": "Organization",
+      "name": "{orgName}",
+      "url": "{orgUrl}"
+    },
+    "alumniOf": {
+      "@type": "Organization",
+      "name": "{alumniOf}"
+    },
+    "sameAs": [
+      "{twitterUrl}",
+      "{linkedinUrl}",
+      "{githubUrl}"
+    ],
+    "knowsAbout": ["{skill1}", "{skill2}", "{skill3}"]
+  },
+  "WebSite": {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "{siteName}",
+    "url": "{url}",
+    "description": "{description}",
+    "publisher": {
+      "@type": "Organization",
+      "name": "{publisherName}"
+    },
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "{searchUrl}?q={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
+  },
+  "BreadcrumbList": {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "{homeUrl}"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "{category}",
+        "item": "{categoryUrl}"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "{pageName}",
+        "item": "{pageUrl}"
+      }
+    ]
+  },
+  "Event": {
+    "@context": "https://schema.org",
+    "@type": "Event",
+    "name": "{eventName}",
+    "description": "{description}",
+    "startDate": "{startDate}",
+    "endDate": "{endDate}",
+    "eventStatus": "https://schema.org/EventScheduled",
+    "eventAttendanceMode": "https://schema.org/OnlineEventAttendanceMode",
+    "location": {
+      "@type": "VirtualLocation",
+      "url": "{eventUrl}"
+    },
+    "image": "{imageUrl}",
+    "organizer": {
+      "@type": "Organization",
+      "name": "{organizerName}",
+      "url": "{organizerUrl}"
+    },
+    "offers": {
+      "@type": "Offer",
+      "price": "{price}",
+      "priceCurrency": "{currency}",
+      "availability": "https://schema.org/InStock",
+      "url": "{ticketUrl}",
+      "validFrom": "{saleStart}"
+    },
+    "performer": {
+      "@type": "Person",
+      "name": "{performerName}"
+    }
+  }
+}

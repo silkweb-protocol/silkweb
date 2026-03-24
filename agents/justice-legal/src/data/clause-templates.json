@@ -1,0 +1,107 @@
+{
+  "indemnification": {
+    "name": "Indemnification",
+    "description": "Allocates risk between parties by requiring one party to compensate the other for specified losses.",
+    "template": "{{indemnitor}} (the \"Indemnifying Party\") shall indemnify, defend, and hold harmless {{indemnitee}} (the \"Indemnified Party\"), its officers, directors, employees, and agents from and against any and all claims, damages, losses, liabilities, costs, and expenses (including reasonable attorneys' fees) arising out of or relating to: (a) any breach of this Agreement by the Indemnifying Party; (b) any negligent or wrongful act or omission of the Indemnifying Party; (c) {{additional_triggers}}. The Indemnified Party shall provide prompt written notice of any claim and shall cooperate with the Indemnifying Party in the defense thereof.",
+    "parameters": ["indemnitor", "indemnitee", "additional_triggers"],
+    "key_considerations": ["Scope of covered claims", "Notice requirements", "Control of defense", "Cap on indemnification liability", "Survival period after termination"]
+  },
+  "limitation_of_liability": {
+    "name": "Limitation of Liability",
+    "description": "Caps the maximum amount of damages one party can recover from the other.",
+    "template": "IN NO EVENT SHALL EITHER PARTY'S AGGREGATE LIABILITY ARISING OUT OF OR RELATED TO THIS AGREEMENT EXCEED {{liability_cap}}. IN NO EVENT SHALL EITHER PARTY BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES, INCLUDING BUT NOT LIMITED TO LOSS OF PROFITS, DATA, BUSINESS, OR GOODWILL, REGARDLESS OF WHETHER SUCH PARTY HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES. The foregoing limitations shall not apply to: (a) breaches of confidentiality obligations; (b) indemnification obligations; (c) willful misconduct or gross negligence; or (d) liability that cannot be limited by applicable law.",
+    "parameters": ["liability_cap"],
+    "key_considerations": ["Cap amount (often tied to contract value)", "Exclusions from cap", "Types of damages excluded", "Mutual vs. one-sided caps", "Carve-outs for IP infringement or data breach"]
+  },
+  "force_majeure": {
+    "name": "Force Majeure",
+    "description": "Excuses performance when extraordinary events beyond reasonable control prevent fulfillment of obligations.",
+    "template": "Neither party shall be liable for any failure or delay in performing its obligations under this Agreement to the extent that such failure or delay results from a Force Majeure Event. \"Force Majeure Event\" means any event beyond the reasonable control of the affected party, including but not limited to: acts of God, natural disasters, epidemics or pandemics, war, terrorism, civil unrest, government actions or orders, labor disputes, fire, flood, earthquake, {{additional_events}}. The affected party shall: (a) provide written notice within {{notice_days}} business days of the Force Majeure Event; (b) use commercially reasonable efforts to mitigate the impact; and (c) resume performance as soon as reasonably practicable. If the Force Majeure Event continues for more than {{termination_days}} consecutive days, either party may terminate this Agreement upon written notice.",
+    "parameters": ["additional_events", "notice_days", "termination_days"],
+    "key_considerations": ["Specificity of covered events", "Notification requirements", "Mitigation obligations", "Duration threshold for termination", "Whether pandemic/epidemic is included"]
+  },
+  "confidentiality": {
+    "name": "Confidentiality",
+    "description": "Protects proprietary and sensitive information shared between parties.",
+    "template": "Each party (\"Receiving Party\") agrees to maintain in strict confidence all Confidential Information received from the other party (\"Disclosing Party\"). \"Confidential Information\" means any non-public information disclosed by the Disclosing Party, whether in written, oral, electronic, or other form, that is designated as confidential or that a reasonable person would understand to be confidential. Confidential Information does not include information that: (a) is or becomes publicly available without breach of this Agreement; (b) was known to the Receiving Party prior to disclosure; (c) is independently developed without use of the Disclosing Party's Confidential Information; or (d) is rightfully obtained from a third party without restriction. The Receiving Party shall: (i) use Confidential Information solely for the purposes of this Agreement; (ii) limit access to those employees and agents with a need to know; and (iii) protect Confidential Information with at least the same degree of care used for its own confidential information, but no less than reasonable care. This obligation shall survive for {{survival_years}} years following termination of this Agreement.",
+    "parameters": ["survival_years"],
+    "key_considerations": ["Definition scope", "Standard exclusions", "Permitted disclosures (legal compulsion)", "Return or destruction obligations", "Survival period"]
+  },
+  "termination_for_convenience": {
+    "name": "Termination for Convenience",
+    "description": "Allows either party to end the contract without cause upon specified notice.",
+    "template": "Either party may terminate this Agreement for any reason or no reason upon {{notice_days}} days' prior written notice to the other party. Upon termination for convenience: (a) {{terminating_party_obligation}}; (b) all licenses granted hereunder shall immediately terminate; (c) each party shall return or destroy all Confidential Information of the other party; and (d) the following provisions shall survive termination: {{surviving_sections}}.",
+    "parameters": ["notice_days", "terminating_party_obligation", "surviving_sections"],
+    "key_considerations": ["Notice period length", "Payment obligations upon termination", "Wind-down responsibilities", "Surviving provisions", "Termination fees"]
+  },
+  "termination_for_cause": {
+    "name": "Termination for Cause",
+    "description": "Allows termination when the other party materially breaches the agreement.",
+    "template": "Either party may terminate this Agreement upon written notice if the other party: (a) materially breaches this Agreement and fails to cure such breach within {{cure_days}} days after receiving written notice specifying the breach; (b) becomes insolvent, files for bankruptcy, or makes an assignment for the benefit of creditors; or (c) ceases to conduct business in the normal course. Upon termination for cause, the breaching party shall remain liable for all obligations accrued prior to termination, and the non-breaching party shall be entitled to pursue all available remedies at law or in equity.",
+    "parameters": ["cure_days"],
+    "key_considerations": ["Definition of material breach", "Cure period adequacy", "Notice requirements", "Insolvency triggers", "Remedies available post-termination"]
+  },
+  "non_compete": {
+    "name": "Non-Compete",
+    "description": "Restricts a party from engaging in competing activities for a specified period and geography.",
+    "template": "During the term of this Agreement and for a period of {{duration_months}} months following its termination or expiration (the \"Restricted Period\"), {{restricted_party}} shall not, directly or indirectly, engage in, own, manage, operate, consult for, or participate in any business that competes with {{protected_party}}'s business within {{geographic_scope}}. For purposes of this clause, \"competing business\" means any entity that {{competition_definition}}. This restriction shall not apply to ownership of less than {{passive_ownership_percent}}% of the outstanding stock of any publicly traded company.",
+    "parameters": ["duration_months", "restricted_party", "protected_party", "geographic_scope", "competition_definition", "passive_ownership_percent"],
+    "key_considerations": ["Duration reasonableness (typically 1-2 years)", "Geographic scope reasonableness", "Activity scope specificity", "Consideration for the restriction", "State-specific enforceability (California bans most non-competes)"]
+  },
+  "intellectual_property_ownership": {
+    "name": "Intellectual Property Ownership",
+    "description": "Establishes ownership rights over IP created during the contractual relationship.",
+    "template": "All Intellectual Property created, developed, or conceived by {{creator}} in the course of performing obligations under this Agreement (\"Work Product\") shall be the sole and exclusive property of {{owner}}. {{creator}} hereby irrevocably assigns to {{owner}} all right, title, and interest in and to the Work Product, including all patents, copyrights, trademarks, trade secrets, and other intellectual property rights. {{creator}} shall execute all documents and take all actions reasonably requested by {{owner}} to perfect such assignment. {{creator}} retains all rights in any pre-existing intellectual property (\"Background IP\") and hereby grants {{owner}} a non-exclusive, perpetual, royalty-free license to use such Background IP solely to the extent incorporated in the Work Product.",
+    "parameters": ["creator", "owner"],
+    "key_considerations": ["Work-for-hire vs. assignment", "Background IP carve-out", "License grants for pre-existing IP", "Moral rights waiver", "Joint ownership scenarios"]
+  },
+  "payment_terms": {
+    "name": "Payment Terms",
+    "description": "Specifies payment amounts, schedules, and conditions.",
+    "template": "{{payer}} shall pay {{payee}} the amounts set forth in {{schedule_reference}} within {{payment_days}} days of receipt of a valid invoice. All payments shall be made in {{currency}} by {{payment_method}}. Late payments shall bear interest at the rate of {{interest_rate}}% per {{interest_period}}, or the maximum rate permitted by law, whichever is less. {{payee}} may suspend performance if any payment is more than {{suspension_days}} days overdue. All amounts are exclusive of applicable taxes, which shall be the responsibility of {{tax_responsible_party}}.",
+    "parameters": ["payer", "payee", "schedule_reference", "payment_days", "currency", "payment_method", "interest_rate", "interest_period", "suspension_days", "tax_responsible_party"],
+    "key_considerations": ["Net payment terms (Net 30, Net 60)", "Late payment penalties", "Right to suspend for non-payment", "Tax responsibilities", "Currency and exchange rate risk"]
+  },
+  "governing_law": {
+    "name": "Governing Law and Dispute Resolution",
+    "description": "Specifies applicable law and how disputes will be resolved.",
+    "template": "This Agreement shall be governed by and construed in accordance with the laws of the State of {{state}}, without regard to its conflict of laws principles. Any dispute arising out of or relating to this Agreement shall be resolved by {{dispute_method}}. {{dispute_details}} Each party irrevocably consents to the {{jurisdiction_type}} jurisdiction of the {{court_description}} and waives any objection to venue therein. The prevailing party in any action to enforce this Agreement shall be entitled to recover its reasonable attorneys' fees and costs.",
+    "parameters": ["state", "dispute_method", "dispute_details", "jurisdiction_type", "court_description"],
+    "key_considerations": ["State law selection (Delaware, New York common for business)", "Arbitration vs. litigation", "Arbitration rules (AAA, JAMS)", "Jury trial waiver", "Attorneys fees provision"]
+  },
+  "warranty": {
+    "name": "Warranty",
+    "description": "Provides guarantees about the quality, performance, or fitness of goods or services.",
+    "template": "{{warrantor}} represents and warrants that: (a) the {{deliverable}} will conform to the specifications set forth in {{specification_reference}} for a period of {{warranty_period}} from the date of {{warranty_start_event}}; (b) the {{deliverable}} will be free from material defects in materials and workmanship; (c) {{warrantor}} has the full right, power, and authority to enter into this Agreement and perform its obligations hereunder; and (d) the {{deliverable}} will not infringe upon any third party's intellectual property rights. If the {{deliverable}} fails to conform to this warranty, {{warrantor}} shall, at its sole expense, {{remedy}}. EXCEPT AS EXPRESSLY SET FORTH IN THIS AGREEMENT, {{warrantor}} DISCLAIMS ALL OTHER WARRANTIES, WHETHER EXPRESS, IMPLIED, STATUTORY, OR OTHERWISE, INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.",
+    "parameters": ["warrantor", "deliverable", "specification_reference", "warranty_period", "warranty_start_event", "remedy"],
+    "key_considerations": ["Warranty scope and duration", "Remedy for breach (repair, replace, refund)", "Disclaimer of implied warranties", "Warranty exclusions", "Notice requirements for warranty claims"]
+  },
+  "data_protection": {
+    "name": "Data Protection / Privacy",
+    "description": "Establishes obligations for handling personal data in compliance with privacy laws.",
+    "template": "To the extent that {{processor}} processes Personal Data on behalf of {{controller}} in connection with this Agreement, {{processor}} shall: (a) process Personal Data only in accordance with {{controller}}'s documented instructions; (b) implement appropriate technical and organizational measures to protect Personal Data against unauthorized access, loss, or destruction; (c) not engage any sub-processor without {{controller}}'s prior written consent; (d) notify {{controller}} without undue delay (and in any event within {{breach_notification_hours}} hours) upon becoming aware of a Personal Data breach; (e) assist {{controller}} in responding to data subject requests; (f) delete or return all Personal Data upon termination of this Agreement; and (g) make available all information necessary to demonstrate compliance with this clause and allow for audits. \"Personal Data\" means any information relating to an identified or identifiable natural person as defined under applicable data protection laws.",
+    "parameters": ["processor", "controller", "breach_notification_hours"],
+    "key_considerations": ["GDPR compliance requirements", "CCPA considerations", "Data processing agreement (DPA)", "Cross-border data transfers", "Sub-processor management", "Data retention and deletion"]
+  },
+  "non_solicitation": {
+    "name": "Non-Solicitation",
+    "description": "Prevents parties from soliciting each other's employees or customers.",
+    "template": "During the term of this Agreement and for {{duration_months}} months thereafter, neither party shall, directly or indirectly, solicit, recruit, hire, or attempt to solicit, recruit, or hire any employee, contractor, or consultant of the other party who was involved in the performance of this Agreement, without the prior written consent of the other party. This restriction shall not apply to: (a) general advertisements or job postings not specifically targeted at the other party's personnel; or (b) any individual who has ceased to be employed by or engaged by the other party for at least {{cooling_off_months}} months.",
+    "parameters": ["duration_months", "cooling_off_months"],
+    "key_considerations": ["Duration reasonableness", "Scope (employees only vs. customers too)", "Exceptions for general recruiting", "Cooling-off period", "Liquidated damages for violation"]
+  },
+  "insurance": {
+    "name": "Insurance Requirements",
+    "description": "Requires parties to maintain specified insurance coverage.",
+    "template": "During the term of this Agreement and for {{tail_period}} thereafter, {{insured_party}} shall maintain at its own expense: (a) Commercial General Liability insurance with limits of not less than ${{cgl_limit}} per occurrence and ${{cgl_aggregate}} in the aggregate; (b) Professional Liability / Errors & Omissions insurance with limits of not less than ${{eo_limit}} per claim; (c) Workers' Compensation insurance as required by applicable law; and (d) {{additional_coverage}}. {{insured_party}} shall name {{additional_insured}} as an additional insured on all applicable policies and shall provide certificates of insurance upon request. {{insured_party}} shall provide {{notice_days}} days' prior written notice of any cancellation or material change to coverage.",
+    "parameters": ["tail_period", "insured_party", "cgl_limit", "cgl_aggregate", "eo_limit", "additional_coverage", "additional_insured", "notice_days"],
+    "key_considerations": ["Coverage types and amounts", "Additional insured requirements", "Certificate of insurance delivery", "Notice of cancellation obligations", "Tail coverage for claims-made policies"]
+  },
+  "acceptance_testing": {
+    "name": "Acceptance Testing",
+    "description": "Establishes a process for testing and accepting deliverables.",
+    "template": "Upon delivery of each {{deliverable}}, {{customer}} shall have {{testing_days}} business days to conduct acceptance testing in accordance with the acceptance criteria set forth in {{criteria_reference}} (the \"Acceptance Period\"). If {{customer}} determines that the {{deliverable}} does not materially conform to the acceptance criteria, {{customer}} shall provide written notice specifying the non-conformities. {{vendor}} shall correct such non-conformities within {{correction_days}} business days and resubmit for testing. If after {{max_cycles}} testing cycles the {{deliverable}} still does not conform, {{customer}} may: (a) accept the {{deliverable}} with an equitable adjustment in price; (b) extend the correction period; or (c) terminate the applicable Statement of Work and receive a refund of all amounts paid for the non-conforming {{deliverable}}. Failure by {{customer}} to provide notice of rejection within the Acceptance Period shall constitute acceptance.",
+    "parameters": ["deliverable", "customer", "testing_days", "criteria_reference", "vendor", "correction_days", "max_cycles"],
+    "key_considerations": ["Clear acceptance criteria", "Reasonable testing period", "Number of correction cycles", "Deemed acceptance provisions", "Remedies for failure"]
+  }
+}

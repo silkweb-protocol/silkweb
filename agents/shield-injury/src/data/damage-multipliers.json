@@ -1,0 +1,43 @@
+{
+  "methodology": "The multiplier method estimates non-economic damages (pain and suffering) as a multiple of economic damages (medical bills + lost wages). The multiplier is based on injury severity, impact on daily life, and recovery prognosis.",
+  "multipliers": [
+    {"severity":"minimal","multiplier_low":1.0,"multiplier_high":1.5,"description":"Minor injuries with full recovery. Soft tissue injuries, minor bruising, short-term pain.","examples":["Minor whiplash","Small lacerations","Minor sprains","Bruising"]},
+    {"severity":"mild","multiplier_low":1.5,"multiplier_high":2.5,"description":"Moderate injuries requiring some medical treatment. Temporary discomfort or limitations.","examples":["Moderate whiplash","Simple fractures (clean break)","Moderate sprains/strains","Minor burns (1st degree)","Minor dental injury"]},
+    {"severity":"moderate","multiplier_low":2.5,"multiplier_high":4.0,"description":"Significant injuries requiring substantial medical treatment. Extended recovery period. Some lasting impact.","examples":["Herniated disc (non-surgical)","Complex fractures","Torn ligaments (ACL/MCL)","Second-degree burns","Concussion","Multiple fractures"]},
+    {"severity":"severe","multiplier_low":4.0,"multiplier_high":6.0,"description":"Serious injuries requiring surgery or extensive treatment. Long recovery. Likely permanent impact.","examples":["Herniated disc (surgical)","Severe TBI","Third-degree burns","Internal organ damage","Nerve damage","Jaw fracture requiring surgery"]},
+    {"severity":"very_severe","multiplier_low":6.0,"multiplier_high":8.0,"description":"Life-altering injuries with permanent disability. Major surgery and extended rehabilitation.","examples":["Spinal cord injury (incomplete)","Amputation of digit(s)","Severe facial disfigurement","Permanent vision/hearing loss","Multiple severe fractures"]},
+    {"severity":"catastrophic","multiplier_low":8.0,"multiplier_high":15.0,"description":"Most severe injuries. Permanent, life-changing disabilities. Lifetime care needs.","examples":["Paralysis (paraplegia/quadriplegia)","Severe TBI with cognitive impairment","Major amputation","Severe burns (large body area)","Wrongful death"]}
+  ],
+  "adjustment_factors": {
+    "increase_multiplier": [
+      {"factor":"Clear liability (other party 100% at fault)","adjustment":"+0.5 to +1.0"},
+      {"factor":"Defendant is a large corporation or government entity","adjustment":"+0.5"},
+      {"factor":"Drunk driver / reckless behavior","adjustment":"+1.0 to +2.0"},
+      {"factor":"Pre-existing condition aggravated","adjustment":"+0.5"},
+      {"factor":"Permanent visible scarring","adjustment":"+0.5 to +1.0"},
+      {"factor":"Impact on ability to work","adjustment":"+0.5 to +2.0"},
+      {"factor":"Impact on hobbies/quality of life","adjustment":"+0.5"},
+      {"factor":"Victim is a child","adjustment":"+0.5 to +1.0"},
+      {"factor":"Jury-friendly jurisdiction","adjustment":"+0.5 to +1.0"},
+      {"factor":"Well-documented treatment and expenses","adjustment":"+0.5"},
+      {"factor":"Multiple surgeries required","adjustment":"+0.5 to +1.0"}
+    ],
+    "decrease_multiplier": [
+      {"factor":"Shared fault (comparative negligence)","adjustment":"-0.5 to -2.0"},
+      {"factor":"Pre-existing condition (unrelated)","adjustment":"-0.5"},
+      {"factor":"Gap in treatment","adjustment":"-0.5 to -1.0"},
+      {"factor":"Minor impact collision (low property damage)","adjustment":"-0.5 to -1.0"},
+      {"factor":"Inconsistent medical records","adjustment":"-0.5 to -1.0"},
+      {"factor":"Social media contradicting injury claims","adjustment":"-0.5 to -1.0"},
+      {"factor":"Conservative jurisdiction","adjustment":"-0.5"},
+      {"factor":"Low insurance policy limits","adjustment":"Settlement capped by available coverage"},
+      {"factor":"Prior injury claims history","adjustment":"-0.5"}
+    ]
+  },
+  "per_diem_method": {
+    "description": "Alternative to multiplier method. Assigns a daily dollar value to pain and suffering for each day of recovery.",
+    "typical_daily_rate_low": 50,
+    "typical_daily_rate_high": 500,
+    "basis": "Often based on the plaintiff's daily earnings or a reasonable daily rate reflecting the severity of pain."
+  }
+}
