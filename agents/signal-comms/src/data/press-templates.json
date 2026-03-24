@@ -1,0 +1,35 @@
+{
+  "apStyleRules": [
+    "Use AP-style datelines: CITY, State (Month Day, Year)",
+    "Lead paragraph answers Who, What, When, Where, Why",
+    "Use active voice throughout",
+    "Numbers one through nine are spelled out; 10 and above use figures",
+    "Use single quotes in headlines, double quotes in body",
+    "Paragraphs should be 2-3 sentences maximum",
+    "Include a boilerplate 'About' section at the end",
+    "End with media contact information",
+    "Use ### to signify end of release"
+  ],
+  "releaseTypes": {
+    "product_launch": {
+      "structure": ["Headline", "Subheadline", "Dateline + Lead", "Product Details", "Quote from Executive", "Features/Benefits", "Availability", "About Company", "Contact"],
+      "tone": "Exciting but professional"
+    },
+    "partnership": {
+      "structure": ["Headline", "Dateline + Lead", "Partnership Details", "Quote from Both Companies", "Combined Value Prop", "About Company 1", "About Company 2", "Contact"],
+      "tone": "Collaborative and strategic"
+    },
+    "funding": {
+      "structure": ["Headline", "Dateline + Lead", "Funding Details", "Use of Funds", "Investor Quote", "CEO Quote", "Company Traction", "About Company", "Contact"],
+      "tone": "Confident and forward-looking"
+    },
+    "event": {
+      "structure": ["Headline", "Dateline + Lead", "Event Details", "Speaker/Participant Info", "Registration Info", "Quote", "About Company", "Contact"],
+      "tone": "Inviting and informative"
+    },
+    "milestone": {
+      "structure": ["Headline", "Dateline + Lead", "Achievement Details", "Impact/Significance", "Quote", "Future Plans", "About Company", "Contact"],
+      "tone": "Proud but measured"
+    }
+  }
+}

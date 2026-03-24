@@ -1,0 +1,27 @@
+{
+  "sigmaLevels": [
+    {"sigma":1,"dpmo":691462,"yield":"30.9%","description":"Very poor quality"},
+    {"sigma":2,"dpmo":308538,"yield":"69.1%","description":"Below average"},
+    {"sigma":3,"dpmo":66807,"yield":"93.3%","description":"Average industry"},
+    {"sigma":4,"dpmo":6210,"yield":"99.38%","description":"Good quality"},
+    {"sigma":5,"dpmo":233,"yield":"99.977%","description":"Excellent quality"},
+    {"sigma":6,"dpmo":3.4,"yield":"99.99966%","description":"World-class quality"}
+  ],
+  "isoStandards": {
+    "ISO9001": {"name":"Quality Management Systems","description":"Requirements for a quality management system","applicability":"All industries"},
+    "ISO14001": {"name":"Environmental Management","description":"Environmental management system requirements","applicability":"Manufacturing with environmental impact"},
+    "ISO45001": {"name":"Occupational Health & Safety","description":"OH&S management system requirements","applicability":"All manufacturing operations"},
+    "IATF16949": {"name":"Automotive Quality","description":"Automotive sector quality management","applicability":"Automotive manufacturing"},
+    "AS9100": {"name":"Aerospace Quality","description":"Aerospace quality management system","applicability":"Aerospace manufacturing"},
+    "ISO13485": {"name":"Medical Devices","description":"Quality management for medical devices","applicability":"Medical device manufacturing"}
+  },
+  "paretoThreshold": 80,
+  "controlChartRules": [
+    "One point beyond 3 sigma",
+    "Nine points in a row on same side of center line",
+    "Six points in a row trending up or down",
+    "Fourteen points in a row alternating up and down",
+    "Two of three points beyond 2 sigma on same side",
+    "Four of five points beyond 1 sigma on same side"
+  ]
+}

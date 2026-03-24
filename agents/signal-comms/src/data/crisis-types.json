@@ -1,0 +1,22 @@
+[
+  {"type":"Data Breach","severity":"critical","responseWindow":"1 hour","stakeholders":["customers","regulators","media","employees","board"],"legalObligations":"State breach notification laws, GDPR (if applicable), SEC reporting"},
+  {"type":"Product Recall","severity":"critical","responseWindow":"2 hours","stakeholders":["customers","retailers","regulators","media","suppliers"],"legalObligations":"CPSC notification, FDA notification (if food/drug)"},
+  {"type":"Executive Misconduct","severity":"high","responseWindow":"4 hours","stakeholders":["board","employees","investors","media","customers"],"legalObligations":"SEC reporting if material, HR investigation requirements"},
+  {"type":"Workplace Accident","severity":"high","responseWindow":"1 hour","stakeholders":["employees","families","OSHA","media","legal"],"legalObligations":"OSHA reporting within 8 hours for fatalities, 24 hours for hospitalizations"},
+  {"type":"Social Media Crisis","severity":"moderate","responseWindow":"30 minutes","stakeholders":["public","media","employees","customers"],"legalObligations":"None typically, but defamation and IP concerns"},
+  {"type":"Environmental Incident","severity":"critical","responseWindow":"1 hour","stakeholders":["regulators","community","media","employees","environmental groups"],"legalObligations":"EPA notification, state environmental agency, Clean Water Act"},
+  {"type":"Financial Restatement","severity":"high","responseWindow":"24 hours","stakeholders":["investors","SEC","auditors","employees","analysts"],"legalObligations":"SEC filings, auditor notification, potential Sarbanes-Oxley implications"},
+  {"type":"Lawsuit/Legal Action","severity":"moderate","responseWindow":"24 hours","stakeholders":["legal team","board","investors","media"],"legalObligations":"SEC reporting if material, insurance notification"},
+  {"type":"Natural Disaster","severity":"high","responseWindow":"2 hours","stakeholders":["employees","customers","community","media","insurers"],"legalObligations":"Workplace safety obligations, insurance claims"},
+  {"type":"Supply Chain Disruption","severity":"moderate","responseWindow":"4 hours","stakeholders":["customers","suppliers","investors","employees"],"legalObligations":"Contract obligations, material event disclosure"},
+  {"type":"Cybersecurity Attack","severity":"critical","responseWindow":"1 hour","stakeholders":["IT team","customers","regulators","law enforcement","board"],"legalObligations":"Incident reporting requirements, data breach laws"},
+  {"type":"Employee Discrimination Claim","severity":"moderate","responseWindow":"24 hours","stakeholders":["HR","legal","EEOC","employees"],"legalObligations":"EEOC response, state agency filings"},
+  {"type":"Customer Safety Issue","severity":"critical","responseWindow":"2 hours","stakeholders":["customers","regulators","media","legal"],"legalObligations":"Consumer Product Safety Commission, FDA if applicable"},
+  {"type":"Activist Campaign","severity":"moderate","responseWindow":"4 hours","stakeholders":["public","media","investors","employees","activists"],"legalObligations":"SEC proxy rules if investor-related"},
+  {"type":"Merger/Acquisition Leak","severity":"high","responseWindow":"2 hours","stakeholders":["board","investors","SEC","employees","media"],"legalObligations":"SEC Regulation FD, insider trading concerns"},
+  {"type":"Labor Dispute/Strike","severity":"high","responseWindow":"4 hours","stakeholders":["employees","union","customers","media","community"],"legalObligations":"NLRA obligations, bargaining requirements"},
+  {"type":"Brand Impersonation","severity":"moderate","responseWindow":"2 hours","stakeholders":["customers","legal","platforms","media"],"legalObligations":"Trademark enforcement, platform reporting"},
+  {"type":"Leadership Transition","severity":"low","responseWindow":"48 hours","stakeholders":["board","employees","investors","media","customers"],"legalObligations":"SEC 8-K filing for public companies"},
+  {"type":"Negative Review/Press","severity":"low","responseWindow":"24 hours","stakeholders":["customers","media","employees"],"legalObligations":"None typically"},
+  {"type":"Regulatory Investigation","severity":"high","responseWindow":"24 hours","stakeholders":["legal","board","investors","regulators","employees"],"legalObligations":"SEC disclosure, cooperation obligations, document preservation"}
+]
