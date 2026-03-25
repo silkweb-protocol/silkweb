@@ -21,7 +21,7 @@ from redis.asyncio import Redis
 from api.config import settings
 from api.middleware.rate_limit import RateLimitMiddleware
 from api.middleware.security import SecurityHeadersMiddleware
-from api.routers import agents, agents_proxy, auth, discovery, health, receipts, tasks
+from api.routers import agents, agents_proxy, auth, discovery, health, receipts, tasks, tts
 
 # Logging
 logging.basicConfig(
@@ -95,6 +95,7 @@ def create_app() -> FastAPI:
     app.include_router(tasks.router)
     app.include_router(receipts.router)
     app.include_router(agents_proxy.router)
+    app.include_router(tts.router)
 
     return app
 

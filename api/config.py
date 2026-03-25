@@ -28,6 +28,12 @@ class Settings(BaseSettings):
     api_key_prefix: str = "sw_live_"
     api_key_test_prefix: str = "sw_test_"
 
+    # ElevenLabs TTS
+    elevenlabs_api_key: str = Field(
+        default="",
+        description="ElevenLabs API key for text-to-speech",
+    )
+
     # OAuth
     google_client_id: str = Field(
         default="",

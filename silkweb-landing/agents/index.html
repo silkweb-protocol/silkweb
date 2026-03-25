@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Special Agents — SilkWeb AI Marketplace</title>
+<meta name="description" content="20 AI specialist agents ready to work for your business. Cybersecurity, finance, legal, healthcare, and more.">
+<meta property="og:title" content="Special Agents — SilkWeb AI Marketplace">
+<meta property="og:description" content="20 AI specialist agents ready to work for your business.">
+<meta property="og:url" content="https://silkweb.io/agents/">
+<meta name="theme-color" content="#000000">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#000;--white:#fff;--gray-300:#cbd5e1;--gray-400:#94a3b8;--gray-500:#64748b;--gray-600:#475569;--border:rgba(255,255,255,0.06);--glass:rgba(255,255,255,0.03);--glass-hover:rgba(255,255,255,0.06)}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;background:var(--bg);color:var(--white);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:0 48px;height:64px;display:flex;align-items:center;justify-content:space-between;background:rgba(0,0,0,0.8);backdrop-filter:blur(24px);border-bottom:1px solid var(--border)}
+.nav-logo{font-size:20px;font-weight:700;color:var(--white);text-decoration:none;display:flex;align-items:center;gap:10px}
+.nav-logo .logo-mark{width:32px;height:32px;border-radius:10px;background:linear-gradient(135deg,#4f46e5,#7c3aed);display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:800}
+.nav-links{display:flex;align-items:center;gap:28px}
+.nav-links a{color:var(--gray-400);text-decoration:none;font-size:14px;font-weight:500;transition:color .3s}
+.nav-links a:hover{color:var(--white)}
+.nav-cta{padding:10px 24px;border-radius:12px;font-weight:600;font-size:14px;background:linear-gradient(135deg,#4f46e5,#7c3aed);color:#fff!important;border:none;cursor:pointer;transition:transform .2s,box-shadow .3s}
+.nav-cta:hover{transform:translateY(-1px);box-shadow:0 8px 30px rgba(79,70,229,0.3)}
+.hero{padding:140px 48px 60px;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:800px;height:600px;background:radial-gradient(ellipse,rgba(79,70,229,0.12) 0%,transparent 70%);pointer-events:none}
+.hero h1{font-size:clamp(40px,6vw,72px);font-weight:800;letter-spacing:-2px;line-height:1.1;background:linear-gradient(135deg,#fff 30%,#94a3b8 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:16px}
+.hero p{font-size:18px;color:var(--gray-400);max-width:550px;margin:0 auto 40px;line-height:1.6}
+.filter-bar{display:flex;justify-content:center;gap:8px;margin-bottom:40px;flex-wrap:wrap;padding:0 48px}
+.filter-btn{padding:9px 22px;border-radius:100px;background:var(--glass);border:1px solid var(--border);color:var(--gray-400);font-size:13px;font-weight:500;cursor:pointer;transition:all .3s;font-family:inherit}
+.filter-btn:hover,.filter-btn.active{background:rgba(79,70,229,0.15);border-color:rgba(79,70,229,0.3);color:var(--white)}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;padding:0 48px 100px;max-width:1440px;margin:0 auto}
+.agent-card{background:var(--glass);border:1px solid var(--border);border-radius:18px;padding:24px;cursor:pointer;transition:all .4s cubic-bezier(.16,1,.3,1);text-decoration:none;color:inherit;display:flex;flex-direction:column;gap:14px;position:relative;overflow:hidden}
+.agent-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;opacity:0;transition:opacity .4s}
+.agent-card:hover{transform:translateY(-6px);background:var(--glass-hover);box-shadow:0 20px 60px rgba(0,0,0,0.4)}
+.agent-card:hover::before{opacity:1}
+.card-header{display:flex;align-items:center;gap:12px}
+.card-avatar{width:44px;height:44px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:19px;font-weight:800;color:#fff;flex-shrink:0}
+.card-info{flex:1;min-width:0}
+.card-name{font-size:17px;font-weight:700;color:var(--white)}
+.card-domain{font-size:13px;color:var(--gray-400);margin-top:2px}
+.card-tagline{font-size:12px;color:var(--gray-500);font-style:italic;line-height:1.5}
+.card-rating{display:flex;align-items:center;gap:6px}
+.stars{display:flex;gap:2px}
+.star{width:13px;height:13px}
+.star-filled{color:#F59E0B}
+.star-empty{color:#374151}
+.rating-text{font-size:13px;font-weight:600;color:var(--gray-300)}
+.review-count{font-size:11px;color:var(--gray-500)}
+.card-badges{display:flex;gap:7px;flex-wrap:wrap}
+.badge{padding:3px 10px;border-radius:100px;font-size:11px;font-weight:600}
+.badge-memory{background:transparent;border:1px solid}
+.badge-tier-expert{background:rgba(99,102,241,.15);color:#818cf8;border:1px solid rgba(99,102,241,.25)}
+.badge-tier-authority{background:rgba(16,185,129,.15);color:#34d399;border:1px solid rgba(16,185,129,.25)}
+.card-cta{padding:10px 0;border-radius:10px;font-size:13px;font-weight:600;color:#fff;text-align:center;transition:all .3s;margin-top:auto}
+.card-cta:hover{filter:brightness(1.15)}
+footer{text-align:center;padding:40px;border-top:1px solid var(--border);color:var(--gray-500);font-size:13px}
+footer a{color:var(--gray-400);text-decoration:none}
+footer a:hover{color:var(--white)}
+@keyframes fadeInUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+.agent-card{opacity:0;animation:fadeInUp .6s ease forwards}
+@media(max-width:1200px){.grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:900px){.grid{grid-template-columns:repeat(2,1fr);padding:0 24px 80px}.hero{padding:120px 24px 48px}.filter-bar{padding:0 24px}nav{padding:0 24px}}
+@media(max-width:540px){.grid{grid-template-columns:1fr}.hero h1{font-size:36px}.nav-links{display:none}}
+</style>
+</head>
+<body>
+<nav>
+  <a href="/" class="nav-logo"><span class="logo-mark">S</span> SilkWeb</a>
+  <div class="nav-links">
+    <a href="/">Home</a>
+    <a href="/agents/" style="color:#fff;">Agents</a>
+    <a href="/register.html">Register</a>
+    <a href="/register.html" class="nav-cta">Get Started</a>
+  </div>
+</nav>
+<section class="hero">
+  <h1>Special Agents</h1>
+  <p>20 AI specialists ready to work for your business. Each one trained, tested, and ready to deploy.</p>
+</section>
+<div class="filter-bar" id="filterBar">
+  <button class="filter-btn active" data-filter="all">All</button>
+  <button class="filter-btn" data-filter="security">Security</button>
+  <button class="filter-btn" data-filter="legal">Legal</button>
+  <button class="filter-btn" data-filter="finance">Finance</button>
+  <button class="filter-btn" data-filter="health">Health</button>
+  <button class="filter-btn" data-filter="tech">Tech</button>
+  <button class="filter-btn" data-filter="business">Business</button>
+  <button class="filter-btn" data-filter="creative">Creative</button>
+</div>
+<div class="grid" id="agentGrid"></div>
+<footer>
+  <p>&copy; 2026 SilkWeb &mdash; <a href="/">Home</a> &middot; <a href="/register.html">Register Your Business</a></p>
+</footer>
+<script>
+const AGENTS = [{"gradient":"linear-gradient(135deg,undefined,undefined)","rating":null,"tagline":"Your digital shield against threats.","category":"security","capabilities":["URL Security Scanning","SSL Certificate Audit","Domain Reputation Check","Full Security Report"]},{"gradient":"linear-gradient(135deg,undefined,undefined)","rating":null,"tagline":"Navigate the world with intelligence.","category":"business","capabilities":["Route Optimization","Customs Compliance","Carbon Footprint Estimation","Multi-Modal Planning"]},{"gradient":"linear-gradient(135deg,undefined,undefined)","rating":null,"tagline":"Never sleeps. Always watching.","category":"security","capabilities":["Endpoint Health Monitoring","DNS Record Tracking","SSL Expiry Alerts","Log Analysis"]},{"gradient":"linear-gradient(135deg,undefined,undefined)","rating":null,"tagline":"Wisdom in every number.","category":"finance","capabilities":["Fraud Detection","Compliance Auditing","Risk Assessment","Financial Analysis"]},{"gradient":"linear-gradient(135deg,undefined,undefined)","rating":null,"tagline":"The world at your coordinates.","category":"tech","capabilities":["Distance Calculation","Sun Position Tracking","Geofencing","Spatial Analysis"]},{"gradient":"linear-gradient(135deg,undefined,undefined)","rating":null,"tagline":"Every clause. Every risk. Found.","category":"legal","capabilities":["Contract Analysis","NDA Review","Clause Extraction","Risk Assessment"]},{"gradient":"linear-gradient(135deg,undefined,undefined)","rating":null,"tagline":"Your case. Your rights. Protected.","category":"legal","capabilities":["Case Evaluation","Damages Calculation","Rights Explanation","Statute Analysis"]},{"gradient":"linear-gradient(135deg,undefined,undefined)","rating":null,"tagline":"Know your rights. Know your options.","category":"legal","capabilities":["Charge Analysis","Rights Explanation","Evidence Review","Sentencing Guide"]},{"gradient":"linear-gradient(135deg,undefined,undefined)","rating":null,"tagline":"Health intelligence at your fingertips.","category":"health","capabilities":["Symptom Analysis","Drug Interaction Check","Vitals Assessment","Health Guidance"]},{"gradient":"linear-gradient(135deg,undefined,undefined)","rating":null,"tagline":"Better code. Fewer bugs. Less debt.","category":"tech","capabilities":["Code Review","Tech Debt Scoring","Architecture Analysis","Dependency Audit"]},{"gradient":"linear-gradient(135deg,undefined,undefined)","rating":null,"tagline":"Find value others miss.","category":"finance","capabilities":["Property Valuation","ROI Calculator","Market Analysis","Comparable Sales"]},{"gradient":"linear-gradient(135deg,undefined,undefined)","rating":null,"tagline":"Words that move people.","category":"creative","capabilities":["Blog Content","Social Media Posts","Email Campaigns","Product Copy"]},{"gradient":"linear-gradient(135deg,undefined,undefined)","rating":null,"tagline":"What the internet knows about you.","category":"security","capabilities":["Domain Investigation","Email Intelligence","Digital Footprint","Header Tracing"]},{"gradient":"linear-gradient(135deg,undefined,undefined)","rating":null,"tagline":"Fair workplaces start here.","category":"business","capabilities":["Salary Benchmarking","Job Description Analysis","Policy Review","Labor Law Compliance"]},{"gradient":"linear-gradient(135deg,undefined,undefined)","rating":null,"tagline":"Sell smarter. Price better. Grow faster.","category":"business","capabilities":["Listing Optimization","Pricing Strategy","Inventory Forecasting","Competitor Analysis"]},{"gradient":"linear-gradient(135deg,undefined,undefined)","rating":null,"tagline":"Learn anything. Master everything.","category":"business","capabilities":["Quiz Generation","Flashcard Creation","Curriculum Planning","Skill Assessment"]},{"gradient":"linear-gradient(135deg,undefined,undefined)","rating":null,"tagline":"Measure impact. Drive change.","category":"business","capabilities":["Carbon Calculation","ESG Scoring","Energy Audit","Sustainability Planning"]},{"gradient":"linear-gradient(135deg,undefined,undefined)","rating":null,"tagline":"Control the narrative.","category":"creative","capabilities":["Press Release Writing","Crisis Response","Media Kits","Talking Points"]},{"gradient":"linear-gradient(135deg,undefined,undefined)","rating":null,"tagline":"Precision in every part.","category":"business","capabilities":["Supplier Scoring","Quality Analysis","BOM Review","Production Optimization"]},{"gradient":"linear-gradient(135deg,undefined,undefined)","rating":null,"tagline":"Every pixel with purpose.","category":"creative","capabilities":["Social Card Design","Code Screenshots","Hero Images","Brand Assets"]}];
+
+function starsSVG(rating) {
+  let html = '';
+  const full = Math.floor(rating);
+  for (let i = 0; i < 5; i++) {
+    const filled = i < full || (i === full && rating % 1 >= 0.5);
+    html += '<svg class="star ' + (filled ? 'star-filled' : 'star-empty') + '" viewBox="0 0 20 20" fill="currentColor"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>';
+  }
+  return html;
+}
+
+function renderAgents(filter) {
+  const grid = document.getElementById('agentGrid');
+  grid.innerHTML = '';
+  const filtered = filter === 'all' ? AGENTS : AGENTS.filter(a => a.category === filter);
+  filtered.forEach((agent, i) => {
+    const card = document.createElement('a');
+    card.href = '/agents/' + agent.id + '.html';
+    card.className = 'agent-card';
+    card.style.animationDelay = (i * 0.05) + 's';
+    const capTags = agent.capabilities.slice(0,3).map(c => '<span style="padding:3px 8px;border-radius:6px;font-size:10px;color:var(--gray-400);background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06)">' + c + '</span>').join('');
+    card.innerHTML = '<style>.agent-card:nth-child(' + (i+1) + ')::before{background:' + agent.gradient + '} .agent-card:nth-child(' + (i+1) + '):hover{border-color:' + agent.color + '30;box-shadow:0 20px 60px ' + agent.color + '15}</style>' +
+      '<div class="card-header"><div class="card-avatar" style="background:' + agent.gradient + '">' + agent.name[0] + '</div><div class="card-info"><div class="card-name">' + agent.name + '</div><div class="card-domain">' + agent.domain + '</div></div></div>' +
+      '<div class="card-tagline">' + agent.tagline + '</div>' +
+      '<div class="card-rating"><div class="stars">' + starsSVG(agent.rating) + '</div><span class="rating-text">' + agent.rating + '</span><span class="review-count">' + agent.reviews + ' reviews</span></div>' +
+      '<div class="card-badges"><span class="badge badge-memory" style="border-color:' + agent.color + '40;color:' + agent.color + '">' + agent.memory + '</span><span class="badge badge-tier-' + agent.tier.toLowerCase() + '">' + agent.tier + '</span></div>' +
+      '<div style="display:flex;gap:5px;flex-wrap:wrap">' + capTags + '</div>' +
+      '<div class="card-cta" style="background:' + agent.gradient + '">Connect &rarr;</div>';
+    grid.appendChild(card);
+  });
+}
+
+document.getElementById('filterBar').addEventListener('click', e => {
+  if (!e.target.classList.contains('filter-btn')) return;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  e.target.classList.add('active');
+  renderAgents(e.target.dataset.filter);
+});
+
+renderAgents('all');
+</script>
+</body>
+</html>
