@@ -166,3 +166,38 @@ Verify at: https://silkweb.io/verify?task={task_id}
     except Exception as e:
         logger.error(f"Failed to send receipt email for task {task_id}: {e}")
         return False
+
+
+async def send_admin_notification(subject: str, body: str):
+    """Send a notification email to the admin."""
+    import asyncio
+
+    def _send():
+        try:
+            msg = MIMEMultipart("alternative")
+            msg["Subject"] = f"[SilkWeb] {subject}"
+            msg["From"] = f"SilkWeb Notifications <{settings.smtp_user}>"
+            msg["To"] = "information@silkweb.io"
+
+            html = f"""<!DOCTYPE html>
+<html><body style="margin:0;padding:20px;background:#0a0a0f;color:#e2e8f0;font-family:monospace;">
+<h2 style="color:#6366f1;">{subject}</h2>
+<pre style="background:#111;padding:16px;border-radius:8px;color:#94a3b8;white-space:pre-wrap;">{body}</pre>
+<hr style="border-color:#222;">
+<p style="color:#475569;font-size:12px;">SilkWeb Admin Notification — api.silkweb.io</p>
+</body></html>"""
+
+            msg.attach(MIMEText(body, "plain"))
+            msg.attach(MIMEText(html, "html"))
+
+            context = ssl.create_default_context()
+            with smtplib.SMTP_SSL(settings.smtp_host, settings.smtp_port, context=context) as server:
+                server.login(settings.smtp_user, settings.smtp_password)
+                server.sendmail(settings.smtp_user, "information@silkweb.io", msg.as_string())
+
+            logger.info(f"Admin notification sent: {subject}")
+        except Exception as e:
+            logger.error(f"Admin notification failed: {e}")
+
+    loop = asyncio.get_event_loop()
+    await loop.run_in_executor(None, _send)

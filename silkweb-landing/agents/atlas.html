@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Atlas — SilkWeb Agent</title>
-<meta name="description" content="Atlas: Navigate the world with intelligence. AI-powered Logistics & Travel agent by SilkWeb.">
-<meta name="theme-color" content="#10B981">
+<meta name="description" content="Atlas: Logistics & Travel agent by SilkWeb. AI-powered Cybersecurity agent by SilkWeb.">
+<meta name="theme-color" content="#3B82F6">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -20,24 +20,36 @@ body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;background:
 /* NAV */
 nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:0 48px;height:64px;display:flex;align-items:center;justify-content:space-between;background:rgba(0,0,0,0.8);backdrop-filter:blur(24px);border-bottom:1px solid var(--border)}
 .nav-logo{font-size:20px;font-weight:700;color:var(--white);text-decoration:none;display:flex;align-items:center;gap:10px}
-.nav-logo .logo-mark{width:32px;height:32px;border-radius:10px;background:linear-gradient(135deg,#4f46e5,#7c3aed);display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:800}
+.nav-logo .logo-mark{width:32px;height:32px;border-radius:10px;background:linear-gradient(135deg,#4f46e5,#7c3aed);display:flex;align-items:center;justify-content:center}
+.nav-logo .logo-mark svg{width:20px;height:20px}
 .nav-links{display:flex;align-items:center;gap:28px}
 .nav-links a{color:var(--gray-400);text-decoration:none;font-size:14px;font-weight:500;transition:color .3s}
 .nav-links a:hover{color:var(--white)}
 
-/* BRAIN SECTION */
-.brain-section{position:relative;width:100%;height:60vh;min-height:500px;overflow:hidden}
-#brainCanvas{position:absolute;top:0;left:0;width:100%;height:100%}
-.brain-overlay{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:10;pointer-events:none;padding-top:64px}
-.agent-orb{width:60px;height:60px;border-radius:50%;background:var(--agent);box-shadow:0 0 40px var(--agent),0 0 80px #10B98140;margin-bottom:16px;animation:orbPulse 3s ease-in-out infinite}
-@keyframes orbPulse{0%,100%{box-shadow:0 0 40px var(--agent),0 0 80px #10B98140}50%{box-shadow:0 0 60px var(--agent),0 0 120px #10B98160}}
-.agent-name{font-size:36px;font-weight:800;letter-spacing:-1px;margin-bottom:6px}
-.agent-domain{font-size:16px;color:var(--gray-400);margin-bottom:12px}
-.agent-rating{display:flex;align-items:center;gap:8px;margin-bottom:12px}
+/* BRAIN SECTION — clean Vanta only */
+.brain-section{position:relative;width:100%;height:50vh;min-height:400px;overflow:hidden}
+.brain-pulse-overlay{position:absolute;inset:0;z-index:5;pointer-events:none;opacity:0;transition:opacity 0.3s;background:radial-gradient(circle at 50% 50%, rgba(34,102,170,0.3) 0%, transparent 60%)}
+.brain-pulse-overlay.speaking{opacity:1;animation:brainPulseGlow 0.8s ease-in-out infinite}
+.brain-pulse-overlay.thinking{opacity:1;animation:brainPulseGlow 0.3s ease-in-out infinite}
+@keyframes brainPulseGlow{0%,100%{opacity:0.2;transform:scale(1)}50%{opacity:0.6;transform:scale(1.05)}}
+.brain-name-overlay{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:10;pointer-events:none;padding-top:64px;gap:8px}
+.brain-agent-name{font-size:24px;font-weight:800;color:var(--white);letter-spacing:-0.5px}
+.brain-agent-domain{font-size:14px;color:var(--gray-400);font-weight:500}
+.brain-name-label{font-size:20px;font-weight:600;color:rgba(255,255,255,0.5);letter-spacing:2px;text-transform:uppercase}
+
+/* AGENT INFO SECTION */
+.agent-info-section{padding:40px 24px 32px;background:linear-gradient(180deg, rgba(10,10,20,1) 0%, rgba(0,0,0,1) 100%)}
+.agent-info-inner{max-width:800px;margin:0 auto;display:flex;flex-direction:column;align-items:center;gap:14px}
+.agent-identity{display:flex;align-items:center;gap:16px}
+.agent-orb{width:50px;height:50px;border-radius:50%;background:linear-gradient(135deg, var(--agent-dark), var(--agent));box-shadow:0 0 30px var(--agent),0 0 60px #10B98140;animation:orbPulse 3s ease-in-out infinite;flex-shrink:0}
+@keyframes orbPulse{0%,100%{box-shadow:0 0 30px var(--agent),0 0 60px #10B98140}50%{box-shadow:0 0 50px var(--agent),0 0 100px #3B82F660}}
+.agent-name{font-size:28px;font-weight:800;letter-spacing:-0.5px}
+.agent-domain{font-size:16px;color:var(--gray-400)}
+.agent-rating{display:flex;align-items:center;gap:8px}
 .star{display:inline-block}.star-filled{color:#F59E0B}.star-empty{color:#374151}
 .rating-num{font-size:15px;font-weight:700;color:var(--gray-300)}
 .rating-count{font-size:13px;color:var(--gray-500)}
-.agent-badges{display:flex;gap:10px;margin-bottom:20px}
+.agent-badges{display:flex;gap:10px}
 .badge{padding:5px 14px;border-radius:100px;font-size:12px;font-weight:600}
 .badge-mem{background:transparent;border:1px solid #10B98150;color:var(--agent)}
 .badge-tier-expert{background:rgba(99,102,241,.15);color:#818cf8;border:1px solid rgba(99,102,241,.25)}
@@ -45,7 +57,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:0 48px;height:64px;
 .greeting-text{font-size:16px;color:var(--gray-300);max-width:500px;text-align:center;line-height:1.6;min-height:52px}
 .typing-cursor{display:inline-block;width:2px;height:18px;background:var(--agent);margin-left:2px;animation:blink .8s step-end infinite;vertical-align:text-bottom}
 @keyframes blink{50%{opacity:0}}
-.speaker-btn{pointer-events:auto;margin-top:12px;background:none;border:1px solid #10B98140;color:var(--agent);padding:6px 16px;border-radius:100px;font-size:12px;cursor:pointer;font-family:inherit;transition:all .3s;display:flex;align-items:center;gap:6px}
+.speaker-btn{margin-top:4px;background:none;border:1px solid #10B98140;color:var(--agent);padding:6px 16px;border-radius:100px;font-size:12px;cursor:pointer;font-family:inherit;transition:all .3s;display:flex;align-items:center;gap:6px}
 .speaker-btn:hover{background:#10B98120;border-color:var(--agent)}
 
 /* CHAT */
@@ -66,7 +78,11 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:0 48px;height:64px;
 .result-toggle{background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:10px;overflow:hidden}
 .result-toggle summary{padding:10px 16px;font-size:13px;color:var(--gray-400);cursor:pointer;font-family:'SF Mono','Fira Code',monospace}
 .result-toggle pre{padding:16px;font-family:'SF Mono','Fira Code',monospace;font-size:12px;line-height:1.6;color:var(--gray-300);overflow-x:auto;white-space:pre-wrap;word-break:break-word;border-top:1px solid var(--border);margin:0}
-.chat-input-area{padding:16px 24px;border-top:1px solid var(--border);display:flex;gap:10px}
+.chat-input-area{padding:16px 24px;border-top:1px solid var(--border);display:flex;gap:10px;align-items:center}
+.chat-mic{width:44px;height:44px;border-radius:12px;background:rgba(255,255,255,0.04);border:1px solid var(--border);color:var(--gray-400);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.3s;flex-shrink:0}
+.chat-mic:hover{background:rgba(255,255,255,0.08);color:var(--white)}
+.chat-mic.recording{background:rgba(239,68,68,0.2);border-color:rgba(239,68,68,0.5);color:#ef4444;animation:micPulse 1s ease-in-out infinite}
+@keyframes micPulse{0%,100%{box-shadow:0 0 0 0 rgba(239,68,68,0.4)}50%{box-shadow:0 0 0 8px rgba(239,68,68,0)}}
 .chat-input{flex:1;padding:12px 18px;border-radius:12px;background:rgba(255,255,255,.04);border:1px solid var(--border);color:var(--white);font-size:14px;font-family:inherit;outline:none;transition:border-color .3s}
 .chat-input:focus{border-color:#10B98150}
 .chat-input::placeholder{color:var(--gray-600)}
@@ -92,31 +108,56 @@ footer a:hover{color:var(--white)}
 @media(max-width:768px){
   nav{padding:0 20px}
   .nav-links{display:none}
-  .brain-section{height:55vh;min-height:420px}
-  .agent-name{font-size:28px}
+  .brain-section{height:40vh;min-height:300px}
+  .agent-info-section{padding:32px 16px 24px}
+  .agent-name{font-size:24px}
+  .agent-identity{gap:12px}
+  .agent-orb{width:40px;height:40px}
   .chat-section{padding:24px 16px}
 }
 </style>
 </head>
 <body>
 <nav>
-  <a href="/" class="nav-logo"><span class="logo-mark">S</span> SilkWeb</a>
+  <a href="/" class="nav-logo">
+    <span class="logo-mark">
+      <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="50" cy="50" r="8" fill="white" opacity="0.9"/>
+        <circle cx="50" cy="50" r="20" stroke="white" stroke-width="1.5" opacity="0.5"/>
+        <circle cx="50" cy="50" r="32" stroke="white" stroke-width="1.2" opacity="0.35"/>
+        <circle cx="50" cy="50" r="44" stroke="white" stroke-width="1" opacity="0.2"/>
+        <line x1="50" y1="6" x2="50" y2="94" stroke="white" stroke-width="1" opacity="0.4"/>
+        <line x1="6" y1="50" x2="94" y2="50" stroke="white" stroke-width="1" opacity="0.4"/>
+        <line x1="18" y1="18" x2="82" y2="82" stroke="white" stroke-width="1" opacity="0.3"/>
+        <line x1="82" y1="18" x2="18" y2="82" stroke="white" stroke-width="1" opacity="0.3"/>
+      </svg>
+    </span>
+    SilkWeb
+  </a>
   <div class="nav-links"><a href="/">Home</a><a href="/agents/">Agents</a><a href="/register.html">Register</a></div>
 </nav>
 
-<div class="brain-section">
-  <canvas id="brainCanvas"></canvas>
-  <div class="brain-overlay">
+<!-- 1. BRAIN SECTION — clean Vanta, agent name only -->
+<div class="brain-section" id="brainSection">
+  <div class="brain-pulse-overlay" id="brainPulse"></div>
+  <div class="brain-name-overlay">
     <div class="agent-orb"></div>
-    <div class="agent-name">Atlas</div>
-    <div class="agent-domain">Logistics & Travel</div>
-    <div class="agent-rating"><svg class="star star-filled" viewBox="0 0 20 20" fill="currentColor" width="18" height="18"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg><svg class="star star-filled" viewBox="0 0 20 20" fill="currentColor" width="18" height="18"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg><svg class="star star-filled" viewBox="0 0 20 20" fill="currentColor" width="18" height="18"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg><svg class="star star-filled" viewBox="0 0 20 20" fill="currentColor" width="18" height="18"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg><svg class="star star-empty" viewBox="0 0 20 20" fill="currentColor" width="18" height="18"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg><span class="rating-num">4.9</span><span class="rating-count">(89 reviews)</span></div>
-    <div class="agent-badges"><span class="badge badge-mem">2 TB</span><span class="badge badge-tier-authority">Authority</span></div>
-    <div class="greeting-text" id="greetingText"><span class="typing-cursor"></span></div>
-    <button class="speaker-btn" id="replayBtn" onclick="speak(AGENT.greeting)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M19.07 4.93a10 10 0 010 14.14M15.54 8.46a5 5 0 010 7.08"/></svg> Replay</button>
+    <div class="brain-agent-name">Atlas</div>
+    <div class="brain-agent-domain">Logistics & Travel</div>
   </div>
 </div>
 
+<!-- 2. AGENT INFO SECTION — all details below the graphic -->
+<div class="agent-info-section">
+  <div class="agent-info-inner">
+    <div class="agent-rating"><svg class="star star-filled" viewBox="0 0 20 20" fill="currentColor" width="18" height="18"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg><svg class="star star-filled" viewBox="0 0 20 20" fill="currentColor" width="18" height="18"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg><svg class="star star-filled" viewBox="0 0 20 20" fill="currentColor" width="18" height="18"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg><svg class="star star-filled" viewBox="0 0 20 20" fill="currentColor" width="18" height="18"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg><svg class="star star-empty" viewBox="0 0 20 20" fill="currentColor" width="18" height="18"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg><span class="rating-num">4.9</span><span class="rating-count">(89 reviews)</span></div>
+    <div class="agent-badges"><span class="badge badge-mem">2 TB Memory</span><span class="badge badge-tier-authority">Authority</span></div>
+    <div class="greeting-text" id="greetingText"><span class="typing-cursor"></span></div>
+    <button class="speaker-btn" id="replayBtn" onclick="speakTTS(AGENT.greeting)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M19.07 4.93a10 10 0 010 14.14M15.54 8.46a5 5 0 010 7.08"/></svg> Replay</button>
+  </div>
+</div>
+
+<!-- 3. CHAT SECTION -->
 <div class="chat-section" id="chat">
   <div class="chat-container">
     <div class="chat-header">
@@ -125,254 +166,156 @@ footer a:hover{color:var(--white)}
     </div>
     <div class="chat-messages" id="chatMessages"></div>
     <div class="chat-input-area">
-      <input class="chat-input" id="chatInput" placeholder="Ask Atlas anything..." onkeydown="if(event.key==='Enter')sendMessage()">
+      <button class="chat-mic" id="micBtn" onclick="toggleVoice()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg></button>
+      <input class="chat-input" id="chatInput" placeholder="Ask Atlas anything... or tap the mic" onkeydown="if(event.key==='Enter')sendMessage()">
       <button class="chat-send" id="chatSend" onclick="sendMessage()">Send</button>
     </div>
   </div>
   <div class="actions-row">
-    <div class="action-pill" onclick="quickAction(0)">Calculate Route</div>
-    <div class="action-pill" onclick="quickAction(1)">Customs Check</div>
-    <div class="action-pill" onclick="quickAction(2)">Carbon Estimate</div>
+    <div class="action-pill" onclick="quickAction('scan-url')">Scan URL</div>
+    <div class="action-pill" onclick="quickAction('ssl-audit')">SSL Audit</div>
+    <div class="action-pill" onclick="quickAction('domain-check')">Domain Check</div>
+    <div class="action-pill" onclick="quickAction('full-report')">Full Report</div>
   </div>
 </div>
 
+<!-- 4. FOOTER -->
 <footer>
-  
   <div class="footer-links"><a href="/agents/">Back to All Agents</a><a href="/">SilkWeb Home</a></div>
   <a href="/register.html" class="footer-cta">Register Your Business</a>
   <p class="footer-badge">Powered by SilkWeb Protocol &copy; 2026</p>
 </footer>
 
-<script type="importmap">
-{
-  "imports": {
-    "three": "https://cdn.jsdelivr.net/npm/three@0.163.0/build/three.module.js",
-    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.163.0/examples/jsm/"
-  }
-}
-</script>
-<script type="module">
-import * as THREE from 'three';
-import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
-import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
-import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
-
-const ACCENT = new THREE.Color('#10B981');
-const canvas = document.getElementById('brainCanvas');
-const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(50, canvas.clientWidth / canvas.clientHeight, 0.1, 100);
-camera.position.set(0, 0, 5);
-
-const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
-renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-renderer.setSize(canvas.clientWidth, canvas.clientHeight);
-renderer.setClearColor(0x000000, 1);
-renderer.toneMapping = THREE.ACESFilmicToneMapping;
-renderer.toneMappingExposure = 1.2;
-
-const composer = new EffectComposer(renderer);
-composer.addPass(new RenderPass(scene, camera));
-const bloomPass = new UnrealBloomPass(
-  new THREE.Vector2(canvas.clientWidth, canvas.clientHeight), 1.5, 0.8, 0.2
-);
-composer.addPass(bloomPass);
-
-// PARTICLES
-const PARTICLE_COUNT = 2500;
-const positions = new Float32Array(PARTICLE_COUNT * 3);
-const basePositions = new Float32Array(PARTICLE_COUNT * 3);
-const velocities = new Float32Array(PARTICLE_COUNT * 3);
-const sizes = new Float32Array(PARTICLE_COUNT);
-
-for (let i = 0; i < PARTICLE_COUNT; i++) {
-  const theta = Math.random() * Math.PI * 2;
-  const phi = Math.acos(2 * Math.random() - 1);
-  const r = 1.2 + (Math.random() - 0.5) * 0.5;
-  // Add organic noise displacement
-  const noise = 0.15 * (Math.sin(theta * 5) * Math.cos(phi * 3) + Math.sin(phi * 7) * 0.5);
-  const rn = r + noise;
-  const x = rn * Math.sin(phi) * Math.cos(theta);
-  const y = rn * Math.sin(phi) * Math.sin(theta);
-  const z = rn * Math.cos(phi);
-  positions[i*3] = x;
-  positions[i*3+1] = y;
-  positions[i*3+2] = z;
-  basePositions[i*3] = x;
-  basePositions[i*3+1] = y;
-  basePositions[i*3+2] = z;
-  velocities[i*3] = (Math.random()-0.5)*0.002;
-  velocities[i*3+1] = (Math.random()-0.5)*0.002;
-  velocities[i*3+2] = (Math.random()-0.5)*0.002;
-  sizes[i] = Math.random() * 3 + 1;
-}
-
-const particleGeom = new THREE.BufferGeometry();
-particleGeom.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-particleGeom.setAttribute('size', new THREE.BufferAttribute(sizes, 1));
-
-const particleMat = new THREE.PointsMaterial({
-  color: ACCENT,
-  size: 0.04,
-  sizeAttenuation: true,
-  transparent: true,
-  opacity: 0.85,
-  blending: THREE.AdditiveBlending,
-  depthWrite: false,
-});
-
-const particles = new THREE.Points(particleGeom, particleMat);
-scene.add(particles);
-
-// NEURAL CONNECTIONS
-const linePositions = [];
-const CONNECTION_DIST = 0.35;
-const MAX_CONNECTIONS = 800;
-let connCount = 0;
-for (let i = 0; i < PARTICLE_COUNT && connCount < MAX_CONNECTIONS; i++) {
-  for (let j = i + 1; j < PARTICLE_COUNT && connCount < MAX_CONNECTIONS; j++) {
-    const dx = basePositions[i*3] - basePositions[j*3];
-    const dy = basePositions[i*3+1] - basePositions[j*3+1];
-    const dz = basePositions[i*3+2] - basePositions[j*3+2];
-    const dist = Math.sqrt(dx*dx + dy*dy + dz*dz);
-    if (dist < CONNECTION_DIST) {
-      linePositions.push(basePositions[i*3], basePositions[i*3+1], basePositions[i*3+2]);
-      linePositions.push(basePositions[j*3], basePositions[j*3+1], basePositions[j*3+2]);
-      connCount++;
-    }
-  }
-}
-
-const lineGeom = new THREE.BufferGeometry();
-lineGeom.setAttribute('position', new THREE.Float32BufferAttribute(linePositions, 3));
-const lineMat = new THREE.LineBasicMaterial({
-  color: ACCENT,
-  transparent: true,
-  opacity: 0.12,
-  blending: THREE.AdditiveBlending,
-  depthWrite: false,
-});
-const lines = new THREE.LineSegments(lineGeom, lineMat);
-scene.add(lines);
-
-// MOUSE INTERACTION
-const mouse = new THREE.Vector2(9999, 9999);
-const mouseWorld = new THREE.Vector3();
-canvas.addEventListener('mousemove', (e) => {
-  const rect = canvas.getBoundingClientRect();
-  mouse.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
-  mouse.y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
-  mouseWorld.set(mouse.x * 3, mouse.y * 3, 0);
-});
-canvas.addEventListener('mouseleave', () => { mouse.set(9999, 9999); mouseWorld.set(9999, 9999, 0); });
-
-// SPEAKING PULSE STATE
-let speakPulse = 0;
-window.triggerPulse = () => { speakPulse = 1; };
-
-// ANIMATION
-const clock = new THREE.Clock();
-function animate() {
-  requestAnimationFrame(animate);
-  const t = clock.getElapsedTime();
-  const pos = particleGeom.attributes.position.array;
-
-  // Breathing + pulse
-  const breathe = 1 + Math.sin(t * 0.8) * 0.03;
-  const pulse = 1 + speakPulse * Math.sin(t * 8) * 0.08;
-  speakPulse *= 0.97;
-
-  for (let i = 0; i < PARTICLE_COUNT; i++) {
-    const bx = basePositions[i*3];
-    const by = basePositions[i*3+1];
-    const bz = basePositions[i*3+2];
-    let nx = bx * breathe * pulse;
-    let ny = by * breathe * pulse;
-    let nz = bz * breathe * pulse;
-
-    // Orbit
-    const angle = t * 0.15 + i * 0.001;
-    const ca = Math.cos(angle * 0.1);
-    const sa = Math.sin(angle * 0.1);
-    const rx = nx * ca - nz * sa;
-    const rz = nx * sa + nz * ca;
-    nx = rx; nz = rz;
-
-    // Mouse repulsion
-    const dx = nx - mouseWorld.x;
-    const dy = ny - mouseWorld.y;
-    const dz = nz - mouseWorld.z;
-    const dist = Math.sqrt(dx*dx + dy*dy + dz*dz);
-    if (dist < 1.5) {
-      const force = (1.5 - dist) * 0.3;
-      nx += (dx / dist) * force;
-      ny += (dy / dist) * force;
-      nz += (dz / dist) * force;
-    }
-
-    pos[i*3] = nx;
-    pos[i*3+1] = ny;
-    pos[i*3+2] = nz;
-  }
-  particleGeom.attributes.position.needsUpdate = true;
-
-  // Slow rotation
-  particles.rotation.y = t * 0.05;
-  lines.rotation.y = t * 0.05;
-
-  composer.render();
-}
-animate();
-
-// RESIZE
-window.addEventListener('resize', () => {
-  const w = canvas.clientWidth;
-  const h = canvas.clientHeight;
-  camera.aspect = w / h;
-  camera.updateProjectionMatrix();
-  renderer.setSize(w, h);
-  composer.setSize(w, h);
-});
-</script>
+<!-- Vanta.js TOPOLOGY -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
 
 <script>
+// ─── AGENT CONFIG ───
 const AGENT = {
-  name: "Atlas",
+  name: "Guardian",
   greeting: "Atlas here. From shipping lanes to flight paths, I know every route on Earth. Where are we going?",
-  color: '#10B981',
-  apiBase: '/agents/navigator',
-  voicePitch: 1,
-  voiceRate: 1
+  color: '#3B82F6',
+  apiBase: 'https://api.silkweb.io/agents/navigator',
+  ttsEndpoint: 'https://api.silkweb.io/api/v1/tts/dtSEyYGNJqjrtBArPCVZ'
 };
-const ENDPOINTS = [{"name":"Calculate Route","path":"/route/calculate","field":"route","placeholder":"New York to London"},{"name":"Customs Check","path":"/compliance/customs","field":"corridor","placeholder":"US to UK"},{"name":"Carbon Estimate","path":"/estimate/carbon","field":"shipment","placeholder":"1 ton, NYC to Tokyo"}];
-let currentEndpoint = 0;
 
-// VOICE
-const ELEVEN_VOICE = 'dtSEyYGNJqjrtBArPCVZ';
-async function speak(text) {
+// ─── VANTA TOPOLOGY ───
+let vantaEffect = null;
+let brainState = 'idle'; // idle | thinking | speaking | listening
+let animFrame = null;
+
+function initVanta() {
+  vantaEffect = VANTA.NET({
+    el: "#brainSection",
+    mouseControls: true, touchControls: true, gyroControls: false,
+    minHeight: 400, minWidth: 200, scale: 1.0, scaleMobile: 1.0,
+    backgroundColor: 0x0a0a12, color: 0x10B981,
+    points: 12, maxDistance: 22, spacing: 16, showDots: true
+  });
+  startBrainAnimation();
+}
+
+// ─── BRAIN STATE ANIMATIONS ───
+// TOPOLOGY color cycling + pulse overlay for state changes
+let brainTime = 0;
+const pulseEl = document.getElementById('brainPulse');
+
+function startBrainAnimation() {
+  function tick() {
+    animFrame = requestAnimationFrame(tick);
+    brainTime += 0.016;
+    if (!vantaEffect) return;
+
+    switch (brainState) {
+      case 'speaking': {
+        // Rapid color cycling — alive, pulsing
+        const pulse = Math.sin(brainTime * 6) * 0.5 + 0.5;
+        const r = Math.floor(0x22 + pulse * 0x66);
+        const g = Math.floor(0x55 + pulse * 0x66);
+        const b = Math.floor(0x99 + pulse * 0x44);
+        vantaEffect.setOptions({ color: (r << 16) | (g << 8) | b });
+        pulseEl.className = 'brain-pulse-overlay speaking';
+        break;
+      }
+      case 'thinking': {
+        // Very fast cycling — electric
+        const fast = Math.sin(brainTime * 12) * 0.5 + 0.5;
+        const r = Math.floor(0x44 + fast * 0x77);
+        const g = Math.floor(0x44 + fast * 0x77);
+        const b = Math.floor(0xdd + fast * 0x22);
+        vantaEffect.setOptions({ color: (r << 16) | (g << 8) | b });
+        pulseEl.className = 'brain-pulse-overlay thinking';
+        break;
+      }
+      case 'listening': {
+        // Dim, contracted
+        const calm = Math.sin(brainTime * 1.5) * 0.5 + 0.5;
+        const c = Math.floor(0x11 + calm * 0x15);
+        vantaEffect.setOptions({ color: (c << 16) | ((c + 0x22) << 8) | (c + 0x55) });
+        pulseEl.className = 'brain-pulse-overlay';
+        break;
+      }
+      case 'idle':
+      default: {
+        // Gentle color breathing
+        const breathe = Math.sin(brainTime * 1.0) * 0.5 + 0.5;
+        const r = Math.floor(0x1a + breathe * 0x18);
+        const g = Math.floor(0x44 + breathe * 0x22);
+        const b = Math.floor(0x88 + breathe * 0x22);
+        vantaEffect.setOptions({ color: (r << 16) | (g << 8) | b });
+        pulseEl.className = 'brain-pulse-overlay';
+        break;
+      }
+    }
+  }
+  tick();
+}
+
+function setBrainState(state) {
+  brainState = state;
+}
+
+// ─── TTS (ElevenLabs via proxy) ───
+let currentAudio = null;
+
+async function speakTTS(text) {
+  setBrainState('speaking');
   try {
-    const resp = await fetch('https://api.silkweb.io/api/v1/tts/' + ELEVEN_VOICE, {
+    const resp = await fetch(AGENT.ttsEndpoint, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ text: text, model_id: 'eleven_multilingual_v2', voice_settings: { stability: 0.5, similarity_boost: 0.75 } })
+      body: JSON.stringify({
+        text: text,
+        model_id: 'eleven_multilingual_v2',
+        voice_settings: { stability: 0.5, similarity_boost: 0.75 }
+      })
     });
     if (resp.ok) {
       const blob = await resp.blob();
-      const audio = new Audio(URL.createObjectURL(blob));
-      audio.onplay = () => { if (window.triggerPulse) window.triggerPulse(); };
-      audio.play();
+      if (currentAudio) { currentAudio.pause(); currentAudio = null; }
+      currentAudio = new Audio(URL.createObjectURL(blob));
+      currentAudio.onended = () => { setBrainState('idle'); currentAudio = null; };
+      currentAudio.play().catch(() => { setBrainState('idle'); });
       return;
     }
-  } catch(e) {}
-  if (!window.speechSynthesis) return;
-  speechSynthesis.cancel();
-  const u = new SpeechSynthesisUtterance(text);
-  u.pitch = AGENT.voicePitch;
-  u.rate = AGENT.voiceRate;
-  u.onstart = () => { if (window.triggerPulse) window.triggerPulse(); };
-  speechSynthesis.speak(u);
+  } catch (e) {
+    console.warn('TTS error:', e);
+  }
+  // Fallback to Web Speech API
+  if (window.speechSynthesis) {
+    speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(text);
+    u.pitch = 0.8;
+    u.rate = 0.9;
+    u.onend = () => setBrainState('idle');
+    speechSynthesis.speak(u);
+  } else {
+    setBrainState('idle');
+  }
 }
 
-// TYPE TEXT
+// ─── TYPE TEXT ANIMATION ───
 function typeText(el, text, cb) {
   let i = 0;
   el.textContent = '';
@@ -393,48 +336,180 @@ function typeText(el, text, cb) {
   frame();
 }
 
-// GREETING
+// ─── TYPE TEXT IN CHAT MESSAGE ───
+function typeTextInChat(el, text) {
+  return new Promise(resolve => {
+    let i = 0;
+    el.textContent = '';
+    const cursor = document.createElement('span');
+    cursor.className = 'typing-cursor';
+    el.appendChild(cursor);
+    function frame() {
+      if (i < text.length) {
+        el.textContent = text.substring(0, i + 1);
+        el.appendChild(cursor);
+        i++;
+        messagesEl.scrollTop = messagesEl.scrollHeight;
+        setTimeout(frame, 20);
+      } else {
+        cursor.remove();
+        resolve();
+      }
+    }
+    frame();
+  });
+}
+
+// ─── GREETING ON LOAD ───
 window.addEventListener('load', () => {
-  if (speechSynthesis.getVoices().length === 0) speechSynthesis.onvoiceschanged = () => {};
+  initVanta();
+  if (window.speechSynthesis && speechSynthesis.getVoices().length === 0) {
+    speechSynthesis.onvoiceschanged = () => {};
+  }
   setTimeout(() => {
     const el = document.getElementById('greetingText');
-    typeText(el, AGENT.greeting, () => {
-      // Try to speak; browser may block autoplay
-      try { speak(AGENT.greeting); } catch(e) {}
-    });
+    setBrainState('speaking');
+    typeText(el, AGENT.greeting, () => {});
+    // Speak greeting with TTS simultaneously
+    speakTTS(AGENT.greeting);
   }, 800);
 });
 
-// Interaction fallback for autoplay
-let hasInteracted = false;
-document.addEventListener('click', () => {
-  if (!hasInteracted) {
-    hasInteracted = true;
-  }
-}, { once: true });
+// ─── HELPERS: extract URL and domain from user text ───
+function extractURL(text) {
+  const match = text.match(/https?:\/\/[^\s,;)}\]]+/i);
+  return match ? match[0] : null;
+}
 
-// CHAT
+function extractDomain(text) {
+  // Try to pull a URL first and get host
+  const url = extractURL(text);
+  if (url) {
+    try { return new URL(url).hostname; } catch(e) {}
+  }
+  // Look for domain-like patterns
+  const domainMatch = text.match(/([a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z]{2,}/i);
+  return domainMatch ? domainMatch[0] : null;
+}
+
+function detectEndpoint(text) {
+  const lower = text.toLowerCase();
+  const url = extractURL(text);
+
+  if (url) {
+    return { path: '/scan/url', body: { url: url } };
+  }
+  if (lower.includes('ssl')) {
+    const domain = extractDomain(text);
+    return { path: '/scan/ssl', body: { domain: domain || 'example.com' } };
+  }
+  if (lower.includes('domain') || lower.includes('reputation')) {
+    const domain = extractDomain(text);
+    return { path: '/scan/domain', body: { domain: domain || 'example.com' } };
+  }
+  // Default: full report
+  const domain = extractDomain(text);
+  return { path: '/report', body: { domain: domain || 'example.com' } };
+}
+
+// ─── VOICE INPUT ───
+const micBtn = document.getElementById('micBtn');
+let recognition = null;
+let isRecording = false;
+
+window.toggleVoice = function() {
+  console.log('Mic clicked');
+
+  if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+    alert('Voice input not supported in this browser. Please use Chrome.');
+    return;
+  }
+
+  if (isRecording) {
+    recognition.stop();
+    return;
+  }
+
+  // Request mic permission first
+  navigator.mediaDevices.getUserMedia({ audio: true }).then(() => {
+    console.log('Mic permission granted');
+
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    recognition = new SpeechRecognition();
+    recognition.continuous = false;
+    recognition.interimResults = true;
+    recognition.lang = 'en-US';
+    recognition.maxAlternatives = 1;
+
+    recognition.onstart = () => {
+      console.log('Recording started');
+      isRecording = true;
+      micBtn.classList.add('recording');
+      setBrainState('listening');
+      inputEl.placeholder = 'Listening...';
+    };
+
+    recognition.onresult = (event) => {
+      let transcript = '';
+      for (let i = event.resultIndex; i < event.results.length; i++) {
+        transcript += event.results[i][0].transcript;
+      }
+      console.log('Heard:', transcript);
+      inputEl.value = transcript;
+
+      if (event.results[event.results.length - 1].isFinal) {
+        setTimeout(() => {
+          recognition.stop();
+          sendMessage();
+        }, 500);
+      }
+    };
+
+    recognition.onerror = (event) => {
+      console.error('Speech error:', event.error);
+      isRecording = false;
+      micBtn.classList.remove('recording');
+      setBrainState('idle');
+      inputEl.placeholder = 'Ask Atlas anything... or tap the mic';
+      if (event.error === 'not-allowed') {
+        alert('Microphone access denied. Please allow microphone in your browser settings.');
+      }
+    };
+
+    recognition.onend = () => {
+      console.log('Recording ended');
+      isRecording = false;
+      micBtn.classList.remove('recording');
+      if (brainState === 'listening') setBrainState('idle');
+      inputEl.placeholder = 'Ask Atlas anything... or tap the mic';
+    };
+
+    recognition.start();
+  }).catch(err => {
+    console.error('Mic permission error:', err);
+    alert('Microphone access denied. Please allow microphone access and try again.');
+  });
+}
+
+// ─── CHAT ───
 const messagesEl = document.getElementById('chatMessages');
 const inputEl = document.getElementById('chatInput');
+const sendBtn = document.getElementById('chatSend');
 
-function addMessage(text, type) {
+function addUserMessage(text) {
   const m = document.createElement('div');
-  m.className = 'msg msg-' + type;
-  if (type === 'agent') {
-    m.innerHTML = '<span class="typing-cursor"></span>';
-    messagesEl.appendChild(m);
-    messagesEl.scrollTop = messagesEl.scrollHeight;
-    typeText(m, text, () => {
-      // Read first sentence
-      const firstSentence = text.split(/[.!?]/)[0] + '.';
-      speak(firstSentence);
-      if (window.triggerPulse) window.triggerPulse();
-    });
-  } else {
-    m.textContent = text;
-    messagesEl.appendChild(m);
-    messagesEl.scrollTop = messagesEl.scrollHeight;
-  }
+  m.className = 'msg msg-user';
+  m.textContent = text;
+  messagesEl.appendChild(m);
+  messagesEl.scrollTop = messagesEl.scrollHeight;
+}
+
+function createAgentMessage() {
+  const m = document.createElement('div');
+  m.className = 'msg msg-agent';
+  m.innerHTML = '<span class="typing-cursor"></span>';
+  messagesEl.appendChild(m);
+  messagesEl.scrollTop = messagesEl.scrollHeight;
   return m;
 }
 
@@ -454,32 +529,93 @@ function addResult(data) {
   messagesEl.scrollTop = messagesEl.scrollHeight;
 }
 
+function summarizeResult(data) {
+  // Try to extract a human-readable summary from the API response
+  if (typeof data === 'string') return data;
+  if (data.summary) return data.summary;
+  if (data.message) return data.message;
+  if (data.result && typeof data.result === 'string') return data.result;
+  if (data.error) return 'Error: ' + data.error;
+
+  // Build a brief summary from known fields
+  const parts = [];
+  if (data.domain) parts.push('Domain: ' + data.domain);
+  if (data.url) parts.push('URL: ' + data.url);
+  if (data.status) parts.push('Status: ' + data.status);
+  if (data.grade) parts.push('Grade: ' + data.grade);
+  if (data.score !== undefined) parts.push('Score: ' + data.score);
+  if (data.risk_level) parts.push('Risk: ' + data.risk_level);
+  if (data.threats && Array.isArray(data.threats)) parts.push('Threats found: ' + data.threats.length);
+  if (data.ssl && data.ssl.valid !== undefined) parts.push('SSL Valid: ' + data.ssl.valid);
+
+  if (parts.length > 0) return 'Analysis complete. ' + parts.join('. ') + '.';
+  return 'Analysis complete. See the full JSON results above for details.';
+}
+
 async function sendMessage() {
   const text = inputEl.value.trim();
   if (!text) return;
   inputEl.value = '';
-  addMessage(text, 'user');
-  if (window.triggerPulse) window.triggerPulse();
-  const ep = ENDPOINTS[currentEndpoint];
-  const url = 'https://api.silkweb.io' + AGENT.apiBase + ep.path;
-  document.getElementById('chatSend').disabled = true;
+  sendBtn.disabled = true;
+
+  addUserMessage(text);
+  setBrainState('thinking');
+
+  const endpoint = detectEndpoint(text);
+  const url = AGENT.apiBase + endpoint.path;
+
   try {
-    const body = {};
-    body[ep.field] = text;
-    const r = await fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
-    const d = await r.json();
-    addResult(d);
-    const s = d.summary || d.message || d.result || 'Analysis complete.';
-    addMessage(typeof s === 'string' ? s : 'Analysis complete. See results above.', 'agent');
-  } catch(e) {
-    addMessage('I received your request. The API endpoint is currently being provisioned. In production, I would process: "' + text + '" through ' + url, 'agent');
+    const resp = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-API-Key': 'sw_demo_silkweb_public_agent_preview_2026'
+      },
+      body: JSON.stringify(endpoint.body)
+    });
+
+    const data = await resp.json();
+
+    // Show collapsible JSON
+    addResult(data);
+
+    // Generate summary and type it out
+    const summary = summarizeResult(data);
+    const agentMsg = createAgentMessage();
+    setBrainState('speaking');
+    await typeTextInChat(agentMsg, summary);
+
+    // Speak the summary via TTS
+    speakTTS(summary);
+
+  } catch (e) {
+    console.warn('API error:', e);
+    const agentMsg = createAgentMessage();
+    const fallback = 'I received your request for "' + text + '" targeting ' + url + '. The scan endpoint is being provisioned. In production, I would return full security analysis here.';
+    setBrainState('speaking');
+    await typeTextInChat(agentMsg, fallback);
+    speakTTS(fallback);
   }
-  document.getElementById('chatSend').disabled = false;
+
+  sendBtn.disabled = false;
 }
 
-function quickAction(i) {
-  currentEndpoint = i;
-  inputEl.placeholder = ENDPOINTS[i].placeholder;
+// ─── QUICK ACTIONS ───
+function quickAction(type) {
+  switch (type) {
+    case 'scan-url':
+      inputEl.value = 'Scan https://example.com';
+      break;
+    case 'ssl-audit':
+      inputEl.value = 'Check SSL for example.com';
+      break;
+    case 'domain-check':
+      inputEl.value = 'Check domain reputation for example.com';
+      break;
+    case 'full-report':
+      inputEl.value = 'Full security report for example.com';
+      break;
+  }
   inputEl.focus();
   document.getElementById('chat').scrollIntoView({ behavior: 'smooth' });
 }

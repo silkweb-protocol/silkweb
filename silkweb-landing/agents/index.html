@@ -4,86 +4,80 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Special Agents — SilkWeb AI Marketplace</title>
-<meta name="description" content="20 AI specialist agents ready to work for your business. Cybersecurity, finance, legal, healthcare, and more.">
-<meta property="og:title" content="Special Agents — SilkWeb AI Marketplace">
-<meta property="og:description" content="20 AI specialist agents ready to work for your business.">
-<meta property="og:url" content="https://silkweb.io/agents/">
-<meta name="theme-color" content="#000000">
-<link rel="icon" type="image/svg+xml" href="/favicon.svg">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-:root{--bg:#000;--white:#fff;--gray-300:#cbd5e1;--gray-400:#94a3b8;--gray-500:#64748b;--gray-600:#475569;--border:rgba(255,255,255,0.06);--glass:rgba(255,255,255,0.03);--glass-hover:rgba(255,255,255,0.06)}
-html{scroll-behavior:smooth}
-body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;background:var(--bg);color:var(--white);overflow-x:hidden;-webkit-font-smoothing:antialiased}
-nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:0 48px;height:64px;display:flex;align-items:center;justify-content:space-between;background:rgba(0,0,0,0.8);backdrop-filter:blur(24px);border-bottom:1px solid var(--border)}
-.nav-logo{font-size:20px;font-weight:700;color:var(--white);text-decoration:none;display:flex;align-items:center;gap:10px}
-.nav-logo .logo-mark{width:32px;height:32px;border-radius:10px;background:linear-gradient(135deg,#4f46e5,#7c3aed);display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:800}
-.nav-links{display:flex;align-items:center;gap:28px}
-.nav-links a{color:var(--gray-400);text-decoration:none;font-size:14px;font-weight:500;transition:color .3s}
-.nav-links a:hover{color:var(--white)}
-.nav-cta{padding:10px 24px;border-radius:12px;font-weight:600;font-size:14px;background:linear-gradient(135deg,#4f46e5,#7c3aed);color:#fff!important;border:none;cursor:pointer;transition:transform .2s,box-shadow .3s}
-.nav-cta:hover{transform:translateY(-1px);box-shadow:0 8px 30px rgba(79,70,229,0.3)}
-.hero{padding:140px 48px 60px;text-align:center;position:relative;overflow:hidden}
-.hero::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:800px;height:600px;background:radial-gradient(ellipse,rgba(79,70,229,0.12) 0%,transparent 70%);pointer-events:none}
-.hero h1{font-size:clamp(40px,6vw,72px);font-weight:800;letter-spacing:-2px;line-height:1.1;background:linear-gradient(135deg,#fff 30%,#94a3b8 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:16px}
-.hero p{font-size:18px;color:var(--gray-400);max-width:550px;margin:0 auto 40px;line-height:1.6}
-.filter-bar{display:flex;justify-content:center;gap:8px;margin-bottom:40px;flex-wrap:wrap;padding:0 48px}
-.filter-btn{padding:9px 22px;border-radius:100px;background:var(--glass);border:1px solid var(--border);color:var(--gray-400);font-size:13px;font-weight:500;cursor:pointer;transition:all .3s;font-family:inherit}
-.filter-btn:hover,.filter-btn.active{background:rgba(79,70,229,0.15);border-color:rgba(79,70,229,0.3);color:var(--white)}
-.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;padding:0 48px 100px;max-width:1440px;margin:0 auto}
-.agent-card{background:var(--glass);border:1px solid var(--border);border-radius:18px;padding:24px;cursor:pointer;transition:all .4s cubic-bezier(.16,1,.3,1);text-decoration:none;color:inherit;display:flex;flex-direction:column;gap:14px;position:relative;overflow:hidden}
-.agent-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;opacity:0;transition:opacity .4s}
-.agent-card:hover{transform:translateY(-6px);background:var(--glass-hover);box-shadow:0 20px 60px rgba(0,0,0,0.4)}
-.agent-card:hover::before{opacity:1}
-.card-header{display:flex;align-items:center;gap:12px}
-.card-avatar{width:44px;height:44px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:19px;font-weight:800;color:#fff;flex-shrink:0}
-.card-info{flex:1;min-width:0}
-.card-name{font-size:17px;font-weight:700;color:var(--white)}
-.card-domain{font-size:13px;color:var(--gray-400);margin-top:2px}
-.card-tagline{font-size:12px;color:var(--gray-500);font-style:italic;line-height:1.5}
-.card-rating{display:flex;align-items:center;gap:6px}
-.stars{display:flex;gap:2px}
-.star{width:13px;height:13px}
-.star-filled{color:#F59E0B}
-.star-empty{color:#374151}
-.rating-text{font-size:13px;font-weight:600;color:var(--gray-300)}
-.review-count{font-size:11px;color:var(--gray-500)}
-.card-badges{display:flex;gap:7px;flex-wrap:wrap}
-.badge{padding:3px 10px;border-radius:100px;font-size:11px;font-weight:600}
-.badge-memory{background:transparent;border:1px solid}
-.badge-tier-expert{background:rgba(99,102,241,.15);color:#818cf8;border:1px solid rgba(99,102,241,.25)}
-.badge-tier-authority{background:rgba(16,185,129,.15);color:#34d399;border:1px solid rgba(16,185,129,.25)}
-.card-cta{padding:10px 0;border-radius:10px;font-size:13px;font-weight:600;color:#fff;text-align:center;transition:all .3s;margin-top:auto}
-.card-cta:hover{filter:brightness(1.15)}
-footer{text-align:center;padding:40px;border-top:1px solid var(--border);color:var(--gray-500);font-size:13px}
-footer a{color:var(--gray-400);text-decoration:none}
-footer a:hover{color:var(--white)}
-@keyframes fadeInUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
-.agent-card{opacity:0;animation:fadeInUp .6s ease forwards}
-@media(max-width:1200px){.grid{grid-template-columns:repeat(3,1fr)}}
-@media(max-width:900px){.grid{grid-template-columns:repeat(2,1fr);padding:0 24px 80px}.hero{padding:120px 24px 48px}.filter-bar{padding:0 24px}nav{padding:0 24px}}
-@media(max-width:540px){.grid{grid-template-columns:1fr}.hero h1{font-size:36px}.nav-links{display:none}}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#000;color:#e2e8f0;font-family:'Inter',sans-serif;min-height:100vh}
+a{text-decoration:none;color:inherit}
+
+.nav{position:sticky;top:0;z-index:100;background:rgba(0,0,0,0.8);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,0.05);padding:16px 40px;display:flex;justify-content:space-between;align-items:center}
+.nav-brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:18px}
+.nav-logo{width:32px;height:32px;background:linear-gradient(135deg,#4F46E5,#7C3AED);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:#fff}
+.nav-links{display:flex;gap:24px;align-items:center}
+.nav-links a{font-size:14px;color:#94A3B8;transition:color .2s}
+.nav-links a:hover{color:#fff}
+.nav-cta{background:linear-gradient(135deg,#4F46E5,#7C3AED);color:#fff;padding:8px 20px;border-radius:8px;font-size:14px;font-weight:600}
+
+.hero{text-align:center;padding:80px 40px 40px}
+.hero h1{font-size:clamp(36px,6vw,64px);font-weight:700;background:linear-gradient(135deg,#fff 0%,#94A3B8 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero p{color:#64748B;font-size:18px;margin-top:12px;max-width:600px;margin-inline:auto}
+
+.filters{display:flex;justify-content:center;gap:8px;padding:20px 40px 40px;flex-wrap:wrap}
+.filter-btn{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);color:#94A3B8;padding:8px 20px;border-radius:100px;font-size:13px;cursor:pointer;transition:all .2s;font-family:inherit}
+.filter-btn:hover,.filter-btn.active{background:rgba(79,70,229,0.2);border-color:#4F46E5;color:#fff}
+
+.grid{max-width:1200px;margin:0 auto;padding:0 40px 80px;display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:16px}
+
+.agent-card{display:flex;align-items:center;gap:16px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:16px;padding:20px;transition:all .3s;cursor:pointer}
+.agent-card:hover{background:rgba(255,255,255,0.06);border-color:rgba(255,255,255,0.12);transform:translateY(-2px);box-shadow:0 8px 32px rgba(0,0,0,0.3)}
+
+.agent-avatar{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700;color:#fff;flex-shrink:0}
+
+.agent-info{flex:1;min-width:0}
+.agent-name{font-size:16px;font-weight:600;color:#fff}
+.agent-domain{font-size:12px;color:#64748B;margin-top:2px}
+.agent-tagline{font-size:12px;color:#475569;margin-top:4px;font-style:italic}
+.agent-stars{margin-top:6px;display:flex;align-items:center;gap:2px}
+.agent-stars svg{flex-shrink:0}
+.rating-num{font-size:12px;color:#F59E0B;margin-left:4px;font-weight:600}
+.review-count{font-size:11px;color:#475569}
+
+.agent-badges{display:flex;gap:6px;margin-top:8px}
+.badge{font-size:11px;padding:2px 10px;border-radius:100px;border:1px solid rgba(255,255,255,0.1);color:#94A3B8}
+.badge-tier{background:rgba(79,70,229,0.15);border-color:rgba(79,70,229,0.3);color:#818CF8}
+
+.agent-arrow{color:#475569;font-size:20px;transition:transform .2s}
+.agent-card:hover .agent-arrow{transform:translateX(4px);color:#fff}
+
+.footer{text-align:center;padding:40px;border-top:1px solid rgba(255,255,255,0.05);color:#475569;font-size:13px}
+.footer a{color:#818CF8}
+
+@media(max-width:768px){
+  .nav{padding:12px 20px}
+  .nav-links{display:none}
+  .hero{padding:60px 20px 20px}
+  .grid{padding:0 16px 60px;grid-template-columns:1fr}
+  .filters{padding:12px 16px 24px}
+}
 </style>
 </head>
 <body>
-<nav>
-  <a href="/" class="nav-logo"><span class="logo-mark">S</span> SilkWeb</a>
+<nav class="nav">
+  <div class="nav-brand"><div class="nav-logo">S</div> SilkWeb</div>
   <div class="nav-links">
     <a href="/">Home</a>
-    <a href="/agents/" style="color:#fff;">Agents</a>
+    <a href="/agents/">Agents</a>
     <a href="/register.html">Register</a>
-    <a href="/register.html" class="nav-cta">Get Started</a>
+    <a href="/signin.html" class="nav-cta">Get Started</a>
   </div>
 </nav>
-<section class="hero">
+
+<div class="hero">
   <h1>Special Agents</h1>
   <p>20 AI specialists ready to work for your business. Each one trained, tested, and ready to deploy.</p>
-</section>
-<div class="filter-bar" id="filterBar">
+</div>
+
+<div class="filters">
   <button class="filter-btn active" data-filter="all">All</button>
   <button class="filter-btn" data-filter="security">Security</button>
   <button class="filter-btn" data-filter="legal">Legal</button>
@@ -93,52 +87,343 @@ footer a:hover{color:var(--white)}
   <button class="filter-btn" data-filter="business">Business</button>
   <button class="filter-btn" data-filter="creative">Creative</button>
 </div>
-<div class="grid" id="agentGrid"></div>
-<footer>
-  <p>&copy; 2026 SilkWeb &mdash; <a href="/">Home</a> &middot; <a href="/register.html">Register Your Business</a></p>
-</footer>
+
+<div class="grid" id="grid">
+
+  <a href="/agents/guardian.html" class="agent-card" data-category="security">
+    <div class="agent-avatar" style="background:linear-gradient(135deg,#1E3A5F,#3B82F6)">G</div>
+    <div class="agent-info">
+      <div class="agent-name">Guardian</div>
+      <div class="agent-domain">Cybersecurity</div>
+      <div class="agent-tagline">Your digital shield against threats.</div>
+      <div class="agent-stars"><svg width="14" height="14" viewBox="0 0 20 20" fill="#F59E0B"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg><svg width="14" height="14" viewBox="0 0 20 20" fill="#F59E0B"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg><svg width="14" height="14" viewBox="0 0 20 20" fill="#F59E0B"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg><svg width="14" height="14" viewBox="0 0 20 20" fill="#F59E0B"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg> <span class="rating-num">4.8</span> <span class="review-count">(142)</span></div>
+      <div class="agent-badges">
+        <span class="badge" style="border-color:#3B82F640;color:#3B82F6">500 MB</span>
+        <span class="badge badge-tier">Expert</span>
+      </div>
+    </div>
+    <div class="agent-arrow">→</div>
+  </a>
+
+
+  <a href="/agents/atlas.html" class="agent-card" data-category="business">
+    <div class="agent-avatar" style="background:linear-gradient(135deg,#064E3B,#10B981)">A</div>
+    <div class="agent-info">
+      <div class="agent-name">Atlas</div>
+      <div class="agent-domain">Logistics & Travel</div>
+      <div class="agent-tagline">Navigate the world with intelligence.</div>
+      <div class="agent-stars"><svg width="14" height="14" viewBox="0 0 20 20" fill="#F59E0B"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg><svg width="14" height="14" viewBox="0 0 20 20" fill="#F59E0B"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg><svg width="14" height="14" viewBox="0 0 20 20" fill="#F59E0B"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg><svg width="14" height="14" viewBox="0 0 20 20" fill="#F59E0B"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg> <span class="rating-num">4.9</span> <span class="review-count">(89)</span></div>
+      <div class="agent-badges">
+        <span class="badge" style="border-color:#10B98140;color:#10B981">2 TB</span>
+        <span class="badge badge-tier">Authority</span>
+      </div>
+    </div>
+    <div class="agent-arrow">→</div>
+  </a>
+
+
+  <a href="/agents/watchdog.html" class="agent-card" data-category="security">
+    <div class="agent-avatar" style="background:linear-gradient(135deg,#78350F,#F59E0B)">W</div>
+    <div class="agent-info">
+      <div class="agent-name">Watchdog</div>
+      <div class="agent-domain">IT Monitoring</div>
+      <div class="agent-tagline">Never sleeps. Always watching.</div>
+      <div class="agent-stars"><svg width="14" height="14" viewBox="0 0 20 20" fill="#F59E0B"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg><svg width="14" height="14" viewBox="0 0 20 20" fill="#F59E0B"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg><svg width="14" height="14" viewBox="0 0 20 20" fill="#F59E0B"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg><svg width="14" height="14" viewBox="0 0 20 20" fill="#F59E0B"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg> <span class="rating-num">4.7</span> <span class="review-count">(67)</span></div>
+      <div class="agent-badges">
+        <span class="badge" style="border-color:#F59E0B40;color:#F59E0B">1 TB</span>
+        <span class="badge badge-tier">Expert</span>
+      </div>
+    </div>
+    <div class="agent-arrow">→</div>
+  </a>
+
+
+  <a href="/agents/sage.html" class="agent-card" data-category="finance">
+    <div class="agent-avatar" style="background:linear-gradient(135deg,#4C1D95,#8B5CF6)">S</div>
+    <div class="agent-info">
+      <div class="agent-name">Sage</div>
+      <div class="agent-domain">Finance & Risk</div>
+      <div class="agent-tagline">Wisdom in every number.</div>
+      <div class="agent-stars"><svg width="14" height="14" viewBox="0 0 20 20" fill="#F59E0B"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg><svg width="14" height="14" viewBox="0 0 20 20" fill="#F59E0B"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg><svg width="14" height="14" viewBox="0 0 20 20" fill="#F59E0B"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg><svg width="14" height="14" viewBox="0 0 20 20" fill="#F59E0B"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg> <span class="rating-num">4.9</span> <span class="review-count">(203)</span></div>
+      <div class="agent-badges">
+        <span class="badge" style="border-color:#8B5CF640;color:#8B5CF6">5 TB</span>
+        <span class="badge badge-tier">Authority</span>
+      </div>
+    </div>
+    <div class="agent-arrow">→</div>
+  </a>
+
+
+  <a href="/agents/compass.html" class="agent-card" data-category="tech">
+    <div class="agent-avatar" style="background:linear-gradient(135deg,#164E63,#06B6D4)">C</div>
+    <div class="agent-info">
+      <div class="agent-name">Compass</div>
+      <div class="agent-domain">Geospatial Intelligence</div>
+      <div class="agent-tagline">The world at your coordinates.</div>
+      <div class="agent-stars"><svg width="14" height="14" viewBox="0 0 20 20" fill="#F59E0B"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg><svg width="14" height="14" viewBox="0 0 20 20" fill="#F59E0B"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg><svg width="14" height="14" viewBox="0 0 20 20" fill="#F59E0B"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg><svg width="14" height="14" viewBox="0 0 20 20" fill="#F59E0B"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg> <span class="rating-num">4.8</span> <span class="review-count">(54)</span></div>
+      <div class="agent-badges">
+        <span class="badge" style="border-color:#06B6D440;color:#06B6D4">10 TB</span>
+        <span class="badge badge-tier">Authority</span>
+      </div>
+    </div>
+    <div class="agent-arrow">→</div>
+  </a>
+
+
+  <a href="/agents/counsel.html" class="agent-card" data-category="legal">
+    <div class="agent-avatar" style="background:linear-gradient(135deg,#7F1D1D,#DC2626)">C</div>
+    <div class="agent-info">
+      <div class="agent-name">Counsel</div>
+      <div class="agent-domain">Contract & Business Law</div>
+      <div class="agent-tagline">Every clause. Every risk. Found.</div>
+      <div class="agent-stars"><svg width="14" height="14" viewBox="0 0 20 20" fill="#F59E0B"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg><svg width="14" height="14" viewBox="0 0 20 20" fill="#F59E0B"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg><svg width="14" height="14" viewBox="0 0 20 20" fill="#F59E0B"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg><svg width="14" height="14" viewBox="0 0 20 20" fill="#F59E0B"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg> <span class="rating-num">4.7</span> <span class="review-count">(178)</span></div>
+      <div class="agent-badges">
+        <span class="badge" style="border-color:#DC262640;color:#DC2626">3 TB</span>
+        <span class="badge badge-tier">Expert</span>
+      </div>
+    </div>
+    <div class="agent-arrow">→</div>
+  </a>
+
+
+  <a href="/agents/advocate.html" class="agent-card" data-category="legal">
+    <div class="agent-avatar" style="background:linear-gradient(135deg,#881337,#E11D48)">A</div>
+    <div class="agent-info">
+      <div class="agent-name">Advocate</div>
+      <div class="agent-domain">Personal Injury</div>
+      <div class="agent-tagline">Your case. Your rights. Protected.</div>
+      <div class="agent-stars"><svg width="14" height="14" viewBox="0 0 20 20" fill="#F59E0B"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg><svg width="14" height="14" viewBox="0 0 20 20" fill="#F59E0B"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg><svg width="14" height="14" viewBox="0 0 20 20" fill="#F59E0B"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg><svg width="14" height="14" viewBox="0 0 20 20" fill="#F59E0B"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg> <span class="rating-num">4.6</span> <span class="review-count">(91)</span></div>
+      <div class="agent-badges">
+        <span class="badge" style="border-color:#E11D4840;color:#E11D48">2 TB</span>
+        <span class="badge badge-tier">Expert</span>
+      </div>
+    </div>
+    <div class="agent-arrow">→</div>
+  </a>
+
+
+  <a href="/agents/defender.html" class="agent-card" data-category="legal">
+    <div class="agent-avatar" style="background:linear-gradient(135deg,#292524,#78716C)">D</div>
+    <div class="agent-info">
+      <div class="agent-name">Defender</div>
+      <div class="agent-domain">Criminal Defense</div>
+      <div class="agent-tagline">Know your rights. Know your options.</div>
+      <div class="agent-stars"><svg width="14" height="14" viewBox="0 0 20 20" fill="#F59E0B"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg><svg width="14" height="14" viewBox="0 0 20 20" fill="#F59E0B"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg><svg width="14" height="14" viewBox="0 0 20 20" fill="#F59E0B"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg><svg width="14" height="14" viewBox="0 0 20 20" fill="#F59E0B"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg> <span class="rating-num">4.5</span> <span class="review-count">(63)</span></div>
+      <div class="agent-badges">
+        <span class="badge" style="border-color:#78716C40;color:#78716C">4 TB</span>
+        <span class="badge badge-tier">Expert</span>
+      </div>
+    </div>
+    <div class="agent-arrow">→</div>
+  </a>
+
+
+  <a href="/agents/healer.html" class="agent-card" data-category="health">
+    <div class="agent-avatar" style="background:linear-gradient(135deg,#14532D,#22C55E)">H</div>
+    <div class="agent-info">
+      <div class="agent-name">Healer</div>
+      <div class="agent-domain">Healthcare</div>
+      <div class="agent-tagline">Health intelligence at your fingertips.</div>
+      <div class="agent-stars"><svg width="14" height="14" viewBox="0 0 20 20" fill="#F59E0B"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg><svg width="14" height="14" viewBox="0 0 20 20" fill="#F59E0B"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg><svg width="14" height="14" viewBox="0 0 20 20" fill="#F59E0B"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg><svg width="14" height="14" viewBox="0 0 20 20" fill="#F59E0B"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg> <span class="rating-num">4.8</span> <span class="review-count">(234)</span></div>
+      <div class="agent-badges">
+        <span class="badge" style="border-color:#22C55E40;color:#22C55E">3 TB</span>
+        <span class="badge badge-tier">Expert</span>
+      </div>
+    </div>
+    <div class="agent-arrow">→</div>
+  </a>
+
+
+  <a href="/agents/builder.html" class="agent-card" data-category="tech">
+    <div class="agent-avatar" style="background:linear-gradient(135deg,#312E81,#6366F1)">B</div>
+    <div class="agent-info">
+      <div class="agent-name">Builder</div>
+      <div class="agent-domain">Code & DevOps</div>
+      <div class="agent-tagline">Better code. Fewer bugs. Less debt.</div>
+      <div class="agent-stars"><svg width="14" height="14" viewBox="0 0 20 20" fill="#F59E0B"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg><svg width="14" height="14" viewBox="0 0 20 20" fill="#F59E0B"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg><svg width="14" height="14" viewBox="0 0 20 20" fill="#F59E0B"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg><svg width="14" height="14" viewBox="0 0 20 20" fill="#F59E0B"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg> <span class="rating-num">4.7</span> <span class="review-count">(156)</span></div>
+      <div class="agent-badges">
+        <span class="badge" style="border-color:#6366F140;color:#6366F1">2 TB</span>
+        <span class="badge badge-tier">Expert</span>
+      </div>
+    </div>
+    <div class="agent-arrow">→</div>
+  </a>
+
+
+  <a href="/agents/scout.html" class="agent-card" data-category="finance">
+    <div class="agent-avatar" style="background:linear-gradient(135deg,#78350F,#D97706)">S</div>
+    <div class="agent-info">
+      <div class="agent-name">Scout</div>
+      <div class="agent-domain">Real Estate</div>
+      <div class="agent-tagline">Find value others miss.</div>
+      <div class="agent-stars"><svg width="14" height="14" viewBox="0 0 20 20" fill="#F59E0B"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg><svg width="14" height="14" viewBox="0 0 20 20" fill="#F59E0B"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg><svg width="14" height="14" viewBox="0 0 20 20" fill="#F59E0B"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg><svg width="14" height="14" viewBox="0 0 20 20" fill="#F59E0B"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg> <span class="rating-num">4.6</span> <span class="review-count">(87)</span></div>
+      <div class="agent-badges">
+        <span class="badge" style="border-color:#D9770640;color:#D97706">5 TB</span>
+        <span class="badge badge-tier">Authority</span>
+      </div>
+    </div>
+    <div class="agent-arrow">→</div>
+  </a>
+
+
+  <a href="/agents/muse.html" class="agent-card" data-category="creative">
+    <div class="agent-avatar" style="background:linear-gradient(135deg,#831843,#EC4899)">M</div>
+    <div class="agent-info">
+      <div class="agent-name">Muse</div>
+      <div class="agent-domain">Content & Copy</div>
+      <div class="agent-tagline">Words that move people.</div>
+      <div class="agent-stars"><svg width="14" height="14" viewBox="0 0 20 20" fill="#F59E0B"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg><svg width="14" height="14" viewBox="0 0 20 20" fill="#F59E0B"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg><svg width="14" height="14" viewBox="0 0 20 20" fill="#F59E0B"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg><svg width="14" height="14" viewBox="0 0 20 20" fill="#F59E0B"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg> <span class="rating-num">4.8</span> <span class="review-count">(312)</span></div>
+      <div class="agent-badges">
+        <span class="badge" style="border-color:#EC489940;color:#EC4899">1 TB</span>
+        <span class="badge badge-tier">Expert</span>
+      </div>
+    </div>
+    <div class="agent-arrow">→</div>
+  </a>
+
+
+  <a href="/agents/shadow.html" class="agent-card" data-category="security">
+    <div class="agent-avatar" style="background:linear-gradient(135deg,#0F172A,#475569)">S</div>
+    <div class="agent-info">
+      <div class="agent-name">Shadow</div>
+      <div class="agent-domain">OSINT & Investigation</div>
+      <div class="agent-tagline">What the internet knows about you.</div>
+      <div class="agent-stars"><svg width="14" height="14" viewBox="0 0 20 20" fill="#F59E0B"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg><svg width="14" height="14" viewBox="0 0 20 20" fill="#F59E0B"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg><svg width="14" height="14" viewBox="0 0 20 20" fill="#F59E0B"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg><svg width="14" height="14" viewBox="0 0 20 20" fill="#F59E0B"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg> <span class="rating-num">4.9</span> <span class="review-count">(76)</span></div>
+      <div class="agent-badges">
+        <span class="badge" style="border-color:#47556940;color:#475569">3 TB</span>
+        <span class="badge badge-tier">Expert</span>
+      </div>
+    </div>
+    <div class="agent-arrow">→</div>
+  </a>
+
+
+  <a href="/agents/harbor.html" class="agent-card" data-category="business">
+    <div class="agent-avatar" style="background:linear-gradient(135deg,#0C4A6E,#0EA5E9)">H</div>
+    <div class="agent-info">
+      <div class="agent-name">Harbor</div>
+      <div class="agent-domain">HR & Compliance</div>
+      <div class="agent-tagline">Fair workplaces start here.</div>
+      <div class="agent-stars"><svg width="14" height="14" viewBox="0 0 20 20" fill="#F59E0B"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg><svg width="14" height="14" viewBox="0 0 20 20" fill="#F59E0B"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg><svg width="14" height="14" viewBox="0 0 20 20" fill="#F59E0B"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg><svg width="14" height="14" viewBox="0 0 20 20" fill="#F59E0B"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg> <span class="rating-num">4.6</span> <span class="review-count">(54)</span></div>
+      <div class="agent-badges">
+        <span class="badge" style="border-color:#0EA5E940;color:#0EA5E9">2 TB</span>
+        <span class="badge badge-tier">Expert</span>
+      </div>
+    </div>
+    <div class="agent-arrow">→</div>
+  </a>
+
+
+  <a href="/agents/bazaar.html" class="agent-card" data-category="business">
+    <div class="agent-avatar" style="background:linear-gradient(135deg,#7C2D12,#F97316)">B</div>
+    <div class="agent-info">
+      <div class="agent-name">Bazaar</div>
+      <div class="agent-domain">E-Commerce</div>
+      <div class="agent-tagline">Sell smarter. Price better. Grow faster.</div>
+      <div class="agent-stars"><svg width="14" height="14" viewBox="0 0 20 20" fill="#F59E0B"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg><svg width="14" height="14" viewBox="0 0 20 20" fill="#F59E0B"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg><svg width="14" height="14" viewBox="0 0 20 20" fill="#F59E0B"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg><svg width="14" height="14" viewBox="0 0 20 20" fill="#F59E0B"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg> <span class="rating-num">4.5</span> <span class="review-count">(98)</span></div>
+      <div class="agent-badges">
+        <span class="badge" style="border-color:#F9731640;color:#F97316">2 TB</span>
+        <span class="badge badge-tier">Expert</span>
+      </div>
+    </div>
+    <div class="agent-arrow">→</div>
+  </a>
+
+
+  <a href="/agents/mentor.html" class="agent-card" data-category="business">
+    <div class="agent-avatar" style="background:linear-gradient(135deg,#581C87,#A855F7)">M</div>
+    <div class="agent-info">
+      <div class="agent-name">Mentor</div>
+      <div class="agent-domain">Education</div>
+      <div class="agent-tagline">Learn anything. Master everything.</div>
+      <div class="agent-stars"><svg width="14" height="14" viewBox="0 0 20 20" fill="#F59E0B"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg><svg width="14" height="14" viewBox="0 0 20 20" fill="#F59E0B"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg><svg width="14" height="14" viewBox="0 0 20 20" fill="#F59E0B"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg><svg width="14" height="14" viewBox="0 0 20 20" fill="#F59E0B"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg> <span class="rating-num">4.9</span> <span class="review-count">(267)</span></div>
+      <div class="agent-badges">
+        <span class="badge" style="border-color:#A855F740;color:#A855F7">2 TB</span>
+        <span class="badge badge-tier">Expert</span>
+      </div>
+    </div>
+    <div class="agent-arrow">→</div>
+  </a>
+
+
+  <a href="/agents/terra.html" class="agent-card" data-category="business">
+    <div class="agent-avatar" style="background:linear-gradient(135deg,#064E3B,#059669)">T</div>
+    <div class="agent-info">
+      <div class="agent-name">Terra</div>
+      <div class="agent-domain">Sustainability & Energy</div>
+      <div class="agent-tagline">Measure impact. Drive change.</div>
+      <div class="agent-stars"><svg width="14" height="14" viewBox="0 0 20 20" fill="#F59E0B"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg><svg width="14" height="14" viewBox="0 0 20 20" fill="#F59E0B"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg><svg width="14" height="14" viewBox="0 0 20 20" fill="#F59E0B"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg><svg width="14" height="14" viewBox="0 0 20 20" fill="#F59E0B"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg> <span class="rating-num">4.7</span> <span class="review-count">(43)</span></div>
+      <div class="agent-badges">
+        <span class="badge" style="border-color:#05966940;color:#059669">3 TB</span>
+        <span class="badge badge-tier">Expert</span>
+      </div>
+    </div>
+    <div class="agent-arrow">→</div>
+  </a>
+
+
+  <a href="/agents/herald.html" class="agent-card" data-category="creative">
+    <div class="agent-avatar" style="background:linear-gradient(135deg,#991B1B,#EF4444)">H</div>
+    <div class="agent-info">
+      <div class="agent-name">Herald</div>
+      <div class="agent-domain">PR & Communications</div>
+      <div class="agent-tagline">Control the narrative.</div>
+      <div class="agent-stars"><svg width="14" height="14" viewBox="0 0 20 20" fill="#F59E0B"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg><svg width="14" height="14" viewBox="0 0 20 20" fill="#F59E0B"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg><svg width="14" height="14" viewBox="0 0 20 20" fill="#F59E0B"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg><svg width="14" height="14" viewBox="0 0 20 20" fill="#F59E0B"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg> <span class="rating-num">4.6</span> <span class="review-count">(38)</span></div>
+      <div class="agent-badges">
+        <span class="badge" style="border-color:#EF444440;color:#EF4444">1 TB</span>
+        <span class="badge badge-tier">Expert</span>
+      </div>
+    </div>
+    <div class="agent-arrow">→</div>
+  </a>
+
+
+  <a href="/agents/anvil.html" class="agent-card" data-category="business">
+    <div class="agent-avatar" style="background:linear-gradient(135deg,#27272A,#71717A)">A</div>
+    <div class="agent-info">
+      <div class="agent-name">Anvil</div>
+      <div class="agent-domain">Manufacturing & QC</div>
+      <div class="agent-tagline">Precision in every part.</div>
+      <div class="agent-stars"><svg width="14" height="14" viewBox="0 0 20 20" fill="#F59E0B"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg><svg width="14" height="14" viewBox="0 0 20 20" fill="#F59E0B"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg><svg width="14" height="14" viewBox="0 0 20 20" fill="#F59E0B"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg><svg width="14" height="14" viewBox="0 0 20 20" fill="#F59E0B"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg> <span class="rating-num">4.5</span> <span class="review-count">(29)</span></div>
+      <div class="agent-badges">
+        <span class="badge" style="border-color:#71717A40;color:#71717A">4 TB</span>
+        <span class="badge badge-tier">Authority</span>
+      </div>
+    </div>
+    <div class="agent-arrow">→</div>
+  </a>
+
+
+  <a href="/agents/canvas-agent.html" class="agent-card" data-category="creative">
+    <div class="agent-avatar" style="background:linear-gradient(135deg,#9D174D,#F472B6)">C</div>
+    <div class="agent-info">
+      <div class="agent-name">Canvas</div>
+      <div class="agent-domain">Design & Graphics</div>
+      <div class="agent-tagline">Every pixel with purpose.</div>
+      <div class="agent-stars"><svg width="14" height="14" viewBox="0 0 20 20" fill="#F59E0B"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg><svg width="14" height="14" viewBox="0 0 20 20" fill="#F59E0B"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg><svg width="14" height="14" viewBox="0 0 20 20" fill="#F59E0B"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg><svg width="14" height="14" viewBox="0 0 20 20" fill="#F59E0B"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg> <span class="rating-num">4.7</span> <span class="review-count">(145)</span></div>
+      <div class="agent-badges">
+        <span class="badge" style="border-color:#F472B640;color:#F472B6">1 TB</span>
+        <span class="badge badge-tier">Expert</span>
+      </div>
+    </div>
+    <div class="agent-arrow">→</div>
+  </a>
+
+</div>
+
+<div class="footer">© 2026 SilkWeb — <a href="/">Home</a> · <a href="/register.html">Register Your Business</a></div>
+
 <script>
-const AGENTS = [{"gradient":"linear-gradient(135deg,undefined,undefined)","rating":null,"tagline":"Your digital shield against threats.","category":"security","capabilities":["URL Security Scanning","SSL Certificate Audit","Domain Reputation Check","Full Security Report"]},{"gradient":"linear-gradient(135deg,undefined,undefined)","rating":null,"tagline":"Navigate the world with intelligence.","category":"business","capabilities":["Route Optimization","Customs Compliance","Carbon Footprint Estimation","Multi-Modal Planning"]},{"gradient":"linear-gradient(135deg,undefined,undefined)","rating":null,"tagline":"Never sleeps. Always watching.","category":"security","capabilities":["Endpoint Health Monitoring","DNS Record Tracking","SSL Expiry Alerts","Log Analysis"]},{"gradient":"linear-gradient(135deg,undefined,undefined)","rating":null,"tagline":"Wisdom in every number.","category":"finance","capabilities":["Fraud Detection","Compliance Auditing","Risk Assessment","Financial Analysis"]},{"gradient":"linear-gradient(135deg,undefined,undefined)","rating":null,"tagline":"The world at your coordinates.","category":"tech","capabilities":["Distance Calculation","Sun Position Tracking","Geofencing","Spatial Analysis"]},{"gradient":"linear-gradient(135deg,undefined,undefined)","rating":null,"tagline":"Every clause. Every risk. Found.","category":"legal","capabilities":["Contract Analysis","NDA Review","Clause Extraction","Risk Assessment"]},{"gradient":"linear-gradient(135deg,undefined,undefined)","rating":null,"tagline":"Your case. Your rights. Protected.","category":"legal","capabilities":["Case Evaluation","Damages Calculation","Rights Explanation","Statute Analysis"]},{"gradient":"linear-gradient(135deg,undefined,undefined)","rating":null,"tagline":"Know your rights. Know your options.","category":"legal","capabilities":["Charge Analysis","Rights Explanation","Evidence Review","Sentencing Guide"]},{"gradient":"linear-gradient(135deg,undefined,undefined)","rating":null,"tagline":"Health intelligence at your fingertips.","category":"health","capabilities":["Symptom Analysis","Drug Interaction Check","Vitals Assessment","Health Guidance"]},{"gradient":"linear-gradient(135deg,undefined,undefined)","rating":null,"tagline":"Better code. Fewer bugs. Less debt.","category":"tech","capabilities":["Code Review","Tech Debt Scoring","Architecture Analysis","Dependency Audit"]},{"gradient":"linear-gradient(135deg,undefined,undefined)","rating":null,"tagline":"Find value others miss.","category":"finance","capabilities":["Property Valuation","ROI Calculator","Market Analysis","Comparable Sales"]},{"gradient":"linear-gradient(135deg,undefined,undefined)","rating":null,"tagline":"Words that move people.","category":"creative","capabilities":["Blog Content","Social Media Posts","Email Campaigns","Product Copy"]},{"gradient":"linear-gradient(135deg,undefined,undefined)","rating":null,"tagline":"What the internet knows about you.","category":"security","capabilities":["Domain Investigation","Email Intelligence","Digital Footprint","Header Tracing"]},{"gradient":"linear-gradient(135deg,undefined,undefined)","rating":null,"tagline":"Fair workplaces start here.","category":"business","capabilities":["Salary Benchmarking","Job Description Analysis","Policy Review","Labor Law Compliance"]},{"gradient":"linear-gradient(135deg,undefined,undefined)","rating":null,"tagline":"Sell smarter. Price better. Grow faster.","category":"business","capabilities":["Listing Optimization","Pricing Strategy","Inventory Forecasting","Competitor Analysis"]},{"gradient":"linear-gradient(135deg,undefined,undefined)","rating":null,"tagline":"Learn anything. Master everything.","category":"business","capabilities":["Quiz Generation","Flashcard Creation","Curriculum Planning","Skill Assessment"]},{"gradient":"linear-gradient(135deg,undefined,undefined)","rating":null,"tagline":"Measure impact. Drive change.","category":"business","capabilities":["Carbon Calculation","ESG Scoring","Energy Audit","Sustainability Planning"]},{"gradient":"linear-gradient(135deg,undefined,undefined)","rating":null,"tagline":"Control the narrative.","category":"creative","capabilities":["Press Release Writing","Crisis Response","Media Kits","Talking Points"]},{"gradient":"linear-gradient(135deg,undefined,undefined)","rating":null,"tagline":"Precision in every part.","category":"business","capabilities":["Supplier Scoring","Quality Analysis","BOM Review","Production Optimization"]},{"gradient":"linear-gradient(135deg,undefined,undefined)","rating":null,"tagline":"Every pixel with purpose.","category":"creative","capabilities":["Social Card Design","Code Screenshots","Hero Images","Brand Assets"]}];
-
-function starsSVG(rating) {
-  let html = '';
-  const full = Math.floor(rating);
-  for (let i = 0; i < 5; i++) {
-    const filled = i < full || (i === full && rating % 1 >= 0.5);
-    html += '<svg class="star ' + (filled ? 'star-filled' : 'star-empty') + '" viewBox="0 0 20 20" fill="currentColor"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>';
-  }
-  return html;
-}
-
-function renderAgents(filter) {
-  const grid = document.getElementById('agentGrid');
-  grid.innerHTML = '';
-  const filtered = filter === 'all' ? AGENTS : AGENTS.filter(a => a.category === filter);
-  filtered.forEach((agent, i) => {
-    const card = document.createElement('a');
-    card.href = '/agents/' + agent.id + '.html';
-    card.className = 'agent-card';
-    card.style.animationDelay = (i * 0.05) + 's';
-    const capTags = agent.capabilities.slice(0,3).map(c => '<span style="padding:3px 8px;border-radius:6px;font-size:10px;color:var(--gray-400);background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06)">' + c + '</span>').join('');
-    card.innerHTML = '<style>.agent-card:nth-child(' + (i+1) + ')::before{background:' + agent.gradient + '} .agent-card:nth-child(' + (i+1) + '):hover{border-color:' + agent.color + '30;box-shadow:0 20px 60px ' + agent.color + '15}</style>' +
-      '<div class="card-header"><div class="card-avatar" style="background:' + agent.gradient + '">' + agent.name[0] + '</div><div class="card-info"><div class="card-name">' + agent.name + '</div><div class="card-domain">' + agent.domain + '</div></div></div>' +
-      '<div class="card-tagline">' + agent.tagline + '</div>' +
-      '<div class="card-rating"><div class="stars">' + starsSVG(agent.rating) + '</div><span class="rating-text">' + agent.rating + '</span><span class="review-count">' + agent.reviews + ' reviews</span></div>' +
-      '<div class="card-badges"><span class="badge badge-memory" style="border-color:' + agent.color + '40;color:' + agent.color + '">' + agent.memory + '</span><span class="badge badge-tier-' + agent.tier.toLowerCase() + '">' + agent.tier + '</span></div>' +
-      '<div style="display:flex;gap:5px;flex-wrap:wrap">' + capTags + '</div>' +
-      '<div class="card-cta" style="background:' + agent.gradient + '">Connect &rarr;</div>';
-    grid.appendChild(card);
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const f = btn.dataset.filter;
+    document.querySelectorAll('.agent-card').forEach(card => {
+      card.style.display = (f === 'all' || card.dataset.category === f) ? '' : 'none';
+    });
   });
-}
-
-document.getElementById('filterBar').addEventListener('click', e => {
-  if (!e.target.classList.contains('filter-btn')) return;
-  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-  e.target.classList.add('active');
-  renderAgents(e.target.dataset.filter);
 });
-
-renderAgents('all');
 </script>
 </body>
 </html>
