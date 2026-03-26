@@ -1,0 +1,11 @@
+/* TEAM */
+Company: SilkWeb Protocol
+Founded by: Armstrong Alliance Group
+Contact: information@silkweb.io
+Site: https://silkweb.io
+
+/* SITE */
+Last update: 2026-03-26
+Language: English
+Standards: HTML5, CSS3, ES2024
+Components: FastAPI, PostgreSQL, Redis, Three.js, Vanta.js

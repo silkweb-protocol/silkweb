@@ -1,3 +1,29 @@
 User-agent: *
 Allow: /
+
+# AI Crawlers - explicitly welcomed
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Amazonbot
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+User-agent: facebookexternalhit
+Allow: /
+
 Sitemap: https://silkweb.io/sitemap.xml

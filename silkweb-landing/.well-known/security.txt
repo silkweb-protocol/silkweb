@@ -1,0 +1,3 @@
+Contact: information@silkweb.io
+Preferred-Languages: en
+Canonical: https://silkweb.io/.well-known/security.txt
