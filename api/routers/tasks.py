@@ -20,7 +20,7 @@ from api.models.agent import Agent, Capability
 from api.models.task import Task
 from api.models.receipt import Receipt
 from api.schemas.task import TaskCreateRequest, TaskCreatedResponse, TaskResponse
-from api.services.email import send_receipt_email
+from api.services.mailer import send_receipt_email
 from api.services.tiers import compute_tier
 
 router = APIRouter(prefix="/api/v1/tasks", tags=["tasks"])

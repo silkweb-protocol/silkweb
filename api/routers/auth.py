@@ -128,15 +128,16 @@ async def signup(body: SignupRequest, db: AsyncSession = Depends(get_db)):
 
     logger.info(f"New signup: {user.email}")
 
-    # Notify admin of new signup
+    # Send welcome email + notify admin
     try:
-        from api.services.email import send_admin_notification
+        from api.services.mailer import send_welcome_email, send_admin_notification
+        await send_welcome_email(to_email=user.email, user_name=user.name)
         await send_admin_notification(
-            subject=f"New SilkWeb Signup: {user.name or user.email}",
-            body=f"New user registered on SilkWeb:\n\nName: {user.name}\nEmail: {user.email}\nProvider: {user.provider}\nTime: {datetime.now(timezone.utc).isoformat()}\n\nTotal users: check /api/v1/admin/users",
+            subject=f"New Signup: {user.name or 'Unknown'} ({user.email})",
+            body=f"Name: {user.name}\nEmail: {user.email}\nProvider: {user.provider}\nTime: {datetime.now(timezone.utc).isoformat()}",
         )
     except Exception as e:
-        logger.warning(f"Failed to send signup notification: {e}")
+        logger.warning(f"Failed to send signup emails: {e}")
 
     return _build_auth_response(user, access_token, refresh_token, expires_in)
 
@@ -249,15 +250,16 @@ async def google_oauth(body: OAuthRequest, db: AsyncSession = Depends(get_db)):
 
     logger.info(f"Google OAuth: {user.email}")
 
-    # Notify admin of new Google signup
+    # Send welcome email + notify admin of new Google signup
     try:
-        from api.services.email import send_admin_notification
+        from api.services.mailer import send_welcome_email, send_admin_notification
+        await send_welcome_email(to_email=user.email, user_name=user.name)
         await send_admin_notification(
-            subject=f"New Google Signup: {user.name or user.email}",
-            body=f"Google OAuth user:\n\nName: {user.name}\nEmail: {user.email}\nProvider: google\nTime: {datetime.now(timezone.utc).isoformat()}",
+            subject=f"New Signup: {user.name or 'Unknown'} ({user.email})",
+            body=f"Name: {user.name}\nEmail: {user.email}\nProvider: google\nTime: {datetime.now(timezone.utc).isoformat()}",
         )
     except Exception as e:
-        logger.warning(f"Failed to send signup notification: {e}")
+        logger.warning(f"Failed to send signup emails: {e}")
 
     return _build_auth_response(user, access_token, refresh_token, expires_in)
 

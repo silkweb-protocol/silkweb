@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SilkWeb Brain</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #000; overflow: hidden; }
+  canvas { display: block; }
+</style>
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.163.0/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.163.0/examples/jsm/"
+  }
+}
+</script>
+</head>
+<body>
+<script type="module">
+import * as THREE from 'three';
+import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
+import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
+import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
+
+// ── Config ──────────────────────────────────────────────────────────
+const CONFIG = {
+  nodeCount: 260,
+  sphereRadius: 2.8,
+  neighborsPerNode: 4,
+  nodeSize: 0.07,
+  nodeSizeRange: 0.04,
+  baseColor: new THREE.Color(0x88bbdd),
+  pulseColor: new THREE.Color(0xccddff),
+  speakColor: new THREE.Color(0xaaccee),
+  thinkColor: new THREE.Color(0x99bbdd),
+  lineOpacity: 0.25,
+  lineFlashOpacity: 0.85,
+  rotationSpeed: 0.0008,
+  pulseInterval: 80,       // ms between random pulse fires
+  pulseDuration: 600,      // ms for a pulse to fade
+  bloomStrength: 0.6,
+  bloomRadius: 0.4,
+  bloomThreshold: 0.4,
+};
+
+// ── Scene setup ─────────────────────────────────────────────────────
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(50, innerWidth / innerHeight, 0.1, 100);
+camera.position.set(0, 0, 7);
+
+const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
+renderer.setSize(innerWidth, innerHeight);
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+renderer.setClearColor(0x000000, 1);
+document.body.appendChild(renderer.domElement);
+
+// ── Post-processing ─────────────────────────────────────────────────
+const composer = new EffectComposer(renderer);
+composer.addPass(new RenderPass(scene, camera));
+
+const bloom = new UnrealBloomPass(
+  new THREE.Vector2(innerWidth, innerHeight),
+  CONFIG.bloomStrength,
+  CONFIG.bloomRadius,
+  CONFIG.bloomThreshold
+);
+composer.addPass(bloom);
+
+// ── Fibonacci sphere distribution ───────────────────────────────────
+function fibonacciSphere(n, radius) {
+  const points = [];
+  const phi = Math.PI * (Math.sqrt(5) - 1);
+  for (let i = 0; i < n; i++) {
+    const y = 1 - (i / (n - 1)) * 2;
+    const r = Math.sqrt(1 - y * y);
+    const theta = phi * i;
+    points.push(new THREE.Vector3(
+      Math.cos(theta) * r * radius,
+      y * radius,
+      Math.sin(theta) * r * radius
+    ));
+  }
+  return points;
+}
+
+// ── Build nodes ─────────────────────────────────────────────────────
+const nodePositions = fibonacciSphere(CONFIG.nodeCount, CONFIG.sphereRadius);
+
+// Circular gradient texture for glowing dots
+function makeNodeTexture() {
+  const size = 64;
+  const canvas = document.createElement('canvas');
+  canvas.width = canvas.height = size;
+  const ctx = canvas.getContext('2d');
+  const grad = ctx.createRadialGradient(size / 2, size / 2, 0, size / 2, size / 2, size / 2);
+  grad.addColorStop(0, 'rgba(255,255,255,1)');
+  grad.addColorStop(0.25, 'rgba(200,220,240,0.8)');
+  grad.addColorStop(0.6, 'rgba(136,187,221,0.3)');
+  grad.addColorStop(1, 'rgba(136,187,221,0)');
+  ctx.fillStyle = grad;
+  ctx.fillRect(0, 0, size, size);
+  return new THREE.CanvasTexture(canvas);
+}
+
+const nodeGeometry = new THREE.BufferGeometry();
+const positions = new Float32Array(CONFIG.nodeCount * 3);
+const sizes = new Float32Array(CONFIG.nodeCount);
+const nodeColors = new Float32Array(CONFIG.nodeCount * 3);
+
+for (let i = 0; i < CONFIG.nodeCount; i++) {
+  positions[i * 3] = nodePositions[i].x;
+  positions[i * 3 + 1] = nodePositions[i].y;
+  positions[i * 3 + 2] = nodePositions[i].z;
+  sizes[i] = CONFIG.nodeSize + Math.random() * CONFIG.nodeSizeRange;
+  nodeColors[i * 3] = CONFIG.baseColor.r;
+  nodeColors[i * 3 + 1] = CONFIG.baseColor.g;
+  nodeColors[i * 3 + 2] = CONFIG.baseColor.b;
+}
+
+nodeGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+nodeGeometry.setAttribute('size', new THREE.BufferAttribute(sizes, 1));
+nodeGeometry.setAttribute('color', new THREE.BufferAttribute(nodeColors, 3));
+
+const nodeMaterial = new THREE.ShaderMaterial({
+  uniforms: {
+    pointTexture: { value: makeNodeTexture() },
+    globalScale: { value: 1.0 },
+  },
+  vertexShader: `
+    attribute float size;
+    attribute vec3 color;
+    varying vec3 vColor;
+    uniform float globalScale;
+    void main() {
+      vColor = color;
+      vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
+      gl_PointSize = size * globalScale * (300.0 / -mvPosition.z);
+      gl_Position = projectionMatrix * mvPosition;
+    }
+  `,
+  fragmentShader: `
+    uniform sampler2D pointTexture;
+    varying vec3 vColor;
+    void main() {
+      vec4 tex = texture2D(pointTexture, gl_PointCoord);
+      if (tex.a < 0.02) discard;
+      gl_FragColor = vec4(vColor * tex.rgb, tex.a);
+    }
+  `,
+  transparent: true,
+  depthWrite: false,
+  blending: THREE.AdditiveBlending,
+});
+
+const nodePoints = new THREE.Points(nodeGeometry, nodeMaterial);
+
+// ── Build connections ───────────────────────────────────────────────
+// For each node find nearest neighbors
+function buildConnections(positions, k) {
+  const edges = new Set();
+  const n = positions.length;
+  for (let i = 0; i < n; i++) {
+    const dists = [];
+    for (let j = 0; j < n; j++) {
+      if (i === j) continue;
+      dists.push({ idx: j, dist: positions[i].distanceTo(positions[j]) });
+    }
+    dists.sort((a, b) => a.dist - b.dist);
+    for (let c = 0; c < k; c++) {
+      const j = dists[c].idx;
+      const key = i < j ? `${i}-${j}` : `${j}-${i}`;
+      edges.add(key);
+    }
+  }
+  return [...edges].map(e => {
+    const [a, b] = e.split('-').map(Number);
+    return [a, b];
+  });
+}
+
+const edges = buildConnections(nodePositions, CONFIG.neighborsPerNode);
+
+const linePositions = new Float32Array(edges.length * 6);
+const lineOpacities = new Float32Array(edges.length * 2);
+const lineColors = new Float32Array(edges.length * 6);
+
+for (let i = 0; i < edges.length; i++) {
+  const [a, b] = edges[i];
+  linePositions[i * 6] = nodePositions[a].x;
+  linePositions[i * 6 + 1] = nodePositions[a].y;
+  linePositions[i * 6 + 2] = nodePositions[a].z;
+  linePositions[i * 6 + 3] = nodePositions[b].x;
+  linePositions[i * 6 + 4] = nodePositions[b].y;
+  linePositions[i * 6 + 5] = nodePositions[b].z;
+  lineOpacities[i * 2] = CONFIG.lineOpacity;
+  lineOpacities[i * 2 + 1] = CONFIG.lineOpacity;
+  lineColors[i * 6] = CONFIG.baseColor.r;
+  lineColors[i * 6 + 1] = CONFIG.baseColor.g;
+  lineColors[i * 6 + 2] = CONFIG.baseColor.b;
+  lineColors[i * 6 + 3] = CONFIG.baseColor.r;
+  lineColors[i * 6 + 4] = CONFIG.baseColor.g;
+  lineColors[i * 6 + 5] = CONFIG.baseColor.b;
+}
+
+const lineGeometry = new THREE.BufferGeometry();
+lineGeometry.setAttribute('position', new THREE.BufferAttribute(linePositions, 3));
+lineGeometry.setAttribute('opacity', new THREE.BufferAttribute(lineOpacities, 1));
+lineGeometry.setAttribute('color', new THREE.BufferAttribute(lineColors, 3));
+
+const lineMaterial = new THREE.ShaderMaterial({
+  vertexShader: `
+    attribute float opacity;
+    attribute vec3 color;
+    varying float vOpacity;
+    varying vec3 vColor;
+    void main() {
+      vOpacity = opacity;
+      vColor = color;
+      gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+    }
+  `,
+  fragmentShader: `
+    varying float vOpacity;
+    varying vec3 vColor;
+    void main() {
+      gl_FragColor = vec4(vColor, vOpacity);
+    }
+  `,
+  transparent: true,
+  depthWrite: false,
+  blending: THREE.AdditiveBlending,
+});
+
+const lineSegments = new THREE.LineSegments(lineGeometry, lineMaterial);
+
+// ── Group for rotation ──────────────────────────────────────────────
+const brainGroup = new THREE.Group();
+brainGroup.add(nodePoints);
+brainGroup.add(lineSegments);
+scene.add(brainGroup);
+
+// ── Ambient glow sphere (faint inner glow) ──────────────────────────
+const glowGeo = new THREE.SphereGeometry(CONFIG.sphereRadius * 0.92, 32, 32);
+const glowMat = new THREE.ShaderMaterial({
+  uniforms: {
+    glowColor: { value: CONFIG.baseColor.clone() },
+  },
+  vertexShader: `
+    varying vec3 vNormal;
+    varying vec3 vPosition;
+    void main() {
+      vNormal = normalize(normalMatrix * normal);
+      vPosition = (modelViewMatrix * vec4(position, 1.0)).xyz;
+      gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+    }
+  `,
+  fragmentShader: `
+    uniform vec3 glowColor;
+    varying vec3 vNormal;
+    varying vec3 vPosition;
+    void main() {
+      vec3 viewDir = normalize(-vPosition);
+      float rim = 1.0 - max(dot(viewDir, vNormal), 0.0);
+      float intensity = pow(rim, 3.0) * 0.15;
+      gl_FragColor = vec4(glowColor, intensity);
+    }
+  `,
+  transparent: true,
+  depthWrite: false,
+  side: THREE.BackSide,
+  blending: THREE.AdditiveBlending,
+});
+const glowMesh = new THREE.Mesh(glowGeo, glowMat);
+brainGroup.add(glowMesh);
+
+// ── Mouse interaction ───────────────────────────────────────────────
+const mouse = { x: 0, y: 0 };
+const targetRotation = { x: 0, y: 0 };
+
+document.addEventListener('mousemove', (e) => {
+  mouse.x = (e.clientX / innerWidth) * 2 - 1;
+  mouse.y = (e.clientY / innerHeight) * 2 - 1;
+});
+
+document.addEventListener('touchmove', (e) => {
+  if (e.touches.length > 0) {
+    mouse.x = (e.touches[0].clientX / innerWidth) * 2 - 1;
+    mouse.y = (e.touches[0].clientY / innerHeight) * 2 - 1;
+  }
+}, { passive: true });
+
+// ── Neural pulse system ─────────────────────────────────────────────
+const activePulses = [];
+
+function fireRandomPulse() {
+  const edgeIdx = Math.floor(Math.random() * edges.length);
+  activePulses.push({
+    edgeIdx,
+    startTime: performance.now(),
+    duration: CONFIG.pulseDuration + Math.random() * 300,
+  });
+}
+
+function updatePulses(now) {
+  const opAttr = lineGeometry.getAttribute('opacity');
+  // Reset all to base
+  for (let i = 0; i < opAttr.count; i++) {
+    opAttr.array[i] = CONFIG.lineOpacity;
+  }
+
+  for (let p = activePulses.length - 1; p >= 0; p--) {
+    const pulse = activePulses[p];
+    const elapsed = now - pulse.startTime;
+    if (elapsed > pulse.duration) {
+      activePulses.splice(p, 1);
+      continue;
+    }
+    const t = elapsed / pulse.duration;
+    // Quick rise, slow decay
+    const intensity = t < 0.15
+      ? t / 0.15
+      : 1 - ((t - 0.15) / 0.85);
+    const op = CONFIG.lineOpacity + (CONFIG.lineFlashOpacity - CONFIG.lineOpacity) * intensity;
+    const idx = pulse.edgeIdx;
+    opAttr.array[idx * 2] = Math.max(opAttr.array[idx * 2], op);
+    opAttr.array[idx * 2 + 1] = Math.max(opAttr.array[idx * 2 + 1], op);
+
+    // Also brighten the endpoint nodes
+    const [a, b] = edges[idx];
+    const colAttr = nodeGeometry.getAttribute('color');
+    const brightFactor = 0.3 * intensity;
+    for (const ni of [a, b]) {
+      colAttr.array[ni * 3] = Math.min(1, colAttr.array[ni * 3] + brightFactor);
+      colAttr.array[ni * 3 + 1] = Math.min(1, colAttr.array[ni * 3 + 1] + brightFactor);
+      colAttr.array[ni * 3 + 2] = Math.min(1, colAttr.array[ni * 3 + 2] + brightFactor);
+    }
+  }
+  opAttr.needsUpdate = true;
+}
+
+// Fire pulses at interval
+let lastPulseTime = 0;
+let currentPulseInterval = CONFIG.pulseInterval;
+
+// ── Node breathing (subtle size oscillation) ────────────────────────
+const baseSizes = new Float32Array(sizes);
+
+function updateNodeBreathing(time) {
+  const sizeAttr = nodeGeometry.getAttribute('size');
+  for (let i = 0; i < CONFIG.nodeCount; i++) {
+    const phase = i * 0.37;
+    const breath = 1 + Math.sin(time * 0.001 + phase) * 0.15;
+    sizeAttr.array[i] = baseSizes[i] * breath;
+  }
+  sizeAttr.needsUpdate = true;
+}
+
+// ── Color management ────────────────────────────────────────────────
+let currentColor = CONFIG.baseColor.clone();
+let targetColor = CONFIG.baseColor.clone();
+
+function setAllColors(color) {
+  const nc = nodeGeometry.getAttribute('color');
+  const lc = lineGeometry.getAttribute('color');
+  for (let i = 0; i < CONFIG.nodeCount; i++) {
+    nc.array[i * 3] = color.r;
+    nc.array[i * 3 + 1] = color.g;
+    nc.array[i * 3 + 2] = color.b;
+  }
+  for (let i = 0; i < edges.length * 2; i++) {
+    lc.array[i * 3] = color.r;
+    lc.array[i * 3 + 1] = color.g;
+    lc.array[i * 3 + 2] = color.b;
+  }
+  nc.needsUpdate = true;
+  lc.needsUpdate = true;
+  glowMat.uniforms.glowColor.value.copy(color);
+}
+
+// ── Animation loop ──────────────────────────────────────────────────
+function animate(time) {
+  requestAnimationFrame(animate);
+
+  // Smooth rotation
+  brainGroup.rotation.y += CONFIG.rotationSpeed;
+
+  // Mouse tilt
+  targetRotation.x = mouse.y * 0.3;
+  targetRotation.y = mouse.x * 0.3;
+  brainGroup.rotation.x += (targetRotation.x - brainGroup.rotation.x) * 0.02;
+  // Add mouse Y influence on top of continuous rotation
+  const baseY = brainGroup.rotation.y;
+  brainGroup.rotation.y = baseY; // continuous spin is already added above
+
+  // Smooth color transitions
+  currentColor.lerp(targetColor, 0.03);
+  setAllColors(currentColor);
+
+  // Fire pulses
+  if (time - lastPulseTime > currentPulseInterval) {
+    fireRandomPulse();
+    lastPulseTime = time;
+  }
+
+  updatePulses(time);
+  updateNodeBreathing(time);
+
+  composer.render();
+}
+
+requestAnimationFrame(animate);
+
+// ── Resize handling ─────────────────────────────────────────────────
+window.addEventListener('resize', () => {
+  camera.aspect = innerWidth / innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(innerWidth, innerHeight);
+  composer.setSize(innerWidth, innerHeight);
+});
+
+// ── Public API ──────────────────────────────────────────────────────
+window.triggerPulse = function () {
+  // Burst of 15 simultaneous pulses
+  for (let i = 0; i < 15; i++) {
+    setTimeout(() => fireRandomPulse(), i * 30);
+  }
+  // Brief color flash
+  const prev = targetColor.clone();
+  targetColor.copy(CONFIG.pulseColor);
+  setTimeout(() => { targetColor.copy(prev); }, 600);
+};
+
+window.setBrainState = function (state) {
+  switch (state) {
+    case 'speaking':
+      targetColor.copy(CONFIG.speakColor);
+      currentPulseInterval = 50;
+      CONFIG.rotationSpeed = 0.0012;
+      break;
+    case 'thinking':
+      targetColor.copy(CONFIG.thinkColor);
+      currentPulseInterval = 30;
+      CONFIG.rotationSpeed = 0.002;
+      break;
+    default: // idle
+      targetColor.copy(CONFIG.baseColor);
+      currentPulseInterval = CONFIG.pulseInterval;
+      CONFIG.rotationSpeed = 0.0008;
+  }
+};
+
+window.setBrainColor = function (hex) {
+  const num = parseInt(hex.replace('#', ''), 16);
+  targetColor.set(num);
+};
+
+window.getBrainGroup = function () {
+  return brainGroup;
+};
+</script>
+</body>
+</html>

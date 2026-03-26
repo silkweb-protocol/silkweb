@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SilkWeb — The Connection</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --ink: #000000;
+  --indigo: #4F46E5;
+  --violet: #7C3AED;
+  --slate: #94A3B8;
+  --glass-border: rgba(255,255,255,0.06);
+  --glass-bg: rgba(255,255,255,0.025);
+}
+
+body {
+  background: var(--ink);
+  color: #fff;
+  font-family: 'DM Sans', sans-serif;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+.connection-section {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* Atmospheric gradient wash */
+.connection-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 45%, rgba(79,70,229,0.12) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 50% at 20% 50%, rgba(124,58,237,0.06) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 50% at 80% 50%, rgba(124,58,237,0.06) 0%, transparent 60%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Grain texture overlay */
+.connection-section::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  opacity: 0.4;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.connection-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 60px 24px 20px;
+}
+
+.connection-label {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--indigo);
+  margin-bottom: 20px;
+  opacity: 0;
+  transform: translateY(16px);
+  animation: fadeUp 1s 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.connection-headline {
+  font-family: 'Instrument Serif', serif;
+  font-size: clamp(36px, 5.5vw, 64px);
+  font-weight: 400;
+  line-height: 1.1;
+  color: #fff;
+  margin-bottom: 16px;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeUp 1s 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.connection-headline em {
+  font-style: italic;
+  background: linear-gradient(135deg, #818CF8, #A78BFA);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.connection-subtitle {
+  font-size: clamp(15px, 1.8vw, 18px);
+  font-weight: 300;
+  color: var(--slate);
+  max-width: 560px;
+  margin: 0 auto;
+  line-height: 1.7;
+  opacity: 0;
+  transform: translateY(16px);
+  animation: fadeUp 1s 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Canvas container */
+.network-canvas-wrap {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 1400px;
+  height: 620px;
+  margin: -20px auto 0;
+  opacity: 0;
+  animation: fadeIn 1.5s 0.8s ease forwards;
+}
+
+.network-canvas-wrap canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* Stats bar */
+.connection-stats {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  gap: 24px;
+  justify-content: center;
+  padding: 20px 24px 60px;
+  opacity: 0;
+  transform: translateY(16px);
+  animation: fadeUp 1s 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.stat-card {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  padding: 16px 32px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  text-align: center;
+  transition: border-color 0.4s, box-shadow 0.4s;
+}
+
+.stat-card:hover {
+  border-color: rgba(79,70,229,0.2);
+  box-shadow: 0 0 40px rgba(79,70,229,0.08);
+}
+
+.stat-card .num {
+  font-family: 'Instrument Serif', serif;
+  font-size: 28px;
+  color: #fff;
+  display: block;
+}
+
+.stat-card .label {
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  color: var(--slate);
+  margin-top: 4px;
+}
+
+@keyframes fadeUp {
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  to { opacity: 1; }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .network-canvas-wrap { height: 320px; }
+  .connection-stats { flex-direction: column; align-items: center; gap: 12px; }
+  .stat-card { width: 220px; }
+}
+@media (max-width: 480px) {
+  .network-canvas-wrap { height: 260px; }
+}
+</style>
+</head>
+<body>
+
+<section class="connection-section">
+  <div class="connection-content">
+    <div class="connection-label">The Connection</div>
+    <h2 class="connection-headline">The web that connects <em>everything.</em></h2>
+    <p class="connection-subtitle">Without SilkWeb, your business is invisible to AI.<br>With SilkWeb, every AI platform can find you.</p>
+  </div>
+
+  <div class="network-canvas-wrap">
+    <canvas id="networkCanvas"></canvas>
+  </div>
+
+  <div class="connection-stats">
+    <div class="stat-card"><span class="num">6</span><span class="label">AI Platforms Connected</span></div>
+    <div class="stat-card"><span class="num">20</span><span class="label">Industries Covered</span></div>
+  </div>
+</section>
+
+<script>
+(() => {
+  const canvas = document.getElementById('networkCanvas');
+  const ctx = canvas.getContext('2d');
+  let W, H, dpr, cx, cy;
+  let mouse = { x: -9999, y: -9999 };
+  let time = 0;
+
+  const SPOKES = 12;
+  const RINGS = 9;
+
+  // Labels around the web — businesses on left half, AI on right half
+  const labels = [
+    { text: 'Law Firm', side: 'business' },
+    { text: 'Restaurant', side: 'business' },
+    { text: 'Hospital', side: 'business' },
+    { text: 'Real Estate', side: 'business' },
+    { text: 'E-Commerce', side: 'business' },
+    { text: 'Manufacturer', side: 'business' },
+    { text: 'ChatGPT', side: 'ai' },
+    { text: 'Claude', side: 'ai' },
+    { text: 'Gemini', side: 'ai' },
+    { text: 'Perplexity', side: 'ai' },
+    { text: 'OpenClaw', side: 'ai' },
+    { text: 'Copilot', side: 'ai' },
+  ];
+
+  // Particles
+  const particles = [];
+  for (let i = 0; i < 80; i++) {
+    particles.push({
+      spoke: Math.floor(Math.random() * SPOKES),
+      t: Math.random(),
+      speed: 0.003 + Math.random() * 0.005,
+      size: 1 + Math.random() * 2,
+      alpha: 0.3 + Math.random() * 0.5,
+      dir: Math.random() > 0.5 ? 1 : -1,
+    });
+  }
+
+  // Dust
+  const dust = [];
+  for (let i = 0; i < 50; i++) {
+    dust.push({
+      x: Math.random(), y: Math.random(),
+      vx: (Math.random() - 0.5) * 0.08,
+      vy: (Math.random() - 0.5) * 0.06,
+      size: 0.4 + Math.random() * 1.2,
+      alpha: 0.05 + Math.random() * 0.15,
+      phase: Math.random() * Math.PI * 2,
+    });
+  }
+
+  function resize() {
+    const rect = canvas.parentElement.getBoundingClientRect();
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    W = rect.width; H = rect.height;
+    canvas.width = W * dpr; canvas.height = H * dpr;
+    canvas.style.width = W + 'px'; canvas.style.height = H + 'px';
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    cx = W / 2; cy = H / 2;
+  }
+  window.addEventListener('resize', resize);
+  resize();
+
+  canvas.parentElement.addEventListener('mousemove', e => {
+    const r = canvas.parentElement.getBoundingClientRect();
+    mouse.x = e.clientX - r.left; mouse.y = e.clientY - r.top;
+  });
+  canvas.parentElement.addEventListener('mouseleave', () => { mouse.x = -9999; mouse.y = -9999; });
+
+  function glow(x, y, r, color, a) {
+    const g = ctx.createRadialGradient(x, y, 0, x, y, r);
+    g.addColorStop(0, `rgba(${color},${a})`);
+    g.addColorStop(0.5, `rgba(${color},${a * 0.2})`);
+    g.addColorStop(1, `rgba(${color},0)`);
+    ctx.fillStyle = g; ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2); ctx.fill();
+  }
+
+  function spokeAngle(i) {
+    return (i / SPOKES) * Math.PI * 2 - Math.PI / 2;
+  }
+
+  function webPoint(spoke, ring, t) {
+    const angle = spokeAngle(spoke);
+    const maxR = Math.min(W, H) * 0.44;
+    const r = (ring / RINGS) * maxR;
+    // Add organic wobble
+    const wobble = Math.sin(time * 0.8 + spoke * 1.3 + ring * 0.7) * (maxR * 0.008);
+    // Mouse displacement
+    const px = cx + (r + wobble) * Math.cos(angle);
+    const py = cy + (r + wobble) * Math.sin(angle);
+    const md = Math.hypot(mouse.x - px, mouse.y - py);
+    const push = Math.max(0, 1 - md / 100) * 12;
+    const pushAngle = Math.atan2(py - mouse.y, px - mouse.x);
+    return {
+      x: px + push * Math.cos(pushAngle),
+      y: py + push * Math.sin(pushAngle),
+    };
+  }
+
+  function draw() {
+    time += 0.016;
+    ctx.clearRect(0, 0, W, H);
+
+    const maxR = Math.min(W, H) * 0.44;
+    const pulse = 0.9 + Math.sin(time * 1.2) * 0.1;
+
+    // Center glow
+    glow(cx, cy, maxR * 1.0 * pulse, '79,70,229', 0.05);
+    glow(cx, cy, maxR * 0.5 * pulse, '79,70,229', 0.1);
+    glow(cx, cy, maxR * 0.2, '129,140,248', 0.2);
+    glow(cx, cy, 45, '180,185,255', 0.35);
+
+    // Draw spiral/ring threads (the capture spiral of the web)
+    for (let ring = 1; ring <= RINGS; ring++) {
+      const alpha = 0.12 + (ring / RINGS) * 0.3;
+      ctx.beginPath();
+      for (let spoke = 0; spoke <= SPOKES; spoke++) {
+        const s = spoke % SPOKES;
+        const pt = webPoint(s, ring, time);
+        if (spoke === 0) ctx.moveTo(pt.x, pt.y);
+        else ctx.lineTo(pt.x, pt.y);
+      }
+      ctx.closePath();
+      ctx.strokeStyle = `rgba(160, 170, 255, ${alpha * 1.8})`;
+      ctx.lineWidth = 1.0;
+      ctx.stroke();
+    }
+
+    // Draw radial spokes
+    for (let spoke = 0; spoke < SPOKES; spoke++) {
+      ctx.beginPath();
+      ctx.moveTo(cx, cy);
+      for (let ring = 1; ring <= RINGS; ring++) {
+        const pt = webPoint(spoke, ring, time);
+        ctx.lineTo(pt.x, pt.y);
+      }
+      // Extend spoke beyond web to label position
+      const angle = spokeAngle(spoke);
+      const extR = maxR * 1.35;
+      ctx.lineTo(cx + extR * Math.cos(angle), cy + extR * Math.sin(angle));
+
+      const alpha = 0.2 + Math.sin(time + spoke) * 0.06;
+      ctx.strokeStyle = `rgba(170, 180, 210, ${alpha})`;
+      ctx.lineWidth = 0.8;
+      ctx.stroke();
+    }
+
+    // Draw intersection nodes (glowing dots where spokes meet rings)
+    for (let ring = 1; ring <= RINGS; ring++) {
+      for (let spoke = 0; spoke < SPOKES; spoke++) {
+        const pt = webPoint(spoke, ring, time);
+        const nodeAlpha = 0.25 + (ring / RINGS) * 0.5;
+        const md = Math.hypot(mouse.x - pt.x, mouse.y - pt.y);
+        const hover = Math.max(0, 1 - md / 80);
+        const r = 2.5 + hover * 4 + (ring === RINGS ? 2 : 0);
+        glow(pt.x, pt.y, r * 5, '129,140,248', (nodeAlpha + hover * 0.3) * 0.5);
+        ctx.fillStyle = `rgba(160, 170, 255, ${nodeAlpha + hover * 0.3})`;
+        ctx.beginPath();
+        ctx.arc(pt.x, pt.y, r, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    // Center orb
+    const og = ctx.createRadialGradient(cx, cy, 0, cx, cy, 28);
+    og.addColorStop(0, 'rgba(220, 225, 255, 0.95)');
+    og.addColorStop(0.3, 'rgba(129, 140, 248, 0.8)');
+    og.addColorStop(0.7, 'rgba(79, 70, 229, 0.3)');
+    og.addColorStop(1, 'rgba(79, 70, 229, 0)');
+    ctx.fillStyle = og; ctx.beginPath(); ctx.arc(cx, cy, 28, 0, Math.PI * 2); ctx.fill();
+
+    // Center label
+    ctx.font = '600 13px "DM Sans", sans-serif';
+    ctx.fillStyle = 'rgba(255,255,255,0.95)';
+    ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    ctx.fillText('SilkWeb', cx, cy);
+
+    // Outer labels at spoke endpoints
+    labels.forEach((label, i) => {
+      const angle = spokeAngle(i);
+      const labelR = maxR * 1.45;
+      const lx = cx + labelR * Math.cos(angle);
+      const ly = cy + labelR * Math.sin(angle);
+
+      // Endpoint dot
+      const edgeR = maxR * 1.35;
+      const ex = cx + edgeR * Math.cos(angle);
+      const ey = cy + edgeR * Math.sin(angle);
+
+      const md = Math.hypot(mouse.x - lx, mouse.y - ly);
+      const hover = Math.max(0, 1 - md / 80);
+
+      // Glow at edge
+      const glowColor = label.side === 'ai' ? '124,58,237' : '148,163,184';
+      glow(ex, ey, 12 + hover * 10, glowColor, 0.2 + hover * 0.2);
+
+      // Dot
+      const dotColor = label.side === 'ai' ? 'rgba(129,140,248,0.9)' : 'rgba(180,190,210,0.8)';
+      ctx.fillStyle = dotColor;
+      ctx.beginPath(); ctx.arc(ex, ey, 3 + hover * 2, 0, Math.PI * 2); ctx.fill();
+
+      // Text
+      const isLeft = Math.cos(angle) < -0.1;
+      const isRight = Math.cos(angle) > 0.1;
+      ctx.textAlign = isLeft ? 'right' : isRight ? 'left' : 'center';
+      ctx.font = `${400 + hover * 100} ${13 + hover * 2}px "DM Sans", sans-serif`;
+      ctx.fillStyle = `rgba(255,255,255,${0.65 + hover * 0.35})`;
+      ctx.fillText(label.text, lx, ly);
+    });
+
+    // Flowing particles along spokes
+    particles.forEach(p => {
+      p.t += p.speed * p.dir;
+      if (p.t > 1.35) { p.t = 0; }
+      if (p.t < 0) { p.t = 1.35; }
+
+      const angle = spokeAngle(p.spoke);
+      const r = p.t * maxR;
+      const wobble = Math.sin(time * 0.8 + p.spoke * 1.3 + p.t * 5) * 2;
+      const px = cx + r * Math.cos(angle) + wobble * Math.sin(angle);
+      const py = cy + r * Math.sin(angle) - wobble * Math.cos(angle);
+
+      const pAlpha = p.alpha * (0.4 + Math.sin(time * 3 + p.t * 8) * 0.4);
+      const pg = ctx.createRadialGradient(px, py, 0, px, py, p.size * 3);
+      pg.addColorStop(0, `rgba(129,140,248,${pAlpha})`);
+      pg.addColorStop(1, 'rgba(79,70,229,0)');
+      ctx.fillStyle = pg; ctx.beginPath(); ctx.arc(px, py, p.size * 3, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = `rgba(220,225,255,${pAlpha * 1.5})`;
+      ctx.beginPath(); ctx.arc(px, py, p.size * 0.5, 0, Math.PI * 2); ctx.fill();
+    });
+
+    // Ambient dust
+    dust.forEach(d => {
+      d.x += d.vx / W; d.y += d.vy / H;
+      if (d.x < -0.05) d.x = 1.05; if (d.x > 1.05) d.x = -0.05;
+      if (d.y < -0.05) d.y = 1.05; if (d.y > 1.05) d.y = -0.05;
+      const tw = 0.5 + Math.sin(time * 2 + d.phase) * 0.5;
+      ctx.fillStyle = `rgba(148,163,184,${d.alpha * tw})`;
+      ctx.beginPath(); ctx.arc(d.x * W, d.y * H, d.size, 0, Math.PI * 2); ctx.fill();
+    });
+
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+</script>
+
+</body>
+</html>

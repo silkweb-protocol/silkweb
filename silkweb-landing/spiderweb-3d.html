@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SilkWeb 3D Spider Web</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 100%; height: 100%; overflow: hidden; background: transparent; }
+  canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+  }
+</style>
+</head>
+<body>
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.163.0/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.163.0/examples/jsm/"
+  }
+}
+</script>
+<script type="module">
+import * as THREE from 'three';
+import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
+import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
+import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
+
+// ─── Configuration ───────────────────────────────────────────────
+const CONFIG = {
+  spokes: 10,
+  spiralRings: 22,
+  webRadius: 5.2,
+  spiralStartRadius: 0.6,
+  sagAmount: 0.12,
+  threadColor: new THREE.Color(0x94A3B8),
+  nodeColor: new THREE.Color(0x4F46E5),
+  centerGlow: new THREE.Color(0x6366F1),
+  particleColor: new THREE.Color(0xCBD5E1),
+  mouseInfluence: 1.8,
+  mouseRadius: 3.0,
+  ambientWind: 0.003,
+  windSpeed: 0.4,
+  autoRotateSpeed: 0.00012,
+  cameraAngle: 15 * (Math.PI / 180),
+  bloomStrength: 0.35,
+  bloomRadius: 0.6,
+  bloomThreshold: 0.2,
+  particleCount: 120,
+};
+
+// ─── State ───────────────────────────────────────────────────────
+let opacity = 1.0;
+let paused = false;
+const mouse = new THREE.Vector2(9999, 9999);
+const mouseWorld = new THREE.Vector3(9999, 9999, 0);
+let scrollY = 0;
+let isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+// ─── Scene Setup ─────────────────────────────────────────────────
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 100);
+camera.position.set(0, 1.2, 9);
+camera.lookAt(0, 0, 0);
+
+const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.setClearColor(0x000000, 0);
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.1;
+document.body.appendChild(renderer.domElement);
+
+// ─── Post Processing ─────────────────────────────────────────────
+const composer = new EffectComposer(renderer);
+composer.addPass(new RenderPass(scene, camera));
+const bloomPass = new UnrealBloomPass(
+  new THREE.Vector2(window.innerWidth, window.innerHeight),
+  CONFIG.bloomStrength, CONFIG.bloomRadius, CONFIG.bloomThreshold
+);
+composer.addPass(bloomPass);
+
+// ─── Lighting ────────────────────────────────────────────────────
+const ambientLight = new THREE.AmbientLight(0xffffff, 0.4);
+scene.add(ambientLight);
+
+const dirLight = new THREE.DirectionalLight(0xf0f4ff, 0.8);
+dirLight.position.set(-5, 8, 5);
+scene.add(dirLight);
+
+const rimLight = new THREE.DirectionalLight(0xe0e7ff, 0.3);
+rimLight.position.set(5, -3, 8);
+scene.add(rimLight);
+
+// ─── Web Geometry Builder ────────────────────────────────────────
+const webGroup = new THREE.Group();
+webGroup.rotation.x = CONFIG.cameraAngle;
+scene.add(webGroup);
+
+// Store all web vertices for deformation
+const webNodes = [];     // { pos: Vector3, restPos: Vector3, velocity: Vector3 }
+const threadSegments = []; // arrays of node indices for each thread
+
+// Thread material
+const threadMat = new THREE.LineBasicMaterial({
+  color: CONFIG.threadColor,
+  transparent: true,
+  opacity: 0.55,
+  linewidth: 1,
+});
+
+// Glow node material
+const nodeMat = new THREE.PointsMaterial({
+  color: CONFIG.nodeColor,
+  size: 0.06,
+  transparent: true,
+  opacity: 0.9,
+  sizeAttenuation: true,
+  blending: THREE.AdditiveBlending,
+});
+
+// Helper: create a web node
+function addNode(x, y, z) {
+  const pos = new THREE.Vector3(x, y, z);
+  const idx = webNodes.length;
+  webNodes.push({
+    pos: pos.clone(),
+    restPos: pos.clone(),
+    velocity: new THREE.Vector3(),
+  });
+  return idx;
+}
+
+// Helper: catenary sag for a point between two anchors
+function applySag(p, anchorA, anchorB, amount) {
+  const mid = new THREE.Vector3().lerpVectors(anchorA, anchorB, 0.5);
+  const dist = anchorA.distanceTo(anchorB);
+  const t = p.clone().sub(anchorA).length() / dist;
+  const sagFactor = 4 * t * (1 - t); // parabolic, max at midpoint
+  p.y -= sagFactor * amount * dist;
+}
+
+// ─── Build Orb Web ──────────────────────────────────────────────
+const centerIdx = addNode(0, 0, 0);
+
+// Spoke endpoints and intermediate points
+const spokeAngles = [];
+const spokeEndIndices = [];
+const spokeNodesByRing = []; // [ringIndex][spokeIndex] = nodeIndex
+
+for (let i = 0; i < CONFIG.spokes; i++) {
+  // Slight angular irregularity for organic feel
+  const baseAngle = (i / CONFIG.spokes) * Math.PI * 2;
+  const jitter = (Math.random() - 0.5) * 0.15;
+  spokeAngles.push(baseAngle + jitter);
+}
+
+// Create spiral rings and spoke nodes
+for (let r = 0; r < CONFIG.spiralRings; r++) {
+  spokeNodesByRing[r] = [];
+  const ringProgress = (r + 1) / CONFIG.spiralRings;
+  const radius = CONFIG.spiralStartRadius + (CONFIG.webRadius - CONFIG.spiralStartRadius) * ringProgress;
+  // Slight radius irregularity per ring
+  const ringJitter = 1 + (Math.random() - 0.5) * 0.08;
+
+  for (let s = 0; s < CONFIG.spokes; s++) {
+    const angle = spokeAngles[s];
+    const rr = radius * ringJitter * (1 + (Math.random() - 0.5) * 0.05);
+    const x = Math.cos(angle) * rr;
+    const y = Math.sin(angle) * rr;
+    // Slight z variation for 3D depth
+    const z = (Math.random() - 0.5) * 0.15;
+    const idx = addNode(x, y, z);
+    spokeNodesByRing[r][s] = idx;
+
+    if (r === CONFIG.spiralRings - 1) {
+      spokeEndIndices.push(idx);
+    }
+  }
+}
+
+// ─── Build Spoke Threads (radial lines from center to rim) ──────
+for (let s = 0; s < CONFIG.spokes; s++) {
+  const spokeThread = [centerIdx];
+  for (let r = 0; r < CONFIG.spiralRings; r++) {
+    spokeThread.push(spokeNodesByRing[r][s]);
+  }
+  threadSegments.push(spokeThread);
+}
+
+// ─── Build Spiral Capture Threads ────────────────────────────────
+for (let r = 1; r < CONFIG.spiralRings; r++) {
+  const spiralThread = [];
+  // Skip some inner rings for realistic look (frame zone)
+  if (r < 3 && Math.random() > 0.5) continue;
+
+  for (let s = 0; s <= CONFIG.spokes; s++) {
+    const si = s % CONFIG.spokes;
+    spiralThread.push(spokeNodesByRing[r][si]);
+  }
+  threadSegments.push(spiralThread);
+}
+
+// ─── Apply Sag to All Nodes ─────────────────────────────────────
+// For spiral threads, sag between consecutive spoke intersections
+for (const seg of threadSegments) {
+  if (seg.length < 3) continue;
+  for (let i = 1; i < seg.length - 1; i++) {
+    const node = webNodes[seg[i]];
+    const prev = webNodes[seg[i - 1]];
+    const next = webNodes[seg[i + 1]];
+    // Subtle sag
+    applySag(node.restPos, prev.restPos, next.restPos, CONFIG.sagAmount * 0.3);
+    node.pos.copy(node.restPos);
+  }
+}
+
+// ─── Create Three.js Lines ──────────────────────────────────────
+const threadLines = [];
+for (const seg of threadSegments) {
+  const positions = new Float32Array(seg.length * 3);
+  for (let i = 0; i < seg.length; i++) {
+    const p = webNodes[seg[i]].pos;
+    positions[i * 3] = p.x;
+    positions[i * 3 + 1] = p.y;
+    positions[i * 3 + 2] = p.z;
+  }
+  const geom = new THREE.BufferGeometry();
+  geom.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+  const line = new THREE.Line(geom, threadMat.clone());
+  webGroup.add(line);
+  threadLines.push({ line, segIndices: seg });
+}
+
+// ─── Create Node Points (intersection glow) ─────────────────────
+const nodePositions = new Float32Array(webNodes.length * 3);
+for (let i = 0; i < webNodes.length; i++) {
+  nodePositions[i * 3] = webNodes[i].pos.x;
+  nodePositions[i * 3 + 1] = webNodes[i].pos.y;
+  nodePositions[i * 3 + 2] = webNodes[i].pos.z;
+}
+const nodeGeom = new THREE.BufferGeometry();
+nodeGeom.setAttribute('position', new THREE.BufferAttribute(nodePositions, 3));
+const nodePoints = new THREE.Points(nodeGeom, nodeMat);
+webGroup.add(nodePoints);
+
+// ─── Center Glow ─────────────────────────────────────────────────
+const centerGlowMat = new THREE.SpriteMaterial({
+  color: CONFIG.centerGlow,
+  transparent: true,
+  opacity: 0.6,
+  blending: THREE.AdditiveBlending,
+});
+const centerSprite = new THREE.Sprite(centerGlowMat);
+centerSprite.scale.set(1.0, 1.0, 1);
+webGroup.add(centerSprite);
+
+// Outer glow ring
+const centerGlowMat2 = new THREE.SpriteMaterial({
+  color: CONFIG.centerGlow,
+  transparent: true,
+  opacity: 0.2,
+  blending: THREE.AdditiveBlending,
+});
+const centerSprite2 = new THREE.Sprite(centerGlowMat2);
+centerSprite2.scale.set(2.2, 2.2, 1);
+webGroup.add(centerSprite2);
+
+// ─── Floating Particles ─────────────────────────────────────────
+const particleCount = CONFIG.particleCount;
+const particlePos = new Float32Array(particleCount * 3);
+const particleSizes = new Float32Array(particleCount);
+const particleData = [];
+
+for (let i = 0; i < particleCount; i++) {
+  const angle = Math.random() * Math.PI * 2;
+  const r = 1.5 + Math.random() * 5;
+  const x = Math.cos(angle) * r;
+  const y = Math.sin(angle) * r;
+  const z = (Math.random() - 0.5) * 3;
+  particlePos[i * 3] = x;
+  particlePos[i * 3 + 1] = y;
+  particlePos[i * 3 + 2] = z;
+  particleSizes[i] = 0.02 + Math.random() * 0.04;
+  particleData.push({
+    baseX: x, baseY: y, baseZ: z,
+    speedX: (Math.random() - 0.5) * 0.003,
+    speedY: (Math.random() - 0.5) * 0.003,
+    speedZ: (Math.random() - 0.5) * 0.001,
+    phase: Math.random() * Math.PI * 2,
+    twinkleSpeed: 0.5 + Math.random() * 1.5,
+  });
+}
+
+const particleGeom = new THREE.BufferGeometry();
+particleGeom.setAttribute('position', new THREE.BufferAttribute(particlePos, 3));
+
+const particleMat = new THREE.PointsMaterial({
+  color: CONFIG.particleColor,
+  size: 0.04,
+  transparent: true,
+  opacity: 0.35,
+  sizeAttenuation: true,
+  blending: THREE.AdditiveBlending,
+});
+const particles = new THREE.Points(particleGeom, particleMat);
+scene.add(particles);
+
+// ─── Raycaster for mouse interaction ─────────────────────────────
+const raycaster = new THREE.Raycaster();
+const interactionPlane = new THREE.Plane(new THREE.Vector3(0, 0, 1), 0);
+
+function updateMouseWorld(mx, my) {
+  mouse.x = (mx / window.innerWidth) * 2 - 1;
+  mouse.y = -(my / window.innerHeight) * 2 + 1;
+  raycaster.setFromCamera(mouse, camera);
+  const target = new THREE.Vector3();
+  raycaster.ray.intersectPlane(interactionPlane, target);
+  if (target) {
+    // Transform to web local space
+    const invMatrix = new THREE.Matrix4().copy(webGroup.matrixWorld).invert();
+    target.applyMatrix4(invMatrix);
+    mouseWorld.copy(target);
+  }
+}
+
+// ─── Event Listeners ─────────────────────────────────────────────
+window.addEventListener('mousemove', (e) => {
+  updateMouseWorld(e.clientX, e.clientY);
+}, { passive: true });
+
+window.addEventListener('touchmove', (e) => {
+  if (e.touches.length > 0) {
+    updateMouseWorld(e.touches[0].clientX, e.touches[0].clientY);
+  }
+}, { passive: true });
+
+window.addEventListener('touchend', () => {
+  mouseWorld.set(9999, 9999, 0);
+}, { passive: true });
+
+window.addEventListener('scroll', () => {
+  scrollY = window.scrollY || window.pageYOffset;
+}, { passive: true });
+
+window.addEventListener('resize', () => {
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  composer.setSize(window.innerWidth, window.innerHeight);
+  isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+});
+
+// ─── Public API ──────────────────────────────────────────────────
+window.silkwebSetOpacity = (val) => { opacity = Math.max(0, Math.min(1, val)); };
+window.silkwebPause = () => { paused = true; };
+window.silkwebResume = () => { paused = false; };
+
+// ─── Animation Loop ─────────────────────────────────────────────
+const clock = new THREE.Clock();
+let elapsed = 0;
+
+function animate() {
+  requestAnimationFrame(animate);
+  if (paused) return;
+
+  const dt = Math.min(clock.getDelta(), 0.05);
+  elapsed += dt;
+
+  // ── Auto rotation ──
+  webGroup.rotation.z += CONFIG.autoRotateSpeed;
+
+  // ── Scroll parallax ──
+  const scrollOffset = scrollY * 0.0004;
+  webGroup.position.y = -scrollOffset;
+
+  // ── Wind / ambient oscillation ──
+  const windX = Math.sin(elapsed * CONFIG.windSpeed) * CONFIG.ambientWind;
+  const windY = Math.cos(elapsed * CONFIG.windSpeed * 0.7) * CONFIG.ambientWind * 0.6;
+
+  // ── Mobile auto-sway ──
+  let mobileSwayX = 0, mobileSwayY = 0;
+  if (isMobile) {
+    mobileSwayX = Math.sin(elapsed * 0.3) * 0.15;
+    mobileSwayY = Math.cos(elapsed * 0.25) * 0.1;
+  }
+
+  // ── Update web nodes (physics) ──
+  for (let i = 0; i < webNodes.length; i++) {
+    const node = webNodes[i];
+    const rest = node.restPos;
+
+    // Wind displacement
+    const windDisp = new THREE.Vector3(
+      windX * (1 + rest.length() * 0.3) + mobileSwayX * 0.02,
+      windY * (1 + rest.length() * 0.3) + mobileSwayY * 0.02,
+      Math.sin(elapsed * 0.5 + rest.x * 0.5) * 0.002
+    );
+
+    // Mouse influence
+    let mouseDisp = new THREE.Vector3();
+    if (mouseWorld.x < 1000) {
+      const diff = new THREE.Vector3().subVectors(rest, mouseWorld);
+      const dist = diff.length();
+      if (dist < CONFIG.mouseRadius) {
+        const strength = (1 - dist / CONFIG.mouseRadius) * CONFIG.mouseInfluence;
+        // Push away from mouse with smooth falloff
+        const eased = strength * strength * (3 - 2 * strength); // smoothstep
+        mouseDisp.copy(diff).normalize().multiplyScalar(eased * 0.3);
+        // Add slight z displacement for depth effect
+        mouseDisp.z += eased * 0.15;
+      }
+    }
+
+    // Target position
+    const target = rest.clone().add(windDisp).add(mouseDisp);
+
+    // Spring physics toward target
+    const springK = 3.5;
+    const damping = 0.85;
+    const force = target.clone().sub(node.pos).multiplyScalar(springK);
+    node.velocity.add(force.multiplyScalar(dt));
+    node.velocity.multiplyScalar(damping);
+    node.pos.add(node.velocity.clone().multiplyScalar(dt));
+  }
+
+  // ── Update line geometries ──
+  for (const { line, segIndices } of threadLines) {
+    const posAttr = line.geometry.attributes.position;
+    for (let i = 0; i < segIndices.length; i++) {
+      const p = webNodes[segIndices[i]].pos;
+      posAttr.array[i * 3] = p.x;
+      posAttr.array[i * 3 + 1] = p.y;
+      posAttr.array[i * 3 + 2] = p.z;
+    }
+    posAttr.needsUpdate = true;
+  }
+
+  // ── Update node points ──
+  const nposAttr = nodePoints.geometry.attributes.position;
+  for (let i = 0; i < webNodes.length; i++) {
+    const p = webNodes[i].pos;
+    nposAttr.array[i * 3] = p.x;
+    nposAttr.array[i * 3 + 1] = p.y;
+    nposAttr.array[i * 3 + 2] = p.z;
+  }
+  nposAttr.needsUpdate = true;
+
+  // ── Update center glow ──
+  centerSprite.position.copy(webNodes[0].pos);
+  centerSprite2.position.copy(webNodes[0].pos);
+  const pulse = 0.55 + Math.sin(elapsed * 1.2) * 0.08;
+  centerGlowMat.opacity = pulse * opacity;
+  centerGlowMat2.opacity = (pulse * 0.35) * opacity;
+
+  // ── Update particles ──
+  const pposAttr = particles.geometry.attributes.position;
+  for (let i = 0; i < particleCount; i++) {
+    const pd = particleData[i];
+    const t = elapsed;
+    pposAttr.array[i * 3] = pd.baseX + Math.sin(t * pd.speedX * 100 + pd.phase) * 0.5;
+    pposAttr.array[i * 3 + 1] = pd.baseY + Math.cos(t * pd.speedY * 100 + pd.phase) * 0.5;
+    pposAttr.array[i * 3 + 2] = pd.baseZ + Math.sin(t * pd.speedZ * 80 + pd.phase * 2) * 0.3;
+  }
+  pposAttr.needsUpdate = true;
+
+  // Particle twinkle
+  const particleOpacity = 0.25 + Math.sin(elapsed * 0.8) * 0.1;
+  particleMat.opacity = particleOpacity * opacity;
+
+  // ── Global opacity ──
+  threadMat.opacity = 0.55 * opacity;
+  nodeMat.opacity = 0.9 * opacity;
+
+  // ── Thread opacity variation for depth ──
+  for (const { line, segIndices } of threadLines) {
+    const avgDist = webNodes[segIndices[Math.floor(segIndices.length / 2)]].restPos.length();
+    const fade = 0.3 + 0.7 * (1 - avgDist / CONFIG.webRadius);
+    line.material.opacity = fade * 0.55 * opacity;
+  }
+
+  // ── Render ──
+  composer.render();
+}
+
+animate();
+</script>
+</body>
+</html>

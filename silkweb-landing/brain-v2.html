@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SilkWeb AI Brain</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 100%; height: 100%; overflow: hidden; background: #000; }
+  canvas {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 0;
+  }
+  body { pointer-events: auto; }
+</style>
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://unpkg.com/three@0.163.0/build/three.module.js",
+    "three/addons/": "https://unpkg.com/three@0.163.0/examples/jsm/"
+  }
+}
+</script>
+</head>
+<body>
+<script type="module">
+import * as THREE from 'three';
+import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
+import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
+import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
+import { Line2 } from 'three/addons/lines/Line2.js';
+import { LineMaterial } from 'three/addons/lines/LineMaterial.js';
+import { LineGeometry } from 'three/addons/lines/LineGeometry.js';
+
+// ── Perlin Noise 3D ──────────────────────────────────────────────
+const _p = new Uint8Array(512);
+const _g = [
+  [1,1,0],[-1,1,0],[1,-1,0],[-1,-1,0],
+  [1,0,1],[-1,0,1],[1,0,-1],[-1,0,-1],
+  [0,1,1],[0,-1,1],[0,1,-1],[0,-1,-1]
+];
+(function seedNoise(){
+  const p = new Uint8Array(256);
+  for(let i=0;i<256;i++) p[i]=i;
+  for(let i=255;i>0;i--){const j=Math.floor(Math.random()*(i+1));[p[i],p[j]]=[p[j],p[i]];}
+  for(let i=0;i<512;i++) _p[i]=p[i&255];
+})();
+function fade(t){return t*t*t*(t*(t*6-15)+10);}
+function nlerp(t,a,b){return a+t*(b-a);}
+function grad(hash,x,y,z){const g=_g[hash%12];return g[0]*x+g[1]*y+g[2]*z;}
+function noise3D(x,y,z){
+  const X=Math.floor(x)&255,Y=Math.floor(y)&255,Z=Math.floor(z)&255;
+  x-=Math.floor(x);y-=Math.floor(y);z-=Math.floor(z);
+  const u=fade(x),v=fade(y),w=fade(z);
+  const A=_p[X]+Y,AA=_p[A]+Z,AB=_p[A+1]+Z;
+  const B=_p[X+1]+Y,BA=_p[B]+Z,BB=_p[B+1]+Z;
+  return nlerp(w,
+    nlerp(v,nlerp(u,grad(_p[AA],x,y,z),grad(_p[BA],x-1,y,z)),
+           nlerp(u,grad(_p[AB],x,y-1,z),grad(_p[BB],x-1,y-1,z))),
+    nlerp(v,nlerp(u,grad(_p[AA+1],x,y,z-1),grad(_p[BA+1],x-1,y,z-1)),
+           nlerp(u,grad(_p[AB+1],x,y-1,z-1),grad(_p[BB+1],x-1,y-1,z-1)))
+  );
+}
+
+// ── Config ─────────────────────────────────────────────────────────
+const SPHERE_RADIUS = 2.2;
+const CURVE_COUNT = 70;
+const DUST_COUNT = 500;
+const NODE_COUNT = 18;
+const POINTS_PER_CURVE = 100;
+
+let brainState = 'idle'; // idle | thinking | speaking
+let pulseValue = 0;
+let pulseVelocity = 0;
+let breathSpeed = 0.05; // Hz — one breath every 20 seconds
+let rotationSpeed = 0.0003;
+
+// ── Scene ──────────────────────────────────────────────────────────
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(60, innerWidth/innerHeight, 0.1, 100);
+camera.position.z = 7;
+
+const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+renderer.setSize(innerWidth, innerHeight);
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.0;
+document.body.appendChild(renderer.domElement);
+
+const composer = new EffectComposer(renderer);
+composer.addPass(new RenderPass(scene, camera));
+const bloom = new UnrealBloomPass(
+  new THREE.Vector2(innerWidth, innerHeight), 1.2, 0.6, 0.25
+);
+composer.addPass(bloom);
+
+const brainGroup = new THREE.Group();
+scene.add(brainGroup);
+
+// ── Mouse ──────────────────────────────────────────────────────────
+const mouse = { x: 0, y: 0 };
+const mouseTarget = { x: 0, y: 0 };
+document.addEventListener('mousemove', e => {
+  mouseTarget.x = (e.clientX / innerWidth) * 2 - 1;
+  mouseTarget.y = (e.clientY / innerHeight) * 2 - 1;
+});
+
+// ── 1. GREAT CIRCLE ARC LINES ─────────────────────────────────────
+// Each curve: a great circle arc at a random tilt on the sphere
+const curveData = [];
+const line2Objects = [];
+
+for (let i = 0; i < CURVE_COUNT; i++) {
+  // Random tilt axis
+  const tiltAxis = new THREE.Vector3(
+    Math.random() - 0.5,
+    Math.random() - 0.5,
+    Math.random() - 0.5
+  ).normalize();
+  const tiltAngle = Math.random() * Math.PI;
+
+  // Partial arc parameters
+  const arcStart = Math.random() * Math.PI * 2;
+  const arcLength = Math.PI * (0.4 + Math.random() * 1.2); // 40%-120% of full circle
+  const radius = SPHERE_RADIUS + (Math.random() - 0.5) * 0.6; // vary slightly
+  const seed = i * 13.37;
+
+  // Depth-based opacity: curves with smaller radius (closer to center) are brighter
+  const depthFactor = (radius - (SPHERE_RADIUS - 0.3)) / 0.6; // 0=inner, 1=outer
+  const opacity = THREE.MathUtils.lerp(0.7, 0.15, THREE.MathUtils.clamp(depthFactor, 0, 1));
+
+  // Color: pale icy blue to white
+  const color = new THREE.Color().lerpColors(
+    new THREE.Color(0xB8D4E8), // pale icy blue
+    new THREE.Color(0xE8F0F8), // near white
+    Math.random()
+  );
+
+  const cd = { tiltAxis, tiltAngle, arcStart, arcLength, radius, seed, opacity, color };
+  curveData.push(cd);
+
+  // Build initial geometry
+  const positions = buildArcPositions(cd, 0);
+  const geometry = new LineGeometry();
+  geometry.setPositions(positions);
+
+  const material = new LineMaterial({
+    color: color,
+    linewidth: 1.0 + Math.random() * 1.0, // 1-2 pixels
+    transparent: true,
+    opacity: opacity,
+    blending: THREE.AdditiveBlending,
+    depthWrite: false,
+    resolution: new THREE.Vector2(innerWidth, innerHeight),
+  });
+
+  const line = new Line2(geometry, material);
+  line.computeLineDistances();
+  brainGroup.add(line);
+  line2Objects.push({ line, geometry, material, cd, baseOpacity: opacity });
+}
+
+function buildArcPositions(cd, time) {
+  const positions = [];
+  for (let j = 0; j <= POINTS_PER_CURVE; j++) {
+    const t = j / POINTS_PER_CURVE;
+    const angle = cd.arcStart + cd.arcLength * t;
+
+    // Point on circle in XY plane
+    const p = new THREE.Vector3(
+      cd.radius * Math.cos(angle),
+      cd.radius * Math.sin(angle),
+      0
+    );
+
+    // Rotate by random axis to create great circle at random tilt
+    p.applyAxisAngle(cd.tiltAxis, cd.tiltAngle);
+
+    // Subtle noise displacement for organic feel
+    const noiseVal = noise3D(
+      p.x * 0.5 + cd.seed * 0.1,
+      p.y * 0.5 + time * breathSpeed,
+      p.z * 0.5 + cd.seed * 0.05
+    ) * 0.12;
+    p.multiplyScalar(1 + noiseVal);
+
+    positions.push(p.x, p.y, p.z);
+  }
+  return positions;
+}
+
+// ── 2. CENTER GLOW ─────────────────────────────────────────────────
+// Small bright white core
+const coreGeo = new THREE.SphereGeometry(0.4, 24, 24);
+const coreMat = new THREE.MeshBasicMaterial({
+  color: 0xFFFFFF,
+  transparent: true,
+  opacity: 0.15,
+  blending: THREE.AdditiveBlending,
+  depthWrite: false,
+});
+const coreMesh = new THREE.Mesh(coreGeo, coreMat);
+brainGroup.add(coreMesh);
+
+// Larger ambient glow sphere
+const ambientGlowGeo = new THREE.SphereGeometry(1.0, 24, 24);
+const ambientGlowMat = new THREE.MeshBasicMaterial({
+  color: 0x8AB4D0,
+  transparent: true,
+  opacity: 0.03,
+  blending: THREE.AdditiveBlending,
+  depthWrite: false,
+});
+const ambientGlowMesh = new THREE.Mesh(ambientGlowGeo, ambientGlowMat);
+brainGroup.add(ambientGlowMesh);
+
+// ── 3. PARTICLE DUST (very subtle) ────────────────────────────────
+const dustGeo = new THREE.BufferGeometry();
+const dustPos = new Float32Array(DUST_COUNT * 3);
+const dustBasePos = new Float32Array(DUST_COUNT * 3);
+const dustSizes = new Float32Array(DUST_COUNT);
+const dustAlphas = new Float32Array(DUST_COUNT);
+
+for (let i = 0; i < DUST_COUNT; i++) {
+  const theta = Math.random() * Math.PI * 2;
+  const phi = Math.acos(2 * Math.random() - 1);
+  const r = SPHERE_RADIUS * (0.2 + Math.random() * 0.8);
+  const x = r * Math.sin(phi) * Math.cos(theta);
+  const y = r * Math.cos(phi);
+  const z = r * Math.sin(phi) * Math.sin(theta);
+  dustBasePos[i*3] = x;
+  dustBasePos[i*3+1] = y;
+  dustBasePos[i*3+2] = z;
+  dustPos[i*3] = x;
+  dustPos[i*3+1] = y;
+  dustPos[i*3+2] = z;
+  dustSizes[i] = 0.3 + Math.random() * 0.8;
+  dustAlphas[i] = 0.05 + Math.random() * 0.10; // very dim: 0.05-0.15
+}
+
+dustGeo.setAttribute('position', new THREE.BufferAttribute(dustPos, 3));
+dustGeo.setAttribute('aSize', new THREE.BufferAttribute(dustSizes, 1));
+dustGeo.setAttribute('aAlpha', new THREE.BufferAttribute(dustAlphas, 1));
+
+const dustMat = new THREE.ShaderMaterial({
+  uniforms: {
+    uColor: { value: new THREE.Color(0xB8D4E8) },
+    uPixelRatio: { value: Math.min(devicePixelRatio, 2) },
+  },
+  vertexShader: `
+    attribute float aSize;
+    attribute float aAlpha;
+    uniform float uPixelRatio;
+    varying float vAlpha;
+    void main() {
+      vAlpha = aAlpha;
+      vec4 mv = modelViewMatrix * vec4(position, 1.0);
+      gl_PointSize = aSize * uPixelRatio * (3.0 / -mv.z);
+      gl_Position = projectionMatrix * mv;
+    }
+  `,
+  fragmentShader: `
+    uniform vec3 uColor;
+    varying float vAlpha;
+    void main() {
+      float d = length(gl_PointCoord - 0.5) * 2.0;
+      if(d > 1.0) discard;
+      float alpha = vAlpha * (1.0 - d * d);
+      gl_FragColor = vec4(uColor, alpha);
+    }
+  `,
+  transparent: true,
+  depthWrite: false,
+  blending: THREE.AdditiveBlending,
+});
+
+const dustPoints = new THREE.Points(dustGeo, dustMat);
+brainGroup.add(dustPoints);
+
+// ── 4. BRIGHT NODES (sparse) ──────────────────────────────────────
+const nodeGeo = new THREE.BufferGeometry();
+const nodePos = new Float32Array(NODE_COUNT * 3);
+const nodeSizes = new Float32Array(NODE_COUNT);
+const nodePhases = new Float32Array(NODE_COUNT);
+
+for (let i = 0; i < NODE_COUNT; i++) {
+  const theta = Math.random() * Math.PI * 2;
+  const phi = Math.acos(2 * Math.random() - 1);
+  const r = SPHERE_RADIUS * (0.85 + Math.random() * 0.15); // on sphere surface
+  const x = r * Math.sin(phi) * Math.cos(theta);
+  const y = r * Math.cos(phi);
+  const z = r * Math.sin(phi) * Math.sin(theta);
+  nodePos[i*3] = x;
+  nodePos[i*3+1] = y;
+  nodePos[i*3+2] = z;
+  nodeSizes[i] = 3.0 + Math.random() * 2.0; // 3-5 pixels
+  nodePhases[i] = Math.random() * Math.PI * 2;
+}
+
+nodeGeo.setAttribute('position', new THREE.BufferAttribute(nodePos, 3));
+nodeGeo.setAttribute('aSize', new THREE.BufferAttribute(nodeSizes, 1));
+nodeGeo.setAttribute('aPhase', new THREE.BufferAttribute(nodePhases, 1));
+
+const nodeMat = new THREE.ShaderMaterial({
+  uniforms: {
+    uColor: { value: new THREE.Color(0xD8ECF8) },
+    uTime: { value: 0 },
+    uPixelRatio: { value: Math.min(devicePixelRatio, 2) },
+  },
+  vertexShader: `
+    attribute float aSize;
+    attribute float aPhase;
+    uniform float uTime;
+    uniform float uPixelRatio;
+    varying float vAlpha;
+    void main() {
+      float pulse = 0.6 + 0.4 * sin(uTime * 0.8 + aPhase);
+      vAlpha = pulse * 0.7;
+      vec4 mv = modelViewMatrix * vec4(position, 1.0);
+      gl_PointSize = aSize * pulse * uPixelRatio * (4.0 / -mv.z);
+      gl_Position = projectionMatrix * mv;
+    }
+  `,
+  fragmentShader: `
+    uniform vec3 uColor;
+    varying float vAlpha;
+    void main() {
+      float d = length(gl_PointCoord - 0.5) * 2.0;
+      if(d > 1.0) discard;
+      float alpha = vAlpha * (1.0 - d * d);
+      vec3 col = mix(uColor, vec3(1.0), 0.3 * (1.0 - d));
+      gl_FragColor = vec4(col, alpha);
+    }
+  `,
+  transparent: true,
+  depthWrite: false,
+  blending: THREE.AdditiveBlending,
+});
+
+const nodePoints = new THREE.Points(nodeGeo, nodeMat);
+brainGroup.add(nodePoints);
+
+// ── State / Pulse API ──────────────────────────────────────────────
+window.triggerPulse = function() {
+  pulseVelocity = 1.0;
+};
+
+window.setBrainState = function(state) {
+  brainState = state;
+  switch(state) {
+    case 'thinking':
+      breathSpeed = 0.08;
+      rotationSpeed = 0.0006;
+      break;
+    case 'speaking':
+      breathSpeed = 0.07;
+      rotationSpeed = 0.0004;
+      break;
+    default: // idle
+      breathSpeed = 0.05;
+      rotationSpeed = 0.0003;
+  }
+};
+
+// ── Animation ──────────────────────────────────────────────────────
+const clock = new THREE.Clock();
+let elapsed = 0;
+let curveUpdateTimer = 0;
+const CURVE_UPDATE_INTERVAL = 1 / 24; // update lines at 24fps
+
+function animate() {
+  requestAnimationFrame(animate);
+  const dt = Math.min(clock.getDelta(), 0.05);
+  elapsed += dt;
+  const t = elapsed;
+
+  // Mouse easing
+  mouse.x += (mouseTarget.x - mouse.x) * 0.04;
+  mouse.y += (mouseTarget.y - mouse.y) * 0.04;
+
+  // Pulse decay
+  pulseValue += pulseVelocity * dt * 3;
+  pulseVelocity *= 0.93;
+  if (pulseValue > 1) pulseVelocity = -pulseValue * 1.5;
+  pulseValue *= 0.96;
+  if (Math.abs(pulseValue) < 0.001) pulseValue = 0;
+
+  // Speaking expansion
+  const speakExpand = brainState === 'speaking' ? Math.sin(t * 3) * 0.03 : 0;
+
+  // ── Update curves (throttled) ──
+  curveUpdateTimer += dt;
+  if (curveUpdateTimer >= CURVE_UPDATE_INTERVAL) {
+    curveUpdateTimer = 0;
+
+    for (let c = 0; c < CURVE_COUNT; c++) {
+      const obj = line2Objects[c];
+      const cd = obj.cd;
+      const positions = buildArcPositions(cd, t);
+
+      // Apply pulse expansion
+      if (pulseValue !== 0 || speakExpand !== 0) {
+        const expand = 1 + pulseValue * 0.1 + speakExpand;
+        for (let k = 0; k < positions.length; k++) {
+          positions[k] *= expand;
+        }
+      }
+
+      obj.geometry.setPositions(positions);
+      obj.line.computeLineDistances();
+    }
+  }
+
+  // ── Update dust (subtle breathing) ──
+  const dustPosAttr = dustGeo.attributes.position;
+  for (let i = 0; i < DUST_COUNT; i++) {
+    const bx = dustBasePos[i*3], by = dustBasePos[i*3+1], bz = dustBasePos[i*3+2];
+    const n = noise3D(bx*0.4 + t*0.08, by*0.4 + t*0.06, bz*0.4 + t*0.05);
+    const disp = 1 + n * 0.05 + pulseValue * 0.08 + speakExpand;
+    dustPos[i*3]   = bx * disp;
+    dustPos[i*3+1] = by * disp;
+    dustPos[i*3+2] = bz * disp;
+  }
+  dustPosAttr.needsUpdate = true;
+
+  // ── Update nodes ──
+  nodeMat.uniforms.uTime.value = t;
+
+  // ── Center glow pulse ──
+  const coreOp = 0.15 + Math.sin(t * 0.3) * 0.03 + pulseValue * 0.05;
+  coreMat.opacity = THREE.MathUtils.clamp(coreOp, 0.12, 0.22);
+  const ambientOp = 0.03 + Math.sin(t * 0.25 + 1) * 0.008;
+  ambientGlowMat.opacity = ambientOp;
+
+  // Speaking: slightly brighter core
+  if (brainState === 'speaking') {
+    coreMat.opacity += 0.03;
+    ambientGlowMat.opacity += 0.01;
+  }
+
+  // ── Rotation ──
+  brainGroup.rotation.y += rotationSpeed;
+
+  // ── Mouse tilt (max 0.1 rad) ──
+  const targetRotX = -mouse.y * 0.1;
+  const targetRotZ = mouse.x * 0.1;
+  brainGroup.rotation.x += (targetRotX - brainGroup.rotation.x) * 0.03;
+  brainGroup.rotation.z += (targetRotZ - brainGroup.rotation.z) * 0.03;
+
+  // ── Speaking scale pulse ──
+  if (brainState === 'speaking') {
+    const s = 1.0 + Math.sin(t * 3) * 0.015;
+    brainGroup.scale.setScalar(s);
+  } else {
+    brainGroup.scale.lerp(new THREE.Vector3(1,1,1), 0.05);
+  }
+
+  composer.render();
+}
+
+animate();
+
+// ── Resize ─────────────────────────────────────────────────────────
+window.addEventListener('resize', () => {
+  camera.aspect = innerWidth / innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(innerWidth, innerHeight);
+  composer.setSize(innerWidth, innerHeight);
+  // Update line material resolutions
+  for (const obj of line2Objects) {
+    obj.material.resolution.set(innerWidth, innerHeight);
+  }
+});
+</script>
+</body>
+</html>

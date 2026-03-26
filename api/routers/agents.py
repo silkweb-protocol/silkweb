@@ -44,6 +44,7 @@ async def _background_crawl(silk_id: str, url: str, user_input: dict, db_session
     """Run website crawl in the background and update the agent record."""
     from api.services.crawler import crawl_business
     from api.services.ai_profile import generate_ai_profile
+    from api.services.mailer import send_indexing_email, send_admin_notification
 
     try:
         logger.info(f"Starting background crawl for {silk_id}: {url}")
@@ -90,6 +91,44 @@ async def _background_crawl(silk_id: str, url: str, user_input: dict, db_session
 
             await db.commit()
             logger.info(f"Background crawl completed for {silk_id}: {crawl_data.get('pages_crawled', 0)} pages")
+
+            # Send indexing email to the business contact
+            contact_email = agent.contact_email
+            business_name = agent.name or crawl_data.get("business_name") or "Your Business"
+            user_name = user_input.get("name") or business_name
+            city = crawl_data.get("location", {}).get("city") or ""
+            state = crawl_data.get("location", {}).get("state") or ""
+
+            if contact_email:
+                try:
+                    await send_indexing_email(
+                        to_email=contact_email,
+                        user_name=user_name,
+                        business_name=business_name,
+                        crawl_data=crawl_data,
+                        ai_profile=ai_profile,
+                    )
+                except Exception as email_err:
+                    logger.warning(f"Indexing email failed for {silk_id}: {email_err}")
+
+            # Notify admin of new business registration
+            try:
+                services_str = ", ".join(crawl_data.get("services", [])[:10])
+                keywords_str = ", ".join(ai_profile.get("keywords_ranked", [])[:10])
+                await send_admin_notification(
+                    subject=f"New Business: {business_name} in {city}, {state}".rstrip(", "),
+                    body=(
+                        f"Business: {business_name}\n"
+                        f"Website: {url}\n"
+                        f"Industry: {crawl_data.get('industry', 'Unknown')}\n"
+                        f"Services: {services_str or 'None detected'}\n"
+                        f"Keywords: {keywords_str or 'None'}\n"
+                        f"Pages crawled: {crawl_data.get('pages_crawled', 0)}\n"
+                        f"Contact: {contact_email or 'N/A'}"
+                    ),
+                )
+            except Exception as admin_err:
+                logger.warning(f"Admin notification failed for {silk_id}: {admin_err}")
 
     except Exception as e:
         logger.error(f"Background crawl failed for {silk_id}: {e}", exc_info=True)
